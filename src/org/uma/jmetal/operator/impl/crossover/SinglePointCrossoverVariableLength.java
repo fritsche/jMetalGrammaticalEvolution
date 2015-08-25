@@ -13,14 +13,12 @@
 package org.uma.jmetal.operator.impl.crossover;
 
 import org.uma.jmetal.operator.CrossoverOperator;
-import org.uma.jmetal.solution.BinarySolution;
 import org.uma.jmetal.util.JMetalException;
-import org.uma.jmetal.util.binarySet.BinarySet;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.uma.jmetal.solution.IntegerSolution;
+import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 
 /**
  * @author Antonio J. Nebro
@@ -28,7 +26,7 @@ import org.uma.jmetal.solution.IntegerSolution;
  *
  * This class implements a single point crossover operator.
  */
-public class SinglePointCrossoverVariableLength implements CrossoverOperator<IntegerSolution> {
+public class SinglePointCrossoverVariableLength implements CrossoverOperator<VariableIntegerSolution> {
 
     private double crossoverProbability;
     private JMetalRandom randomGenerator;
@@ -50,7 +48,7 @@ public class SinglePointCrossoverVariableLength implements CrossoverOperator<Int
     }
 
     @Override
-    public List<IntegerSolution> execute(List<IntegerSolution> solutions) {
+    public List<VariableIntegerSolution> execute(List<VariableIntegerSolution> solutions) {
         if (solutions == null) {
             throw new JMetalException("Null parameter");
         } else if (solutions.size() != 2) {
@@ -68,51 +66,39 @@ public class SinglePointCrossoverVariableLength implements CrossoverOperator<Int
      * @param parent2 The second parent
      * @return An array containing the two offspring
      */
-    public List<IntegerSolution> doCrossover(double probability, IntegerSolution parent1, IntegerSolution parent2) {
-        List<IntegerSolution> offspring = new ArrayList<>(2);
-        offspring.add((IntegerSolution) parent1.copy());
-        offspring.add((IntegerSolution) parent2.copy());
+    public List<VariableIntegerSolution> doCrossover(double probability, VariableIntegerSolution parent1, VariableIntegerSolution parent2) {
+        VariableIntegerSolution offspring1 = parent1.copy();
+
+        VariableIntegerSolution offspring2 = parent2.copy();
 
         if (randomGenerator.nextDouble() < probability) {
+            offspring1.clearVariables();
+            offspring2.clearVariables();
             // 1. Get the total number of bits
-            int totalNumberOfBits = parent1.getTotalNumberOfBits();
+            int totalNumberOfGenesParent1 = parent1.getNumberOfVariables();
+            int totalNumberOfGenesParent2 = parent2.getNumberOfVariables();
 
             // 2. Calculate the point to make the crossover
-            int crossoverPoint = randomGenerator.nextInt(0, totalNumberOfBits - 1);
+            int crossoverPointParent1 = randomGenerator.nextInt(0, totalNumberOfGenesParent1 - 1);
+            int crossoverPointParent2 = randomGenerator.nextInt(0, totalNumberOfGenesParent2 - 1);
 
-            // 3. Compute the variable containing the crossover bit
-            int variable = 0;
-            int bitsAccount = parent1.getVariableValue(variable).getBinarySetLength();
-            while (bitsAccount < (crossoverPoint + 1)) {
-                variable++;
-                bitsAccount += parent1.getVariableValue(variable).getBinarySetLength();
+            for (int i = 0; i < crossoverPointParent1; i++) {
+                offspring1.addVariable(parent1.getVariableValue(i));
             }
-
-            // 4. Compute the bit into the selected variable
-            int diff = bitsAccount - crossoverPoint;
-            int intoVariableCrossoverPoint = parent1.getVariableValue(variable).getBinarySetLength() - diff;
-
-            // 5. Apply the crossover to the variable;
-            BinarySet offspring1, offspring2;
-            offspring1 = (BinarySet) parent1.getVariableValue(variable).clone();
-            offspring2 = (BinarySet) parent2.getVariableValue(variable).clone();
-
-            for (int i = intoVariableCrossoverPoint; i < offspring1.getBinarySetLength(); i++) {
-                boolean swap = offspring1.get(i);
-                offspring1.set(i, offspring2.get(i));
-                offspring2.set(i, swap);
+            for (int i = 0; i < crossoverPointParent2; i++) {
+                offspring2.addVariable(parent2.getVariableValue(i));
             }
-
-            offspring.get(0).setVariableValue(variable, offspring1);
-            offspring.get(1).setVariableValue(variable, offspring2);
-
-            // 6. Apply the crossover to the other variables
-            for (int i = variable + 1; i < parent1.getNumberOfVariables(); i++) {
-                offspring.get(0).setVariableValue(i, parent2.getVariableValue(i));
-                offspring.get(1).setVariableValue(i, parent1.getVariableValue(i));
+            for (int i = crossoverPointParent1; i < totalNumberOfGenesParent1; i++) {
+                offspring2.addVariable(parent1.getVariableValue(i));
             }
-
+            for (int i = crossoverPointParent2; i < totalNumberOfGenesParent2; i++) {
+                offspring1.addVariable(parent2.getVariableValue(i));
+            }
         }
+
+        List<VariableIntegerSolution> offspring = new ArrayList<>(2);
+        offspring.add(offspring1);
+        offspring.add(offspring2);
         return offspring;
     }
 }
