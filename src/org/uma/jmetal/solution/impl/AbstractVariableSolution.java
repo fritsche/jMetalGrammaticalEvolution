@@ -86,6 +86,10 @@ public abstract class AbstractVariableSolution<T, P extends Problem<?>> implemen
         variables.clear();
     }
 
+    public List<T> getVariables() {
+        return variables;
+    }
+
     public T removeVariable(int index) {
         return variables.remove(index);
     }
@@ -168,9 +172,9 @@ public abstract class AbstractVariableSolution<T, P extends Problem<?>> implemen
         result = 31 * result + attributes.hashCode();
         return result;
     }
-    
+
     public void prune(int pruneIndex) {
-        if(pruneIndex < variables.size()){
+        if (pruneIndex < variables.size()) {
             variables = variables.subList(0, pruneIndex);
         }
     }
