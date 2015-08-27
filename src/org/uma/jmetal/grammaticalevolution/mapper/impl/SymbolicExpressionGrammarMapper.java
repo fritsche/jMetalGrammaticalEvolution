@@ -11,7 +11,7 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<String> {
 
     protected int currentIndex;
-    protected int currentNumberOfWraps;
+    protected int numberOfWraps;
     protected int currentDepth;
     protected List<Node> visitedNodes;
 
@@ -38,10 +38,14 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
         this.maxDepth = maxDepth;
     }
 
+    public int getNumberOfWraps() {
+        return numberOfWraps;
+    }
+
     @Override
     public String interpret(List<Integer> grammarInstance) {
         currentIndex = 0;
-        currentNumberOfWraps = 0;
+        numberOfWraps = 0;
         currentDepth = 1;
         visitedNodes = new ArrayList<>();
         return getNodeValue(rootNode, grammarInstance);
@@ -58,7 +62,7 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
                 currentIndex++;
                 if (currentIndex >= grammarInstance.size()) {
                     currentIndex = 0;
-                    currentNumberOfWraps++;
+                    numberOfWraps++;
                 }
             }
 
