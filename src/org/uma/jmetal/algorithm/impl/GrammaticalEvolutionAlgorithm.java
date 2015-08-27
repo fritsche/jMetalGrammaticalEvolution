@@ -1,5 +1,6 @@
 package org.uma.jmetal.algorithm.impl;
 
+import org.uma.jmetal.algorithm.AbstractGrammaticalEvolutionAlgorithm;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
