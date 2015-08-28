@@ -278,14 +278,10 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
     @Override
     public List<S> getResult() {
         if (archivingImplementation == null) {
-            return getPopulation();
+            return SolutionListUtils.getNondominatedSolutions(this.getPopulation());
         } else {
             return getArchive();
         }
-    }
-
-    public List<S> getNonDominatedResult() {
-        return SolutionListUtils.getNondominatedSolutions(this.getResult());
     }
     //</editor-fold>
 
