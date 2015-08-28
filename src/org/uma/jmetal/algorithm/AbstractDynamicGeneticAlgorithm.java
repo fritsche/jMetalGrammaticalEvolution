@@ -18,7 +18,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.SolutionListUtils;
 import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 
-public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, List<S>> {
+public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> extends AbstractGeneticAlgorithm<S, List<S>> implements Algorithm<List<S>> {
 
     protected Problem<S> problem;
     protected int populationSize;
