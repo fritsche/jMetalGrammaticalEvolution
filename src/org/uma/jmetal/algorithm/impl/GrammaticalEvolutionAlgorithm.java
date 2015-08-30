@@ -11,6 +11,7 @@ import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 import java.util.*;
 import org.uma.jmetal.operator.impl.mutation.DuplicationMutation;
 import org.uma.jmetal.operator.impl.mutation.PruneMutation;
+import org.uma.jmetal.problem.impl.AbstractGrammaticalEvolutionProblem;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 
 /**
@@ -23,7 +24,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
     private int populationSize;
     private int evaluations;
 
-    private Problem<VariableIntegerSolution> problem;
+    private AbstractGrammaticalEvolutionProblem problem;
 
     private SolutionListEvaluator<VariableIntegerSolution> evaluator;
 
@@ -40,7 +41,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
      * @param duplicationMutationOperator
      * @param evaluator
      */
-    public GrammaticalEvolutionAlgorithm(Problem<VariableIntegerSolution> problem, int maxEvaluations, int populationSize,
+    public GrammaticalEvolutionAlgorithm(AbstractGrammaticalEvolutionProblem problem, int maxEvaluations, int populationSize,
             CrossoverOperator<VariableIntegerSolution> crossoverOperator, MutationOperator<VariableIntegerSolution> mutationOperator,
             SelectionOperator<List<VariableIntegerSolution>, VariableIntegerSolution> selectionOperator,
             PruneMutation pruneMutationOperator, DuplicationMutation duplicationMutationOperator,
@@ -63,7 +64,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
 
     @Override
     protected boolean isStoppingConditionReached() {
-        return (evaluations >= maxEvaluations);
+        return (getResult().getObjective(0) == 0.0 || evaluations >= maxEvaluations);
     }
 
     @Override
@@ -81,6 +82,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
         Collections.sort(population, comparator);
         offspringPopulation.add(population.get(0));
         offspringPopulation.add(population.get(1));
+        System.out.println("Best: " + population.get(0).getObjective(0));
         Collections.sort(offspringPopulation, comparator);
         offspringPopulation.remove(offspringPopulation.size() - 1);
         offspringPopulation.remove(offspringPopulation.size() - 1);

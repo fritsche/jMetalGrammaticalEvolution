@@ -32,14 +32,14 @@ public class PruneMutation implements MutationOperator<VariableIntegerSolution> 
     /**
      * Constructor
      */
-    public PruneMutation(double pruneMutation, int pruneIndex) {
-        if (pruneMutation < 0) {
-            throw new JMetalException("Mutation probability is negative: " + pruneMutation);
+    public PruneMutation(double probability, int pruneIndex) {
+        if (probability < 0) {
+            throw new JMetalException("Mutation probability is negative: " + probability);
         }
         if (pruneIndex <= 0) {
             throw new JMetalException("Prune index is zero or negative: " + pruneIndex);
         }
-        this.mutationProbability = pruneMutation;
+        this.mutationProbability = probability;
         randomGenerator = JMetalRandom.getInstance();
         this.pruneIndex = pruneIndex;
     }
@@ -58,7 +58,7 @@ public class PruneMutation implements MutationOperator<VariableIntegerSolution> 
             throw new JMetalException("Null parameter");
         }
 
-        doDuplication(mutationProbability, solution);
+        doPrune(mutationProbability, solution);
         return solution;
     }
 
@@ -68,7 +68,7 @@ public class PruneMutation implements MutationOperator<VariableIntegerSolution> 
      * @param probability Mutation setProbability
      * @param solution The solution to mutate
      */
-    public void doDuplication(double probability, VariableIntegerSolution solution) {
+    public void doPrune(double probability, VariableIntegerSolution solution) {
         if (randomGenerator.nextDouble() <= probability) {
             solution.prune(pruneIndex);
         }

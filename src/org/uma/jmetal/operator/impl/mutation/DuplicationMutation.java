@@ -65,8 +65,8 @@ public class DuplicationMutation implements MutationOperator<VariableIntegerSolu
      */
     public void doDuplication(double probability, VariableIntegerSolution solution) {
         if (randomGenerator.nextDouble() <= probability) {
-            Integer firstIndex = randomGenerator.nextInt(0, solution.getNumberOfVariables() - 1);
-            Integer lastIndex = randomGenerator.nextInt(0, solution.getNumberOfVariables() - 1);
+            Integer firstIndex = randomGenerator.nextInt(1, solution.getNumberOfVariables()) - 1;
+            Integer lastIndex = randomGenerator.nextInt(1, solution.getNumberOfVariables()) - 1;
             if (firstIndex > lastIndex) {
                 int aux = firstIndex;
                 firstIndex = lastIndex;

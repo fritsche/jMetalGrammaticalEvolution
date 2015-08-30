@@ -19,7 +19,7 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
 
     public SymbolicExpressionGrammarMapper() {
         super();
-        maxDepth = 20;
+        maxDepth = 10;
     }
 
     public SymbolicExpressionGrammarMapper(Node rootNode) {
@@ -48,7 +48,7 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
         numberOfWraps = 0;
         currentDepth = 1;
         visitedNodes = new ArrayList<>();
-        return getNodeValue(rootNode, grammarInstance);
+        return getNodeValue(rootNode, new ArrayList<>(grammarInstance));
     }
 
     private String getNodeValue(Node node, List<Integer> grammarInstance) {
