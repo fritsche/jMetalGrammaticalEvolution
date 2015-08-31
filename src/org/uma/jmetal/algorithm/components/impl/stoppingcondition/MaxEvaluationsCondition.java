@@ -1,4 +1,4 @@
-package org.uma.jmetal.algorithm.components.impl;
+package org.uma.jmetal.algorithm.components.impl.stoppingcondition;
 
 import org.uma.jmetal.algorithm.components.StoppingConditionImplementation;
 

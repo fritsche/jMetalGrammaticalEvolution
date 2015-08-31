@@ -1,4 +1,4 @@
-package org.uma.jmetal.algorithm.components.impl;
+package org.uma.jmetal.algorithm.components.impl.progress;
 
 import org.uma.jmetal.algorithm.components.ProgressImplementation;
 

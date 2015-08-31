@@ -4,7 +4,6 @@ import org.uma.jmetal.algorithm.AbstractGrammaticalEvolutionAlgorithm;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
-import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.util.comparator.ObjectiveComparator;
 import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 
@@ -64,7 +63,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
 
     @Override
     protected boolean isStoppingConditionReached() {
-        return (getResult().getObjective(0) == 0.0 || evaluations >= maxEvaluations);
+        return (evaluations >= maxEvaluations);
     }
 
     @Override
@@ -79,15 +78,12 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
 
     @Override
     protected List<VariableIntegerSolution> replacement(List<VariableIntegerSolution> population, List<VariableIntegerSolution> offspringPopulation) {
+        List<VariableIntegerSolution> jointPopulation = new ArrayList<>();
+        jointPopulation.addAll(population);
+        jointPopulation.addAll(offspringPopulation);
         Collections.sort(population, comparator);
-        offspringPopulation.add(population.get(0));
-        offspringPopulation.add(population.get(1));
-        System.out.println("Best: " + population.get(0).getObjective(0));
-        Collections.sort(offspringPopulation, comparator);
-        offspringPopulation.remove(offspringPopulation.size() - 1);
-        offspringPopulation.remove(offspringPopulation.size() - 1);
 
-        return offspringPopulation;
+        return jointPopulation.subList(0, populationSize);
     }
 
     @Override

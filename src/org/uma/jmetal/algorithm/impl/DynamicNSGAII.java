@@ -1,12 +1,12 @@
 package org.uma.jmetal.algorithm.impl;
 
 import java.util.List;
-import org.uma.jmetal.algorithm.components.impl.EvaluationsCountProgress;
-import org.uma.jmetal.algorithm.components.impl.MaxEvaluationsCondition;
-import org.uma.jmetal.algorithm.components.impl.OnlyPopulationSelection;
-import org.uma.jmetal.algorithm.components.impl.ParetoRankingAndCrowdingDistanceReplacement;
-import org.uma.jmetal.algorithm.components.impl.RandomPopulationInitialization;
-import org.uma.jmetal.algorithm.components.impl.TwoSolutionsReproduction;
+import org.uma.jmetal.algorithm.components.impl.progress.EvaluationsCountProgress;
+import org.uma.jmetal.algorithm.components.impl.stoppingcondition.MaxEvaluationsCondition;
+import org.uma.jmetal.algorithm.components.impl.selection.OnlyPopulationSelection;
+import org.uma.jmetal.algorithm.components.impl.replacement.ParetoRankingAndCrowdingDistanceReplacement;
+import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
+import org.uma.jmetal.algorithm.components.impl.reproduction.TwoSolutionsReproduction;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;

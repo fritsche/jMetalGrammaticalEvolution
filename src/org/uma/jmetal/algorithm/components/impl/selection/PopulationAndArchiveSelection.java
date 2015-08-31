@@ -1,5 +1,6 @@
-package org.uma.jmetal.algorithm.components.impl;
+package org.uma.jmetal.algorithm.components.impl.selection;
 
+import org.uma.jmetal.algorithm.components.impl.selection.OnlyPopulationSelection;
 import java.util.ArrayList;
 import java.util.List;
 import org.uma.jmetal.operator.SelectionOperator;

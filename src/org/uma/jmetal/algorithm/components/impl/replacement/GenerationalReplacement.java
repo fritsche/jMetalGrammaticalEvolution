@@ -1,4 +1,4 @@
-package org.uma.jmetal.algorithm.components.impl;
+package org.uma.jmetal.algorithm.components.impl.replacement;
 
 import java.util.List;
 import org.uma.jmetal.algorithm.components.ReplacementImplementation;
