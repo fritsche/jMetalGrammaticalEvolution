@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.uma.jmetal.grammaticalevolution.mapper.AbstractGrammarMapper;
 import org.uma.jmetal.grammaticalevolution.representation.Expression;
 import org.uma.jmetal.grammaticalevolution.representation.Node;
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<String> {
 
@@ -98,18 +97,4 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
             return result;
         }
     }
-
-    public static void main(String[] args) {
-        SymbolicExpressionGrammarMapper mapper = new SymbolicExpressionGrammarMapper();
-        mapper.loadGrammar("symbolicexpression.bnf");
-
-        List<Integer> integerList = new ArrayList<>();
-        JMetalRandom random = JMetalRandom.getInstance();
-        for (int i = 0; i < 20; i++) {
-            integerList.add(random.nextInt(0, 1000));
-        }
-
-        System.out.println(mapper.interpret(integerList));
-    }
-
 }

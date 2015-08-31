@@ -50,7 +50,7 @@ public class SymbolicExpressionGrammarExperiment {
 
         String expectedFunction = "X - X * X / ((X + X) * X)";
 
-        SymbolicExpressionGrammarProblem problem = new SymbolicExpressionGrammarProblem("symbolicexpression.bnf", 1, 20, testCases, expectedFunction);
+        SymbolicExpressionGrammarProblem problem = new SymbolicExpressionGrammarProblem("symbolicexpression.bnf", 5, 20, testCases, expectedFunction);
         CrossoverOperator crossover = new SinglePointCrossoverVariableLength(1);
         MutationOperator mutation = new IntegerMutation(0.1);
         SelectionOperator selection = new BinaryTournamentSelection();
@@ -58,12 +58,12 @@ public class SymbolicExpressionGrammarExperiment {
         GrammaticalEvolutionAlgorithm algorithm = new GrammaticalEvolutionAlgorithm(
                 problem,
                 10000,
-                1000,
+                100,
                 crossover,
                 mutation,
                 selection,
-                new PruneMutation(0.05, 4),
-                new DuplicationMutation(0.05),
+                new PruneMutation(0.01, 5),
+                new DuplicationMutation(0.01),
                 new SequentialSolutionListEvaluator());
         AlgorithmRunner algorithmRunner = new AlgorithmRunner.Executor(algorithm).execute();
         VariableIntegerSolution solution = algorithm.getResult();
