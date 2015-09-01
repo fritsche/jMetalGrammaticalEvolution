@@ -1,6 +1,7 @@
 package org.uma.jmetal.grammaticalevolution.representation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -8,16 +9,25 @@ import java.util.stream.Collectors;
 public class Node {
 
     protected String name;
+    protected HashSet<Node> parentNodes;
     protected List<Expression> expressions;
 
-    public Node(String description) {
-        this.name = description;
-        this.expressions = new ArrayList<>();
+    public Node(String name) {
+        this(name, null, new ArrayList<>());
+    }
+
+    public Node(String name, HashSet<Node> parentNodes) {
+        this(name, parentNodes, new ArrayList<>());
     }
 
     public Node(String name, List<Expression> expressions) {
+        this(name, null, expressions);
+    }
+
+    public Node(String name, HashSet<Node> parentNodes, List<Expression> expressions) {
         this.name = name;
         this.expressions = expressions;
+        this.parentNodes = parentNodes;
     }
 
     public String getName() {
@@ -34,6 +44,26 @@ public class Node {
 
     public void setExpressions(List<Expression> expressions) {
         this.expressions = expressions;
+    }
+
+    public HashSet<Node> getParentNodes() {
+        return parentNodes;
+    }
+
+    public void setParentNodes(HashSet<Node> parentNodes) {
+        this.parentNodes = parentNodes;
+    }
+
+    public boolean addParentNode(Node e) {
+        return parentNodes.add(e);
+    }
+
+    public boolean removeParentNode(Node o) {
+        return parentNodes.remove(o);
+    }
+
+    public void clearParentNodes() {
+        parentNodes.clear();
     }
 
     public boolean isTerminal() {

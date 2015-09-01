@@ -70,12 +70,12 @@ public abstract class AbstractGrammarMapper<T> {
                             this.rootNode = node;
                         }
 
-                        String[] expressions = lineSplit[1].split("\\|");
+                        String[] expressions = lineSplit[1].trim().split("\\|");
 
                         for (int i = 0; i < expressions.length; i++) {
                             String expressionString = expressions[i].trim();
                             if (!expressionString.isEmpty()) {
-                                Expression expression = buildExpression(expressionString, i);
+                                Expression expression = buildExpression(expressionString, i, node);
                                 if (!node.getExpressions().contains(expression)) {
                                     node.getExpressions().add(expression);
                                 }
@@ -86,7 +86,7 @@ public abstract class AbstractGrammarMapper<T> {
             }
         } catch (FileNotFoundException ex) {
             this.setMemento(memento);
-            throw new JMetalException("File is not a file or does not exist.");
+            throw new JMetalException("File is not a file or does not exist.", ex);
         } catch (Exception ex) {
             this.setMemento(memento);
             throw ex;
@@ -98,7 +98,7 @@ public abstract class AbstractGrammarMapper<T> {
         return true;
     }
 
-    private Expression buildExpression(String expressionString, int index) {
+    private Expression buildExpression(String expressionString, int index, Node parentNode) {
         Expression expression = new Expression(index);
         Pattern pattern = Pattern.compile(BNF_MATCHER);
         Matcher matcher = pattern.matcher(expressionString);
@@ -119,6 +119,7 @@ public abstract class AbstractGrammarMapper<T> {
                 default:
                     throw new JMetalException("This should not be happening. You fucked up your grammar file mate!");
             }
+            node.addParentNode(parentNode);
             expression.getNodes().add(node);
         }
         return expression;

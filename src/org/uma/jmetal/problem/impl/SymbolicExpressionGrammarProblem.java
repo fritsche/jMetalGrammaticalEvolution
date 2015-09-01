@@ -20,27 +20,14 @@ import org.uma.jmetal.solution.impl.VariableIntegerSolution;
  */
 public class SymbolicExpressionGrammarProblem extends AbstractGrammaticalEvolutionProblem {
 
-    private int minCondons;
-    private int maxCondons;
-    private List<Double> testCases;
-    private String expectedFunction;
-
-    public SymbolicExpressionGrammarProblem(String file) {
-        super(new SymbolicExpressionGrammarMapper(), file);
-    }
+    private final List<Double> testCases;
+    private final String expectedFunction;
 
     public SymbolicExpressionGrammarProblem(String file, int minCondons, int maxCondons, List<Double> testCases, String expectedFunction) {
-        super(new SymbolicExpressionGrammarMapper(), file);
-        this.minCondons = minCondons;
-        this.maxCondons = maxCondons;
+        super(minCondons, maxCondons, new SymbolicExpressionGrammarMapper(), file);
         this.testCases = testCases;
         this.expectedFunction = expectedFunction;
         setNumberOfObjectives(1);
-    }
-
-    @Override
-    public VariableIntegerSolution createSolution() {
-        return new VariableIntegerSolution(this, minCondons, maxCondons);
     }
 
     @Override

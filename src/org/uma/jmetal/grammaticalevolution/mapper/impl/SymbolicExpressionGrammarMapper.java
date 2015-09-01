@@ -56,8 +56,8 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
         } else {
             visitedNodes.add(node);
 
-            int expressionsSize = node.getExpressions().size();
-            if (expressionsSize > 1) {
+            int numberOfExpressions = node.getExpressions().size();
+            if (numberOfExpressions > 1) {
                 currentIndex++;
                 if (currentIndex >= grammarInstance.size()) {
                     currentIndex = 0;
@@ -65,7 +65,7 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
                 }
             }
 
-            int indexToGet = grammarInstance.get(currentIndex) % expressionsSize;
+            int indexToGet = grammarInstance.get(currentIndex) % numberOfExpressions;
             Expression expression = node.getExpressions().get(indexToGet);
             for (Node childNode : expression.getNodes()) {
                 if (visitedNodes.contains(childNode)) {
@@ -76,7 +76,7 @@ public class SymbolicExpressionGrammarMapper extends AbstractGrammarMapper<Strin
             while (currentDepth > maxDepth) {
                 currentDepth--;
                 grammarInstance.set(currentIndex, grammarInstance.get(currentIndex) + 1);
-                indexToGet = grammarInstance.get(currentIndex) % expressionsSize;
+                indexToGet = grammarInstance.get(currentIndex) % numberOfExpressions;
                 expression = node.getExpressions().get(indexToGet);
                 for (Node childNode : expression.getNodes()) {
                     if (visitedNodes.contains(childNode)) {
