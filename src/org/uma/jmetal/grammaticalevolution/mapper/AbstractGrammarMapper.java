@@ -19,7 +19,7 @@ public abstract class AbstractGrammarMapper<T> {
     public static final int NON_TERMINAL_NODE = 1;
     public static final int TERMINAL_NODE = 2;
 
-    protected Node rootNode;
+    protected static Node rootNode;
     protected HashMap<String, Node> nonTerminalNodes;
     protected HashMap<String, Node> terminalNodes;
 

@@ -13,7 +13,7 @@ public class Node {
     protected List<Expression> expressions;
 
     public Node(String name) {
-        this(name, null, new ArrayList<>());
+        this(name, new HashSet<>(), new ArrayList<>());
     }
 
     public Node(String name, HashSet<Node> parentNodes) {
@@ -21,7 +21,7 @@ public class Node {
     }
 
     public Node(String name, List<Expression> expressions) {
-        this(name, null, expressions);
+        this(name, new HashSet<>(), expressions);
     }
 
     public Node(String name, HashSet<Node> parentNodes, List<Expression> expressions) {
