@@ -56,6 +56,9 @@ public class Expression {
             return false;
         }
         final Expression other = (Expression) obj;
+        if (values.size() != other.getNodes().size()) {
+            return false;
+        }
         for (int i = 0; i < values.size(); i++) {
             Node node1 = values.get(i);
             Node node2 = other.getNodes().get(i);

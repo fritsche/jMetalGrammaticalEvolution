@@ -9,11 +9,11 @@ public abstract class AbstractGrammaticalEvolutionProblem<MapperReturn> extends 
     protected int maxInitialCondons;
     protected int minInitialCondons;
 
-    public AbstractGrammaticalEvolutionProblem(int minCondons, int maxCondons, AbstractGrammarMapper<MapperReturn> mapper, String file) {
+    public AbstractGrammaticalEvolutionProblem(int minCondons, int maxCondons, AbstractGrammarMapper<MapperReturn> mapper, String grammarFile) {
         this.mapper = mapper;
         this.minInitialCondons = minCondons;
         this.maxInitialCondons = maxCondons;
-        mapper.loadGrammar(file);
+        mapper.loadGrammar(grammarFile);
     }
 
     public Integer getLowerBound(int i) {

@@ -13,4 +13,4 @@
 
 <archive> ::= <archivingStrategy> <archiveSize>
 <archiveSize> ::= "N" | "N * 1.5" | "N * 2"
-<archivingStrategy> ::= "Dominating Archiver" | "NSGA-II" | "SPEA2" | "Adaptive Grid Archiver" | "Hypervolume Archiver" | "Multi-level Grid Archiving" | "Ideal Archiver"
+<archivingStrategy> ::= "NSGA-II" | "SPEA2" | "Adaptive Grid Archiver"

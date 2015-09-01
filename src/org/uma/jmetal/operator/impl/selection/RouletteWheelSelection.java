@@ -36,56 +36,40 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
  * This class implements a selection for selecting a number of solutions from a solution list. The solutions are taken by mean of its ranking and crowding distance values.
  */
 public class RouletteWheelSelection<S extends Solution<?>>
-        implements SelectionOperator<List<S>, List<S>> {
+        implements SelectionOperator<List<S>, S> {
 
-    private int solutionsToSelect = 0;
     private JMetalRandom randomGenerator;
 
     /**
      * Constructor
      */
-    public RouletteWheelSelection(int solutionsToSelect) {
-        this.solutionsToSelect = solutionsToSelect;
+    public RouletteWheelSelection() {
         this.randomGenerator = JMetalRandom.getInstance();
-    }
-
-    /* Getter */
-    public int getSolutionsToSelect() {
-        return solutionsToSelect;
     }
 
     /**
      * Execute() method
      */
-    public List<S> execute(List<S> solutionList) throws JMetalException {
+    @Override
+    public S execute(List<S> solutionList) throws JMetalException {
         if (null == solutionList) {
             throw new JMetalException("The solution list is null");
         } else if (solutionList.isEmpty()) {
             throw new JMetalException("The solution list is empty");
-        } else if (solutionList.size() < solutionsToSelect) {
-            throw new JMetalException("The population size (" + solutionList.size() + ") is smaller than"
-                    + "the solutions to selected (" + solutionsToSelect + ")");
         }
         List<Double> euclideanDistances = getEuclideanDistances(solutionList);
 
         Double sum = euclideanDistances.stream().reduce(Double::sum).get();
 
-        List<S> selectedSolutions = new ArrayList<>();
+        double randomDouble = randomGenerator.nextDouble(0, sum);
+        double cumulativeSum = 0.0;
+        int index = -1;
         do {
-            double randomDouble = randomGenerator.nextDouble(0, sum);
-            double cumulativeSum = 0.0;
-            int index = -1;
-            do {
-                index++;
-                cumulativeSum += euclideanDistances.get(index);
-            } while (cumulativeSum < randomDouble);
+            index++;
+            cumulativeSum += euclideanDistances.get(index);
+        } while (cumulativeSum < randomDouble);
 
-            if (!selectedSolutions.contains(solutionList.get(index))) {
-                selectedSolutions.add(solutionList.get(index));
-            }
-        } while (selectedSolutions.size() < solutionsToSelect);
-
-        return selectedSolutions;
+        return solutionList.get(index);
     }
 
     private List<Double> getEuclideanDistances(List<S> solutionList) {

@@ -15,9 +15,9 @@ import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 
-public class DynamicGeneticAlgorithm<S extends Solution<?>> extends DefaultDynamicGeneticAlgorithm<S> {
+public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends DefaultDynamicGeneticAlgorithm<S> {
 
-    public DynamicGeneticAlgorithm(Problem<S> problem,
+    public GeneratedDynamicGeneticAlgorithm(Problem<S> problem,
             int populationSize,
             int maxEvaluations,
             ArchivingImplementation<S> archivingImplementation,
