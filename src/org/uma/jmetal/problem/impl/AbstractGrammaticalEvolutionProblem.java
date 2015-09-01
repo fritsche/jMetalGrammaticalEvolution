@@ -3,16 +3,16 @@ package org.uma.jmetal.problem.impl;
 import org.uma.jmetal.grammaticalevolution.mapper.AbstractGrammarMapper;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 
-public abstract class AbstractGrammaticalEvolutionProblem extends AbstractGenericProblem<VariableIntegerSolution> {
+public abstract class AbstractGrammaticalEvolutionProblem<MapperReturn> extends AbstractGenericProblem<VariableIntegerSolution> {
 
-    protected AbstractGrammarMapper mapper;
-    protected int maxCondons;
-    protected int minCondons;
+    protected AbstractGrammarMapper<MapperReturn> mapper;
+    protected int maxInitialCondons;
+    protected int minInitialCondons;
 
-    public AbstractGrammaticalEvolutionProblem(int minCondons, int maxCondons, AbstractGrammarMapper mapper, String file) {
+    public AbstractGrammaticalEvolutionProblem(int minCondons, int maxCondons, AbstractGrammarMapper<MapperReturn> mapper, String file) {
         this.mapper = mapper;
-        this.minCondons = minCondons;
-        this.maxCondons = maxCondons;
+        this.minInitialCondons = minCondons;
+        this.maxInitialCondons = maxCondons;
         mapper.loadGrammar(file);
     }
 
@@ -33,24 +33,24 @@ public abstract class AbstractGrammaticalEvolutionProblem extends AbstractGeneri
     }
 
     public int getMaxCondons() {
-        return maxCondons;
+        return maxInitialCondons;
     }
 
     public void setMaxCondons(int maxCondons) {
-        this.maxCondons = maxCondons;
+        this.maxInitialCondons = maxCondons;
     }
 
-    public int getMinCondons() {
-        return minCondons;
+    public int getMinInitialCondons() {
+        return minInitialCondons;
     }
 
-    public void setMinCondons(int minCondons) {
-        this.minCondons = minCondons;
+    public void setMinInitialCondons(int minInitialCondons) {
+        this.minInitialCondons = minInitialCondons;
     }
 
     @Override
     public VariableIntegerSolution createSolution() {
-        return new VariableIntegerSolution(this, minCondons, maxCondons);
+        return new VariableIntegerSolution(this, minInitialCondons, maxInitialCondons);
     }
 
 }

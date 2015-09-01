@@ -7,7 +7,7 @@ import org.uma.jmetal.solution.IntegerSolution;
 /**
  * Created by Antonio J. Nebro on 03/09/14.
  */
-public class VariableIntegerSolution extends AbstractVariableSolution<Integer, AbstractGrammaticalEvolutionProblem> implements IntegerSolution {
+public class VariableIntegerSolution extends AbstractVariableSolution<Integer, AbstractGrammaticalEvolutionProblem<?>> implements IntegerSolution {
 
     /**
      * Constructor

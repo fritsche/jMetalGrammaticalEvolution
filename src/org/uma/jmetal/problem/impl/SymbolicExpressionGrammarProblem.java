@@ -18,7 +18,7 @@ import org.uma.jmetal.solution.impl.VariableIntegerSolution;
  *
  * @author thaina
  */
-public class SymbolicExpressionGrammarProblem extends AbstractGrammaticalEvolutionProblem {
+public class SymbolicExpressionGrammarProblem extends AbstractGrammaticalEvolutionProblem<String> {
 
     private final List<Double> testCases;
     private final String expectedFunction;
@@ -32,7 +32,7 @@ public class SymbolicExpressionGrammarProblem extends AbstractGrammaticalEvoluti
 
     @Override
     public void evaluate(VariableIntegerSolution solution) {
-        String function = (String) mapper.interpret(solution.getVariables());
+        String function = mapper.interpret(solution.getVariables());
         double fitness = calculate(function);
         solution.setObjective(0, fitness);
     }

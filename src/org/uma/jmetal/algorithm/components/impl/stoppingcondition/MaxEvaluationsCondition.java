@@ -4,23 +4,24 @@ import org.uma.jmetal.algorithm.components.StoppingConditionImplementation;
 
 public class MaxEvaluationsCondition implements StoppingConditionImplementation {
 
-    private int maxEvaluations;
+    private long maxEvaluations;
 
-    public MaxEvaluationsCondition(int maxEvaluations) {
+    public MaxEvaluationsCondition(long maxEvaluations) {
         this.maxEvaluations = maxEvaluations;
     }
 
     @Override
-    public boolean isStoppingConditionReached(int progress) {
+    public boolean isStoppingConditionReached(long progress) {
         return progress >= this.maxEvaluations;
     }
 
-    public int getMaxEvaluations() {
+    public long getMaxEvaluations() {
         return maxEvaluations;
     }
 
-    public void setMaxEvaluations(int maxEvaluations) {
-        this.maxEvaluations = maxEvaluations;
+    @Override
+    public void setStoppingCondition(long maxProgress) {
+        this.maxEvaluations = maxProgress;
     }
 
 }
