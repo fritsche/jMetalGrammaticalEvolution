@@ -12,13 +12,11 @@ import org.uma.jmetal.algorithm.builder.GeneratedDynamicGeneticAlgorithmBuilder;
 import org.uma.jmetal.grammaticalevolution.mapper.AbstractGrammarMapper;
 import org.uma.jmetal.grammaticalevolution.representation.Expression;
 import org.uma.jmetal.grammaticalevolution.representation.Node;
-import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 
 public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends AbstractGrammarMapper<AbstractDynamicGeneticAlgorithm<S>> {
 
     protected int currentIndex;
-    protected int numberOfWraps;
     protected int populationSize;
     protected int numberOfObjectives;
 
@@ -29,19 +27,14 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
     public GeneticAlgorithmExpressionMapper(int populationSize, int numberOfObjectives, Node rootNode) {
         super(rootNode);
         this.currentIndex = 0;
-        this.numberOfWraps = 0;
         this.populationSize = populationSize;
         this.numberOfObjectives = numberOfObjectives;
     }
 
     private Expression selectExpression(Node node, List<Integer> grammarInstance) {
-        Expression expression = node.getExpressions().get(grammarInstance.get(currentIndex) % node.getExpressions().size());
+        Expression expression = node.getExpressions().get(grammarInstance.get(currentIndex % grammarInstance.size()) % node.getExpressions().size());
         if (node.getExpressions().size() > 1) {
             currentIndex++;
-            if (currentIndex >= grammarInstance.size()) {
-                currentIndex = 0;
-                numberOfWraps++;
-            }
         }
         return expression;
     }
@@ -49,7 +42,6 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
     @Override
     public AbstractDynamicGeneticAlgorithm<S> interpret(List<Integer> grammarInstance) {
         currentIndex = 0;
-        numberOfWraps = 0;
         GeneratedDynamicGeneticAlgorithmBuilder<S> builder = new GeneratedDynamicGeneticAlgorithmBuilder<>();
 
         Node gaNode = nonTerminalNodes.get("GA"); //ou rootNode
@@ -95,6 +87,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
             Expression selectedExpression = selectExpression(archivingNode, grammarInstance);
 
             builder.setArchivingImplementation(selectExpression(selectedExpression.getNodes().get(0), grammarInstance).getNodes().get(0).getName());
+            builder.setNumberOfObjectives(numberOfObjectives);
 
             String name = selectExpression(selectedExpression.getNodes().get(1), grammarInstance).getNodes().get(0).getName();
             ScriptEngineManager manager = new ScriptEngineManager();
@@ -116,14 +109,6 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         this.populationSize = populationSize;
     }
 
-    public int getNumberOfWraps() {
-        return numberOfWraps;
-    }
-
-    public void setNumberOfWraps(int numberOfWraps) {
-        this.numberOfWraps = numberOfWraps;
-    }
-
     public int getNumberOfObjectives() {
         return numberOfObjectives;
     }
@@ -140,9 +125,8 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         grammarInstance.add(301);
         grammarInstance.add(405);
         grammarInstance.add(500);
-        grammarInstance.add(600);
-        mapper.interpret(grammarInstance);
-
+        grammarInstance.add(602);
+        AbstractDynamicGeneticAlgorithm interpret = mapper.interpret(grammarInstance);
     }
 
 }
