@@ -13,16 +13,17 @@ public class SelectionOperatorFactory {
     public static final String RANKING = "Ranking";
 
     public static SelectionOperator createSelectionOperator(String selectionOperator, int torunamentSize) {
-        switch (selectionOperator) {
-            case K_TOURNAMENT:
-                return new TournamentSelection(torunamentSize);
-            case RANDOM:
-                return new RandomSelection();
-            case ROULETTE_WHEEL:
-                return new RouletteWheelSelection();
-            default:
-                return null;
+        if (selectionOperator != null) {
+            switch (selectionOperator) {
+                case K_TOURNAMENT:
+                    return new TournamentSelection(torunamentSize);
+                case RANDOM:
+                    return new RandomSelection();
+                case ROULETTE_WHEEL:
+                    return new RouletteWheelSelection();
+            }
         }
+        return null;
     }
 
 }
