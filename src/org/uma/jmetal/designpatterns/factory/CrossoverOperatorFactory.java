@@ -14,18 +14,19 @@ public class CrossoverOperatorFactory {
     public static final String CYCLE = "Cycle Crossover";
 
     public static CrossoverOperator createCrossoverOperator(String crossoverOperator, double crossoverProbability) {
-        switch (crossoverOperator) {
-            case TWO_POINTS:
-                return new PermutationTwoPointsCrossover(crossoverProbability);
-            case SINGLE_POINTS:
-                return new PermutationSinglePointCrossover(crossoverProbability);
-            case PMX:
-                return new PMXCrossover(crossoverProbability);
-            case CYCLE:
-                return new PermutationCycleCrossover(crossoverProbability);
-            default:
-                return null;
+        if (crossoverOperator != null) {
+            switch (crossoverOperator) {
+                case TWO_POINTS:
+                    return new PermutationTwoPointsCrossover(crossoverProbability);
+                case SINGLE_POINTS:
+                    return new PermutationSinglePointCrossover(crossoverProbability);
+                case PMX:
+                    return new PMXCrossover(crossoverProbability);
+                case CYCLE:
+                    return new PermutationCycleCrossover(crossoverProbability);
+            }
         }
+        return null;
     }
 
 }

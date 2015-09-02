@@ -14,18 +14,19 @@ public class MutationOperatorFactory {
     public static final String INVERSION = "Inversion Mutation";
 
     public static MutationOperator createMutationOperator(String mutationOperator, double mutationProbability) {
-        switch (mutationOperator) {
-            case SWAP:
-                return new PermutationSwapMutation(mutationProbability);
-            case INSERT:
-                return new InsertMutation(mutationProbability);
-            case SCRAMBLE:
-                return new ScrambleMutation(mutationProbability);
-            case INVERSION:
-                return new InversionMutation(mutationProbability);
-            default:
-                return null;
+        if (mutationOperator != null) {
+            switch (mutationOperator) {
+                case SWAP:
+                    return new PermutationSwapMutation(mutationProbability);
+                case INSERT:
+                    return new InsertMutation(mutationProbability);
+                case SCRAMBLE:
+                    return new ScrambleMutation(mutationProbability);
+                case INVERSION:
+                    return new InversionMutation(mutationProbability);
+            }
         }
+        return null;
     }
 
 }

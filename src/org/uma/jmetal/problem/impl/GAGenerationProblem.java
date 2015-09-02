@@ -24,7 +24,7 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
             int minInitialCondons,
             int maxInitialCondons,
             String grammarFile) {
-        super(minInitialCondons, maxInitialCondons, new GeneticAlgorithmExpressionMapper(), grammarFile);
+        super(minInitialCondons, maxInitialCondons, new GeneticAlgorithmExpressionMapper(populationSize, problem.getNumberOfObjectives()), grammarFile);
         this.maxAlgorithmEvaluations = maxAlgorithmEvaluations;
         this.initialPopulation = initialPopulation;
         this.problem = problem;
@@ -53,6 +53,15 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
 
     public void setProblem(Problem<S> problem) {
         this.problem = problem;
+    }
+
+    public int getPopulationSize() {
+        return populationSize;
+    }
+
+    public void setPopulationSize(int populationSize) {
+        this.populationSize = populationSize;
+        ((GeneticAlgorithmExpressionMapper) mapper).setPopulationSize(populationSize);
     }
 
     @Override
