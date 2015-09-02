@@ -21,6 +21,7 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
     private double crossoverProbability;
     private String mutationOperator;
     private double mutationProbability;
+    private int numberOfObjectives;
 
     public GeneratedDynamicGeneticAlgorithmBuilder() {
     }
@@ -80,12 +81,17 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         return this;
     }
 
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setNumberOfObjectives(int numberOfObjectives) {
+        this.numberOfObjectives = numberOfObjectives;
+        return this;
+    }
+
     public GeneratedDynamicGeneticAlgorithm<S> buildAlgorithm() {
         return new GeneratedDynamicGeneticAlgorithm(
                 problem,
                 populationSize,
                 maxEvaluations,
-                ArchivingImplementationFactory.createArchivingImplementation(archivingImplementation, archivingSize),
+                ArchivingImplementationFactory.createArchivingImplementation(archivingImplementation, archivingSize, numberOfObjectives),
                 SelectionOperatorFactory.createSelectionOperator(selectionOperator, tournamentSize),
                 CrossoverOperatorFactory.createCrossoverOperator(crossoverOperator, crossoverProbability),
                 MutationOperatorFactory.createMutationOperator(mutationOperator, mutationProbability));

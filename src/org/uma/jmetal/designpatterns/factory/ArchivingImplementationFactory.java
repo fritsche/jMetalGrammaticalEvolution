@@ -6,22 +6,23 @@ import org.uma.jmetal.algorithm.components.impl.archiving.CrowdingDistanceArchiv
 import org.uma.jmetal.algorithm.components.impl.archiving.SPEA2ArchiveImplementation;
 
 public class ArchivingImplementationFactory {
-    
+
     public static final String NSGA_II = "NSGA-II";
     public static final String SPEA2 = "SPEA2";
     public static final String ADAPTIVE_GRID = "Adaptive Grid Archiver";
 
-    public static ArchivingImplementation createArchivingImplementation(String archivingImplementation, int archiveSize) {
-        switch (archivingImplementation) {
-            case NSGA_II:
-                return new CrowdingDistanceArchiveImplementation(archiveSize);
-            case SPEA2:
-                return new SPEA2ArchiveImplementation(archiveSize);
-            case ADAPTIVE_GRID:
-                return new AdaptiveGridArchiveImplementation(archiveSize, archiveSize, archiveSize);
-            default:
-                return null;
+    public static ArchivingImplementation createArchivingImplementation(String archivingImplementation, int archiveSize, int numberOfObjectives) {
+        if (archivingImplementation != null) {
+            switch (archivingImplementation) {
+                case NSGA_II:
+                    return new CrowdingDistanceArchiveImplementation(archiveSize);
+                case SPEA2:
+                    return new SPEA2ArchiveImplementation(archiveSize);
+                case ADAPTIVE_GRID:
+                    return new AdaptiveGridArchiveImplementation(archiveSize, 5, numberOfObjectives);
+            }
         }
+        return null;
     }
 
 }
