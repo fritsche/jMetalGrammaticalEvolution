@@ -38,4 +38,8 @@ public class SPEA2ArchiveImplementation<S extends Solution<?>> extends AbstractB
         }
     }
 
+    @Override
+    public String toString() {
+        return "SPEA2 (" + getMaxSize() + ")";
+    }
 }

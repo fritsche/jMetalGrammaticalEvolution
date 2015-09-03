@@ -24,8 +24,7 @@ import org.uma.jmetal.solution.PermutationSolution;
  * @author Antonio J. Nebro
  * @version 1.0
  *
- * This class implements a cycle crossover operator to permutation
- * representations.
+ * This class implements a cycle crossover operator to permutation representations.
  */
 public class PermutationCycleCrossover implements CrossoverOperator<PermutationSolution<Integer>> {
 
@@ -201,5 +200,9 @@ public class PermutationCycleCrossover implements CrossoverOperator<PermutationS
 //        }
 //        return 0;
 //    }
+    @Override
+    public String toString() {
+        return "Cycle Crossover (" + this.crossoverProbability + ")";
+    }
 
 }

@@ -92,7 +92,7 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
                 populationSize,
                 maxEvaluations,
                 ArchivingImplementationFactory.createArchivingImplementation(archivingImplementation, archivingSize, numberOfObjectives),
-                SelectionOperatorFactory.createSelectionOperator(selectionOperator, tournamentSize),
+                SelectionOperatorFactory.createSelectionOperator(selectionOperator, tournamentSize, populationSize),
                 CrossoverOperatorFactory.createCrossoverOperator(crossoverOperator, crossoverProbability),
                 MutationOperatorFactory.createMutationOperator(mutationOperator, mutationProbability));
     }

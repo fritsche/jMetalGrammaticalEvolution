@@ -24,4 +24,8 @@ public class CrowdingDistanceArchiveImplementation<S extends Solution<?>> extend
         return this.getSolutionList();
     }
 
+    @Override
+    public String toString() {
+        return "NSGA-II (" + getMaxSize() + ")";
+    }
 }

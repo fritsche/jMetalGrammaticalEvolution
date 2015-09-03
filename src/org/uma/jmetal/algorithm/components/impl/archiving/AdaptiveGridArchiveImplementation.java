@@ -24,4 +24,9 @@ public class AdaptiveGridArchiveImplementation<S extends Solution<?>> extends Ad
         return this.getSolutionList();
     }
 
+    @Override
+    public String toString() {
+        return "Adaptive Grid (" + getMaxSize() + ")";
+    }
+
 }

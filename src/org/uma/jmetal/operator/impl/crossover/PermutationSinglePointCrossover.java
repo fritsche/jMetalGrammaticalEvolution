@@ -194,4 +194,9 @@ public class PermutationSinglePointCrossover implements CrossoverOperator<Permut
 //        System.out.println("Offspring2: " + offspring.get(1));
 //    }
 
+    @Override
+    public String toString() {
+        return "1P Crossover (" + this.crossoverProbability + ")";
+    }
+
 }

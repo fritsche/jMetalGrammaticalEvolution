@@ -152,4 +152,9 @@ public class InversionMutation<T> implements MutationOperator<PermutationSolutio
 //            }
 //        }
 //    }
+    
+    @Override
+    public String toString() {
+        return "Inversion Mutation (" + this.mutationProbability + ")";
+    }
 }

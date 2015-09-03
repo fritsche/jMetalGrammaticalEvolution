@@ -11,8 +11,7 @@ import org.uma.jmetal.util.JMetalException;
 import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 /**
- * This class implements a scramble mutation. The solution type of the solution
- * must be Permutation.
+ * This class implements a scramble mutation. The solution type of the solution must be Permutation.
  */
 public class ScrambleMutation<T> implements MutationOperator<PermutationSolution<T>> {
 
@@ -151,5 +150,8 @@ public class ScrambleMutation<T> implements MutationOperator<PermutationSolution
 //            }
 //        }
 //    }
-
+    @Override
+    public String toString() {
+        return "Scramble Mutation (" + this.mutationProbability + ")";
+    }
 }

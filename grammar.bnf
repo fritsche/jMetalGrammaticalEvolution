@@ -1,6 +1,6 @@
 <GA> ::= <selectionOperator> <matingOperators> <archive>
 
-<selectionOperator> ::= "K Tournament" <tournamentSize> | "Random" | "Roulete Wheel" | "Ranking"
+<selectionOperator> ::= "K Tournament" <tournamentSize> | "Random" | "Roulette Wheel" | "Ranking"
 <tournamentSize> ::= "2" | "4" | "6" | "8" | "10"
 
 <matingOperators> ::= <crossoverOperator> <crossoverProbability> <mutationOperator> <mutationProbability> | <crossoverOperator> <crossoverProbability> | <mutationOperator> <mutationProbability>

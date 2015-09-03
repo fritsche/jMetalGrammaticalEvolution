@@ -57,6 +57,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         Expression selectedExpression = selectExpression(selectionNode, grammarInstance);
 
         builder.setSelectionOperator(selectedExpression.getNodes().get(0).getName());
+        builder.setPopulationSize(populationSize);
         if (selectedExpression.getNodes().size() == 2) {
             Node tournamentSizeNode = selectedExpression.getNodes().get(1);
             Node size = selectExpression(tournamentSizeNode, grammarInstance).getNodes().get(0);
@@ -92,7 +93,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
             String name = selectExpression(selectedExpression.getNodes().get(1), grammarInstance).getNodes().get(0).getName();
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName("js");
-            String expression = name.replaceAll("N", String.valueOf(populationSize));
+            String expression = name.replaceAll("N", String.valueOf(populationSize) + ".0");
             double archiveSize = (double) engine.eval(expression);
             builder.setArchivingSize((int) archiveSize);
 

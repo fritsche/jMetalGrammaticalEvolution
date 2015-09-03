@@ -4,6 +4,7 @@ import java.util.List;
 import org.uma.jmetal.algorithm.components.ArchivingImplementation;
 import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
 import org.uma.jmetal.algorithm.components.impl.progress.EvaluationsCountProgress;
+import org.uma.jmetal.algorithm.components.impl.replacement.GenerationalReplacement;
 import org.uma.jmetal.algorithm.components.impl.replacement.ParetoRankingAndCrowdingDistanceReplacement;
 import org.uma.jmetal.algorithm.components.impl.reproduction.TwoSolutionsReproduction;
 import org.uma.jmetal.algorithm.components.impl.selection.OnlyPopulationSelection;
@@ -32,11 +33,26 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Def
                 new SequentialSolutionListEvaluator<>(),
                 new OnlyPopulationSelection<>(),
                 new TwoSolutionsReproduction<>(),
-                new ParetoRankingAndCrowdingDistanceReplacement<>(),
+                new GenerationalReplacement<>(),
                 archivingImplementation,
                 selectionOperator,
                 crossoverOperator,
                 mutationOperator);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder
+                .append("Algorithm Configuration:\n")
+                .append("\tSelection Operator: ").append(selectionOperator.toString())
+                .append("\n")
+                .append(crossoverOperator != null ? "\tCrossover Operator: " + crossoverOperator.toString() : "")
+                .append("\n")
+                .append(mutationOperator != null ? "\tMutation Operator: " + mutationOperator.toString() : "")
+                .append("\n")
+                .append("\tArchiver: ").append(getArchivingImplementation().toString());
+        return builder.toString();
     }
 
 }

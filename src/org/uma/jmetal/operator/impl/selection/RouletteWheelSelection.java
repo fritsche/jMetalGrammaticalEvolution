@@ -127,4 +127,8 @@ public class RouletteWheelSelection<S extends Solution<?>>
         return maximumObjectiveValues;
     }
 
+    @Override
+    public String toString() {
+        return "Roulette Wheel Selection";
+    }
 }

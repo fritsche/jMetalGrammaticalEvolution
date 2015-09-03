@@ -28,7 +28,7 @@ public abstract class AbstractVariableSolution<T, P extends Problem<?>> implemen
         randomGenerator = JMetalRandom.getInstance();
 
         objectives = new double[problem.getNumberOfObjectives()];
-        variables = new ArrayList<>(problem.getNumberOfVariables());
+        variables = new ArrayList<>();
     }
 
     @Override

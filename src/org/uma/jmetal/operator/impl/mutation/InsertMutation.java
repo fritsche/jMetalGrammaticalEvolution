@@ -139,4 +139,9 @@ public class InsertMutation<T> implements MutationOperator<PermutationSolution<T
 //            }
 //        }
 //    }
+    
+    @Override
+    public String toString() {
+        return "Insert Mutation (" + this.mutationProbability + ")";
+    }
 }

@@ -64,7 +64,7 @@ public class HypervolumeCalculator extends Hypervolume<List<? extends Solution<?
     public double calculateHypervolume(Front front) {
         if (maximumValues != null && minimumValues != null) {
             Front normalizedFront = FrontUtils.getNormalizedFront(front, maximumValues, minimumValues);
-            return hypervolume.calculateHypervolume(FrontUtils.convertFrontToArray(normalizedFront), front.getNumberOfPoints(), front.getPointDimensions());
+            return hypervolume.calculateHypervolume(FrontUtils.convertFrontToArray(FrontUtils.getInvertedFront(normalizedFront)), front.getNumberOfPoints(), front.getPointDimensions());
         }
         return 0D;
     }

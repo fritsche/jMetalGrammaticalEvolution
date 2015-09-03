@@ -29,6 +29,10 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
         this.initialPopulation = initialPopulation;
         this.problem = problem;
         this.populationSize = populationSize;
+        
+        setName("GA Generation Problem");
+        setNumberOfObjectives(1);
+        setNumberOfVariables(-1);
     }
 
     public int getMaxAlgorithmEvaluations() {
@@ -74,17 +78,18 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
         algorithm.setProblem(problem);
         algorithm.setPopulationSize(populationSize);
         algorithm.run();
+        solution.setAttribute("Algorithm", algorithm);
         solution.setAttribute("Result", algorithm.getResult());
     }
 
     public void evaluateAll(List<VariableIntegerSolution> parents, List<VariableIntegerSolution> offspring) {
         HypervolumeCalculator calculator = new HypervolumeCalculator();
 
-        final Function<? super VariableIntegerSolution, ? extends List<S>> algorithmMapper = (solution) -> {
-            return (List<S>) solution.getAttribute("Result");
+        final Function<? super VariableIntegerSolution, AbstractDynamicGeneticAlgorithm<S>> algorithmMapper = (solution) -> {
+            return (AbstractDynamicGeneticAlgorithm<S>) solution.getAttribute("Algorithm");
         };
-        final Consumer<? super List<S>> addParetoFront = (result) -> {
-            calculator.addParetoFront(result);
+        final Consumer<AbstractDynamicGeneticAlgorithm<S>> addParetoFront = (algorithm) -> {
+            calculator.addParetoFront(algorithm.getResult());
         };
         parents.stream()
                 .map(algorithmMapper)
@@ -94,7 +99,7 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
                 .forEach(addParetoFront);
 
         final Consumer<? super VariableIntegerSolution> calculateHypervolumeFunction = (solution) -> {
-            solution.setObjective(0, calculator.calculateHypervolume(algorithmMapper.apply(solution)));
+            solution.setObjective(0, calculator.calculateHypervolume(algorithmMapper.apply(solution).getResult()) * -1);
         };
         parents.stream().forEach(calculateHypervolumeFunction);
         offspring.stream().forEach(calculateHypervolumeFunction);

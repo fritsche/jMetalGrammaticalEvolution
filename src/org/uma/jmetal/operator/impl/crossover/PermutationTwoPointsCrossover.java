@@ -24,8 +24,7 @@ import org.uma.jmetal.solution.PermutationSolution;
  * @author Antonio J. Nebro
  * @version 1.0
  *
- * This class implements a two points crossover operator to permutation
- * representations.
+ * This class implements a two points crossover operator to permutation representations.
  */
 public class PermutationTwoPointsCrossover implements CrossoverOperator<PermutationSolution<Integer>> {
 
@@ -260,4 +259,8 @@ public class PermutationTwoPointsCrossover implements CrossoverOperator<Permutat
 //            newSequence.add(parent.get(i));
 //        }
 //    }
+    @Override
+    public String toString() {
+        return "2P Crossover (" + this.crossoverProbability + ")";
+    }
 }
