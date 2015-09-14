@@ -74,6 +74,7 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
         algorithm.setPopulationInitializationImplementation((Problem<S> problem, int populationSize) -> {
             return initialPopulation;
         });
+        algorithm.getArchivingImplementation().updateArchive(initialPopulation);
         algorithm.getStoppingConditionImplementation().setStoppingCondition(maxAlgorithmEvaluations);
         algorithm.setProblem(problem);
         algorithm.setPopulationSize(populationSize);

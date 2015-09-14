@@ -5,9 +5,8 @@ import org.uma.jmetal.algorithm.components.ArchivingImplementation;
 import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
 import org.uma.jmetal.algorithm.components.impl.progress.EvaluationsCountProgress;
 import org.uma.jmetal.algorithm.components.impl.replacement.GenerationalReplacement;
-import org.uma.jmetal.algorithm.components.impl.replacement.ParetoRankingAndCrowdingDistanceReplacement;
 import org.uma.jmetal.algorithm.components.impl.reproduction.TwoSolutionsReproduction;
-import org.uma.jmetal.algorithm.components.impl.selection.OnlyPopulationSelection;
+import org.uma.jmetal.algorithm.components.impl.selection.PopulationAndArchiveSelection;
 import org.uma.jmetal.algorithm.components.impl.stoppingcondition.MaxEvaluationsCondition;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
@@ -31,7 +30,7 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Def
                 new MaxEvaluationsCondition(maxEvaluations),
                 new RandomPopulationInitialization<>(),
                 new SequentialSolutionListEvaluator<>(),
-                new OnlyPopulationSelection<>(),
+                new PopulationAndArchiveSelection<>(),
                 new TwoSolutionsReproduction<>(),
                 new GenerationalReplacement<>(),
                 archivingImplementation,
