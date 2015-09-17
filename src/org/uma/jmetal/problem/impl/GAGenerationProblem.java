@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
+import org.uma.jmetal.algorithm.components.impl.populationinitialization.FixedPopulationInitialization;
 import org.uma.jmetal.grammaticalevolution.mapper.impl.GeneticAlgorithmExpressionMapper;
 import org.uma.jmetal.measure.HypervolumeCalculator;
 import org.uma.jmetal.problem.Problem;
@@ -29,7 +30,7 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
         this.initialPopulation = initialPopulation;
         this.problem = problem;
         this.populationSize = populationSize;
-        
+
         setName("GA Generation Problem");
         setNumberOfObjectives(1);
         setNumberOfVariables(-1);
@@ -71,10 +72,7 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
     @Override
     public void evaluate(VariableIntegerSolution solution) {
         AbstractDynamicGeneticAlgorithm<S> algorithm = mapper.interpret(solution);
-        algorithm.setPopulationInitializationImplementation((Problem<S> problem, int populationSize) -> {
-            return initialPopulation;
-        });
-        algorithm.getArchivingImplementation().updateArchive(initialPopulation);
+        algorithm.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
         algorithm.getStoppingConditionImplementation().setStoppingCondition(maxAlgorithmEvaluations);
         algorithm.setProblem(problem);
         algorithm.setPopulationSize(populationSize);

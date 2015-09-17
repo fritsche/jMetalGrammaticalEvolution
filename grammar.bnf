@@ -1,16 +1,44 @@
-<GA> ::= <selectionOperator> <matingOperators> <archive>
+<GA> ::= <initialization> <selection> <mating> <replacement> <archive>
+
+##### Initialization #####
+
+<initialization> ::= "Random" | "Parallel Diversified Initialization"
+
+##### Selection #####
+
+<selection> ::= <selectionOperator> <source> <fitnessAssignment>
 
 <selectionOperator> ::= "K Tournament" <tournamentSize> | "Random" | "Roulette Wheel" | "Ranking"
 <tournamentSize> ::= "2" | "4" | "6" | "8" | "10"
 
-<matingOperators> ::= <crossoverOperator> <crossoverProbability> <mutationOperator> <mutationProbability> | <crossoverOperator> <crossoverProbability> | <mutationOperator> <mutationProbability>
+<source> ::= "Population" | "Archive and Population"
 
-<crossoverOperator> ::= "Two Points Crossover" | "Single Point Crossover" | "PMX Crossover" | "Cycle Crossover"
+<fitnessAssignment> ::= <rankingStrategy> <diversityStrategy>
+<rankingStrategy> ::= "" | "Dominance Rank" | "Dominance Strength" | "Dominance Depth" | "SPEA2"
+<diversityStrategy> ::= "" | "Crowding Distance" | "K-th Nearest Neighbor" | "Niche Sharing" | "Adaptive Grid"
+
+##### Mating #####
+
+<mating> ::= <matingOperators> <matingStrategy>
+
+<matingOperators> ::= <crossoverOperator> <crossoverProbability> <mutationOperator> <mutationProbability>
+
+<crossoverOperator> ::= "" | "Two Points Crossover" | "Single Point Crossover" | "PMX Crossover" | "Cycle Crossover"
 <crossoverProbability> ::= "1.0" | "0.95" | "0.9" | "0.8" | "0.5"
 
-<mutationOperator> ::= "Swap Mutation" | "Insert Mutation" | "Scramble Mutation" | "Inversion Mutation"
+<mutationOperator> ::= "" | "Swap Mutation" | "Insert Mutation" | "Scramble Mutation" | "Inversion Mutation"
 <mutationProbability> ::= "0.01" | "0.02" | "0.05" | "0.1" | "0.2" | "0.5" | "0.7" | "0.8" | "0.9" | "1.0"
 
-<archive> ::= <archivingStrategy> <archiveSize>
-<archiveSize> ::= "N" | "N * 1.5" | "N * 2"
-<archivingStrategy> ::= "NSGA-II" | "SPEA2" | "Adaptive Grid Archiver"
+<matingStrategy> ::= "Steady State" | "Generational Two Children" | "Generational One Child"
+
+##### Replacement #####
+
+<replacement> ::= "Generational" <elitismSize> | "Ranking" <fitnessAssignment>
+
+<elitismSize> ::= "0" | "N * 0.01" | "N * 0.05" | "N * 0.1" | "N * 0.5"
+
+##### Archive #####
+
+<archive> ::= <archiveSize> <truncationStrategy>
+<archiveSize> ::= "0" | "N" | "N * 1.5" | "N * 2"
+<truncationStrategy> ::= <diversityStrategy>

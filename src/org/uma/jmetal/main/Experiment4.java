@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
 import org.uma.jmetal.algorithm.builder.GeneratedDynamicGeneticAlgorithmBuilder;
 import org.uma.jmetal.algorithm.components.impl.archiving.OutputArchivingProxy;
+import org.uma.jmetal.algorithm.components.impl.populationinitialization.FixedPopulationInitialization;
 import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
 import org.uma.jmetal.algorithm.components.impl.replacement.OutputReplacementProxy;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
@@ -36,9 +37,7 @@ public class Experiment4 {
 
             DynamicNSGAII nsgaii = builder.build();
             nsgaii.setReplacementImplementation(new OutputReplacementProxy(nsgaii.getReplacementImplementation(), "experiment/NSGAII/"));
-            nsgaii.setPopulationInitializationImplementation((Problem problem, int populationSize) -> {
-                return initialPopulation;
-            });
+            nsgaii.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
             nsgaii.run();
 
             GeneratedDynamicGeneticAlgorithmBuilder gaBuilder = new GeneratedDynamicGeneticAlgorithmBuilder();
@@ -55,11 +54,8 @@ public class Experiment4 {
                     .setArchivingImplementation(ArchivingImplementationFactory.ADAPTIVE_GRID)
                     .setArchivingSize(100);
             GeneratedDynamicGeneticAlgorithm ga = gaBuilder.buildAlgorithm();
-            ga.getArchivingImplementation().updateArchive(initialPopulation);
             ga.setArchivingImplementation(new OutputArchivingProxy(ga.getArchivingImplementation(), "experiment/GA/"));
-            ga.setPopulationInitializationImplementation((Problem problem, int populationSize) -> {
-                return initialPopulation;
-            });
+            ga.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
             ga.run();
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();

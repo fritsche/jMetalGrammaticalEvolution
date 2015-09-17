@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
-import org.uma.jmetal.algorithm.components.PopulationInitializationImplementation;
+import org.uma.jmetal.algorithm.components.impl.populationinitialization.FixedPopulationInitialization;
 import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.algorithm.impl.GAGenerationGrammaticalEvolution;
@@ -19,7 +19,6 @@ import org.uma.jmetal.operator.impl.mutation.IntegerMutation;
 import org.uma.jmetal.operator.impl.mutation.PermutationSwapMutation;
 import org.uma.jmetal.operator.impl.mutation.PruneMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
-import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.problem.impl.GAGenerationProblem;
 import org.uma.jmetal.problem.multiobjective.MultiobjectiveTSP;
 import org.uma.jmetal.solution.PermutationSolution;
@@ -56,7 +55,7 @@ public class ExperimentInitialExecution {
                             new PruneMutation(0.05, 5),
                             new DuplicationMutation(0.05),
                             new SequentialSolutionListEvaluator<>());
-            
+
             for (int execution = 0; execution < 30; execution++) {
                 geAlgorithm.run();
                 allSolutions.add(geAlgorithm.getResult());
@@ -65,13 +64,7 @@ public class ExperimentInitialExecution {
             DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
             builder.setMaxEvaluations(2000).setPopulationSize(100);
             DynamicNSGAII nsgaii = builder.build();
-            nsgaii.setPopulationInitializationImplementation(new PopulationInitializationImplementation() {
-
-                @Override
-                public List createInitialPopulation(Problem problem, int populationSize) {
-                    return initialPopulation;
-                }
-            });
+            nsgaii.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
             nsgaii.run();
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();

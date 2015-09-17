@@ -45,14 +45,15 @@ public class DefaultDynamicGeneticAlgorithm<S extends Solution<?>> extends Abstr
 
         initProgress();
         setPopulation(evaluatePopulation(createInitialPopulation()));
-        updateProgress();
+        archive(getPopulation());
+        updateProgress(getPopulation().size());
         while (!isStoppingConditionReached()) {
             matingPopulation = selection(getPopulation());
             offspringPopulation = reproduction(matingPopulation);
             offspringPopulation = evaluatePopulation(offspringPopulation);
             setPopulation(replacement(getPopulation(), offspringPopulation));
             archive(offspringPopulation);
-            updateProgress();
+            updateProgress(offspringPopulation.size());
         }
     }
 
