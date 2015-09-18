@@ -1,4 +1,8 @@
-<GA> ::= <initialization> <selection> <mating> <replacement> <archive>
+<GA> ::= <populationSize> <initialization> <selection> <mating> <replacement> <archive>
+
+##### Population Size #####
+
+<populationSize> ::= "50" | "100" | "150" | "200" | "250" | "300"
 
 ##### Initialization #####
 
@@ -15,7 +19,7 @@
 
 <fitnessAssignment> ::= <rankingStrategy> <diversityStrategy>
 <rankingStrategy> ::= "" | "Dominance Rank" | "Dominance Strength" | "Dominance Depth" | "SPEA2 Raw Fitness"
-<diversityStrategy> ::= "" | "Crowding Distance" | "K-th Nearest Neighbor" | "Niche Sharing" | "Adaptive Grid"
+<diversityStrategy> ::= "" | "Crowding Distance" | "K-th Nearest Neighbor" | "Adaptive Grid" | "Hypervolume Contribution"
 
 ##### Mating #####
 

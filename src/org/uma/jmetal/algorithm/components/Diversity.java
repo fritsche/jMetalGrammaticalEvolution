@@ -10,8 +10,8 @@ public abstract class Diversity<S extends Solution<?>, V> extends GenericSolutio
         List<V> solutionsDiversity = getSolutionsDiversity(solutions);
         for (int i = 0; i < solutions.size(); i++) {
             S solution = solutions.get(i);
-            V dkiversity = solutionsDiversity.get(i);
-            this.setAttribute(solution, dkiversity);
+            V diversity = solutionsDiversity.get(i);
+            this.setAttribute(solution, diversity);
         }
     }
             
