@@ -1,12 +1,14 @@
 package org.uma.jmetal.algorithm.impl;
 
 import java.util.List;
+import org.uma.jmetal.algorithm.components.impl.diversity.CrowdingDistance;
+import org.uma.jmetal.algorithm.components.impl.initialization.RandomInitialization;
 import org.uma.jmetal.algorithm.components.impl.progress.EvaluationsCountProgress;
-import org.uma.jmetal.algorithm.components.impl.stoppingcondition.MaxEvaluationsCondition;
+import org.uma.jmetal.algorithm.components.impl.ranking.DominanceDepth;
+import org.uma.jmetal.algorithm.components.impl.replacement.RankingAndDiversityReplacement;
+import org.uma.jmetal.algorithm.components.impl.reproduction.GenerationalTwoChildrenReproduction;
 import org.uma.jmetal.algorithm.components.impl.selection.OnlyPopulationSelection;
-import org.uma.jmetal.algorithm.components.impl.replacement.ParetoRankingAndCrowdingDistanceReplacement;
-import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
-import org.uma.jmetal.algorithm.components.impl.reproduction.TwoSolutionsReproduction;
+import org.uma.jmetal.algorithm.components.impl.stoppingcondition.MaxEvaluationsCondition;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
@@ -18,16 +20,16 @@ public class DynamicNSGAII<S extends Solution<?>> extends DefaultDynamicGeneticA
 
     public DynamicNSGAII(Problem<S> problem, int maxEvaluations, int populationSize,
             CrossoverOperator<S> crossoverOperator, MutationOperator<S> mutationOperator,
-            SelectionOperator<List<S>, S> selectionOperator, SolutionListEvaluator<S> evaluator) {
+            SelectionOperator<List<S>, List<S>> selectionOperator, SolutionListEvaluator<S> evaluator) {
         super(problem,
                 populationSize,
                 new EvaluationsCountProgress(),
                 new MaxEvaluationsCondition(maxEvaluations),
-                new RandomPopulationInitialization<>(),
+                new RandomInitialization<>(),
                 evaluator,
                 new OnlyPopulationSelection<>(),
-                new TwoSolutionsReproduction<>(),
-                new ParetoRankingAndCrowdingDistanceReplacement<>(),
+                new GenerationalTwoChildrenReproduction<>(),
+                new RankingAndDiversityReplacement<>(new DominanceDepth(), new CrowdingDistance<S>()),
                 null,
                 selectionOperator,
                 crossoverOperator,

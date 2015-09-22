@@ -21,7 +21,7 @@ public class CrowdingDistance<S extends Solution<?>> extends Diversity<S, Double
     public void computeDiversity(List<S> solutions) {
         crowdingDistance.computeDensityEstimator(solutions);
         for (S solution : solutions) {
-            this.setAttribute(solution, crowdingDistance.getAttribute(solution));
+            this.setAttribute(solution, crowdingDistance.getAttribute(solution) * -1);
         }
     }
 

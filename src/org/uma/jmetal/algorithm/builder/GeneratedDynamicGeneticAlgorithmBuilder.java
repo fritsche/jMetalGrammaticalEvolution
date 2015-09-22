@@ -1,27 +1,44 @@
 package org.uma.jmetal.algorithm.builder;
 
+import org.uma.jmetal.algorithm.components.factory.ArchivingImplementationFactory;
+import org.uma.jmetal.algorithm.components.factory.CrossoverOperatorFactory;
+import org.uma.jmetal.algorithm.components.factory.DiversityFactory;
+import org.uma.jmetal.algorithm.components.factory.InitializationImplementationFactory;
+import org.uma.jmetal.algorithm.components.factory.MutationOperatorFactory;
+import org.uma.jmetal.algorithm.components.factory.RankingFactory;
+import org.uma.jmetal.algorithm.components.factory.ReplacementImplementationFactory;
+import org.uma.jmetal.algorithm.components.factory.ReproductionImplementationFactory;
+import org.uma.jmetal.algorithm.components.factory.SelectionImplementationFactory;
+import org.uma.jmetal.algorithm.components.factory.SelectionOperatorFactory;
 import org.uma.jmetal.algorithm.impl.GeneratedDynamicGeneticAlgorithm;
-import org.uma.jmetal.designpatterns.factory.ArchivingImplementationFactory;
-import org.uma.jmetal.designpatterns.factory.CrossoverOperatorFactory;
-import org.uma.jmetal.designpatterns.factory.MutationOperatorFactory;
-import org.uma.jmetal.designpatterns.factory.SelectionOperatorFactory;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 
 public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
 
-    private Problem<S> problem = null;
-    private int populationSize = 0;
-    private int maxEvaluations = 0;
-    private String archivingImplementation;
-    private int archivingSize;
+    private Problem<S> problem;
+    private int populationSize;
+    private int maxEvaluations;
+    private String initialization;
+    private String selectionSource;
     private String selectionOperator;
+    private int solutionsToSelectAtEachGeneration;
     private int tournamentSize;
+    private String selectionRanking;
+    private String selectionDiversity;
+    private String reproduction;
     private String crossoverOperator;
     private double crossoverProbability;
     private String mutationOperator;
     private double mutationProbability;
-    private int numberOfObjectives;
+    private String replacement;
+    private int elitismSize;
+    private String replacementRanking;
+    private String replacementDiversity;
+    private String archiveRanking;
+    private String archiveDiversity;
+    private int archiveSize;
+    private int bisections;
 
     public GeneratedDynamicGeneticAlgorithmBuilder() {
     }
@@ -41,13 +58,43 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         return this;
     }
 
-    public GeneratedDynamicGeneticAlgorithmBuilder<S> setArchivingImplementation(String archivingImplementation) {
-        this.archivingImplementation = archivingImplementation;
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setInitialization(String initialization) {
+        this.initialization = initialization;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setSelectionSource(String selectionSource) {
+        this.selectionSource = selectionSource;
         return this;
     }
 
     public GeneratedDynamicGeneticAlgorithmBuilder<S> setSelectionOperator(String selectionOperator) {
         this.selectionOperator = selectionOperator;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setSolutionsToSelectAtEachGeneration(int solutionsToSelectAtEachGeneration) {
+        this.solutionsToSelectAtEachGeneration = solutionsToSelectAtEachGeneration;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setTournamentSize(int tournamentSize) {
+        this.tournamentSize = tournamentSize;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setSelectionRanking(String selectionRanking) {
+        this.selectionRanking = selectionRanking;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setSelectionDiversity(String selectionDiversity) {
+        this.selectionDiversity = selectionDiversity;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setReproduction(String reproduction) {
+        this.reproduction = reproduction;
         return this;
     }
 
@@ -61,13 +108,43 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         return this;
     }
 
-    public GeneratedDynamicGeneticAlgorithmBuilder<S> setArchivingSize(int archivingSize) {
-        this.archivingSize = archivingSize;
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setReplacement(String replacement) {
+        this.replacement = replacement;
         return this;
     }
 
-    public GeneratedDynamicGeneticAlgorithmBuilder<S> setTournamentSize(int tournamentSize) {
-        this.tournamentSize = tournamentSize;
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setReplacementRanking(String replacementRanking) {
+        this.replacementRanking = replacementRanking;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setReplacementDiversity(String replacementDiversity) {
+        this.replacementDiversity = replacementDiversity;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setArchiveRanking(String archiveRanking) {
+        this.archiveRanking = archiveRanking;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setArchiveDiversity(String archiveDiversity) {
+        this.archiveDiversity = archiveDiversity;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setArchiveSize(int archiveSize) {
+        this.archiveSize = archiveSize;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setBisections(int bisections) {
+        this.bisections = bisections;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setElitismSize(int elitismSize) {
+        this.elitismSize = elitismSize;
         return this;
     }
 
@@ -81,20 +158,25 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         return this;
     }
 
-    public GeneratedDynamicGeneticAlgorithmBuilder<S> setNumberOfObjectives(int numberOfObjectives) {
-        this.numberOfObjectives = numberOfObjectives;
-        return this;
-    }
-
     public GeneratedDynamicGeneticAlgorithm<S> buildAlgorithm() {
         return new GeneratedDynamicGeneticAlgorithm(
                 problem,
                 populationSize,
                 maxEvaluations,
-                ArchivingImplementationFactory.createArchivingImplementation(archivingImplementation, archivingSize, numberOfObjectives),
-                SelectionOperatorFactory.createSelectionOperator(selectionOperator, tournamentSize, populationSize),
+                InitializationImplementationFactory.createInitializationImplementation(initialization),
+                SelectionImplementationFactory.createSelectionImplementation(selectionSource),
+                SelectionOperatorFactory.createSelectionOperator(selectionOperator, tournamentSize, solutionsToSelectAtEachGeneration,
+                        RankingFactory.createRanking(selectionRanking),
+                        DiversityFactory.createRanking(selectionDiversity, populationSize, archiveSize, bisections, problem.getNumberOfObjectives())),
+                ReproductionImplementationFactory.createSelectionImplementation(reproduction),
                 CrossoverOperatorFactory.createCrossoverOperator(crossoverOperator, crossoverProbability),
-                MutationOperatorFactory.createMutationOperator(mutationOperator, mutationProbability));
+                MutationOperatorFactory.createMutationOperator(mutationOperator, mutationProbability),
+                ReplacementImplementationFactory.createReplacementImplementation(replacement, elitismSize,
+                        RankingFactory.createRanking(replacementRanking),
+                        DiversityFactory.createRanking(replacementDiversity, populationSize, archiveSize, bisections, problem.getNumberOfObjectives())),
+                ArchivingImplementationFactory.createArchivingImplementation(archiveSize,
+                        RankingFactory.createRanking(archiveRanking),
+                        DiversityFactory.createRanking(archiveDiversity, populationSize, archiveSize, bisections, problem.getNumberOfObjectives())));
     }
 
 }

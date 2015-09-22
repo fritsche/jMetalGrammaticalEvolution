@@ -8,8 +8,8 @@ import org.uma.jmetal.util.comparator.ObjectiveComparator;
 import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 
 import java.util.*;
-import org.uma.jmetal.operator.impl.mutation.DuplicationMutation;
-import org.uma.jmetal.operator.impl.mutation.PruneMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.DuplicationMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.PruneMutation;
 import org.uma.jmetal.problem.impl.AbstractGrammaticalEvolutionProblem;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 

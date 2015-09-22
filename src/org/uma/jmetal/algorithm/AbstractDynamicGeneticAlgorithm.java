@@ -3,7 +3,7 @@ package org.uma.jmetal.algorithm;
 import java.util.ArrayList;
 import java.util.List;
 import org.uma.jmetal.algorithm.components.ArchivingImplementation;
-import org.uma.jmetal.algorithm.components.PopulationInitializationImplementation;
+import org.uma.jmetal.algorithm.components.InitializationImplementation;
 import org.uma.jmetal.algorithm.components.ProgressImplementation;
 import org.uma.jmetal.algorithm.components.ReplacementImplementation;
 import org.uma.jmetal.algorithm.components.ReproductionImplementation;
@@ -25,26 +25,27 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
 
     // Bridge Implementations
     // These objects will dictate how the algorithm should behave.
-    private ProgressImplementation progressImplementation;
-    private StoppingConditionImplementation stoppingConditionImplementation;
-    private PopulationInitializationImplementation<S> populationInitializationImplementation;
-    public SolutionListEvaluator<S> solutionListEvaluator;
-    private SelectionImplementation<S> selectionImplementation;
-    private ReproductionImplementation<S> reproductionImplementation;
-    private ReplacementImplementation<S> replacementImplementation;
-    private ArchivingImplementation<S> archivingImplementation;
+    protected ProgressImplementation progressImplementation;
+    protected StoppingConditionImplementation stoppingConditionImplementation;
+    protected InitializationImplementation<S> populationInitializationImplementation;
+    protected SolutionListEvaluator<S> solutionListEvaluator;
+    protected SelectionImplementation<S> selectionImplementation;
+    protected ReproductionImplementation<S> reproductionImplementation;
+    protected ReplacementImplementation<S> replacementImplementation;
+    protected ArchivingImplementation<S> archivingImplementation;
+    protected SelectionOperator<List<S>, List<S>> selectionOperator;
 
     public AbstractDynamicGeneticAlgorithm(Problem<S> problem,
             int populationSize,
             ProgressImplementation progressImplementation,
             StoppingConditionImplementation stoppingConditionImplementation,
-            PopulationInitializationImplementation<S> populationInitializationImplementation,
+            InitializationImplementation<S> populationInitializationImplementation,
             SolutionListEvaluator<S> solutionListEvaluator,
             SelectionImplementation<S> selectionImplementation,
             ReproductionImplementation<S> reproductionImplementation,
             ReplacementImplementation<S> replacementImplementation,
             ArchivingImplementation<S> archivingImplementation,
-            SelectionOperator<List<S>, S> selectionOperator,
+            SelectionOperator<List<S>, List<S>> selectionOperator,
             CrossoverOperator<S> crossoverOperator,
             MutationOperator<S> mutationOperator) {
         this.problem = problem;
@@ -59,7 +60,7 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
         this.archivingImplementation = archivingImplementation;
         super.crossoverOperator = crossoverOperator;
         super.mutationOperator = mutationOperator;
-        super.selectionOperator = selectionOperator;
+        this.selectionOperator = selectionOperator;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Getters & Setters">
@@ -95,11 +96,11 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
         this.stoppingConditionImplementation = stoppingConditionImplementation;
     }
 
-    public PopulationInitializationImplementation<S> getPopulationInitializationImplementation() {
+    public InitializationImplementation<S> getPopulationInitializationImplementation() {
         return populationInitializationImplementation;
     }
 
-    public void setPopulationInitializationImplementation(PopulationInitializationImplementation<S> populationInitializationImplementation) {
+    public void setPopulationInitializationImplementation(InitializationImplementation<S> populationInitializationImplementation) {
         this.populationInitializationImplementation = populationInitializationImplementation;
     }
 
@@ -143,11 +144,11 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
         this.archivingImplementation = archivingImplementation;
     }
 
-    public SelectionOperator<List<S>, S> getSelectionOperator() {
+    public SelectionOperator<List<S>, List<S>> getSelectionOperator() {
         return selectionOperator;
     }
 
-    public void setSelectionOperator(SelectionOperator<List<S>, S> selectionOperator) {
+    public void setSelectionOperator(SelectionOperator<List<S>, List<S>> selectionOperator) {
         this.selectionOperator = selectionOperator;
     }
 
@@ -220,21 +221,7 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
     // <editor-fold defaultstate="collapsed" desc="Parent Selection">
     @Override
     protected List<S> selection(List<S> parents) {
-        return this.selection(parents, populationSize);
-    }
-
-    protected List<S> selection(List<S> parents, int matingPopulationSize) {
-        List<S> archivePopulation;
-        if (archivingImplementation != null) {
-            archivePopulation = archivingImplementation.getArchive();
-        } else {
-            archivePopulation = new ArrayList<>();
-        }
-        return this.selection(parents, matingPopulationSize, archivePopulation);
-    }
-
-    protected List<S> selection(List<S> parents, int matingPopulationSize, List<S> archivePopulation) {
-        return selectionImplementation.selection(parents, matingPopulationSize, archivePopulation, selectionOperator);
+        return selectionImplementation.selection(new ArrayList(parents), new ArrayList(getArchive()), selectionOperator);
     }
     // </editor-fold>
 
@@ -245,14 +232,14 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
     }
 
     protected List<S> reproduction(List<S> matingPopulation, int offspringSize) {
-        return reproductionImplementation.reproduction(matingPopulation, offspringSize, crossoverOperator, mutationOperator);
+        return reproductionImplementation.reproduction(new ArrayList(matingPopulation), offspringSize, crossoverOperator, mutationOperator);
     }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Replacement">
     @Override
     protected List<S> replacement(List<S> population, List<S> offspringPopulation) {
-        return replacementImplementation.replacement(population, offspringPopulation, populationSize);
+        return replacementImplementation.replacement(new ArrayList(population), new ArrayList(offspringPopulation), populationSize);
     }
     // </editor-fold>
 

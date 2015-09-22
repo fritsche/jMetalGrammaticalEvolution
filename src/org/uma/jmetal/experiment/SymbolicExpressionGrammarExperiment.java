@@ -12,10 +12,10 @@ import org.uma.jmetal.grammaticalevolution.mapper.impl.SymbolicExpressionGrammar
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
-import org.uma.jmetal.operator.impl.crossover.SinglePointCrossoverVariableLength;
-import org.uma.jmetal.operator.impl.mutation.DuplicationMutation;
-import org.uma.jmetal.operator.impl.mutation.IntegerMutation;
-import org.uma.jmetal.operator.impl.mutation.PruneMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.crossover.SinglePointCrossoverVariableLength;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.DuplicationMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.IntegerMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.PruneMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.impl.SymbolicExpressionGrammarProblem;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;

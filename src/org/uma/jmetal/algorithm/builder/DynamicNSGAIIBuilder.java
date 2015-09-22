@@ -1,11 +1,13 @@
 package org.uma.jmetal.algorithm.builder;
 
 import java.util.List;
+import org.uma.jmetal.algorithm.components.impl.diversity.CrowdingDistance;
+import org.uma.jmetal.algorithm.components.impl.operator.selection.KTournamentSelection;
+import org.uma.jmetal.algorithm.components.impl.ranking.DominanceDepth;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
-import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.AlgorithmBuilder;
@@ -23,7 +25,7 @@ public class DynamicNSGAIIBuilder<S extends Solution<?>> implements AlgorithmBui
     private int populationSize;
     private CrossoverOperator<S> crossoverOperator;
     private MutationOperator<S> mutationOperator;
-    private SelectionOperator<List<S>, S> selectionOperator;
+    private SelectionOperator<List<S>, List<S>> selectionOperator;
     private SolutionListEvaluator<S> evaluator;
 
     /**
@@ -36,7 +38,7 @@ public class DynamicNSGAIIBuilder<S extends Solution<?>> implements AlgorithmBui
         populationSize = 100;
         this.crossoverOperator = crossoverOperator;
         this.mutationOperator = mutationOperator;
-        selectionOperator = new BinaryTournamentSelection<S>();
+        selectionOperator = new KTournamentSelection(populationSize, 2, new DominanceDepth(), new CrowdingDistance());
         evaluator = new SequentialSolutionListEvaluator<S>();
 
     }
@@ -60,7 +62,7 @@ public class DynamicNSGAIIBuilder<S extends Solution<?>> implements AlgorithmBui
         return this;
     }
 
-    public DynamicNSGAIIBuilder<S> setSelectionOperator(SelectionOperator<List<S>, S> selectionOperator) {
+    public DynamicNSGAIIBuilder<S> setSelectionOperator(SelectionOperator<List<S>, List<S>> selectionOperator) {
         if (selectionOperator == null) {
             throw new JMetalException("selectionOperator is null");
         }
@@ -107,7 +109,7 @@ public class DynamicNSGAIIBuilder<S extends Solution<?>> implements AlgorithmBui
         return mutationOperator;
     }
 
-    public SelectionOperator<List<S>, S> getSelectionOperator() {
+    public SelectionOperator<List<S>, List<S>> getSelectionOperator() {
         return selectionOperator;
     }
 

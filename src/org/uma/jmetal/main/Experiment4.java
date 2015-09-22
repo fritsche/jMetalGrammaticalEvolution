@@ -8,16 +8,16 @@ import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
 import org.uma.jmetal.algorithm.builder.GeneratedDynamicGeneticAlgorithmBuilder;
 import org.uma.jmetal.algorithm.components.impl.archiving.OutputArchivingProxy;
-import org.uma.jmetal.algorithm.components.impl.populationinitialization.FixedPopulationInitialization;
-import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
+import org.uma.jmetal.algorithm.components.impl.initialization.FixedInitialization;
+import org.uma.jmetal.algorithm.components.impl.initialization.RandomInitialization;
 import org.uma.jmetal.algorithm.components.impl.replacement.OutputReplacementProxy;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.algorithm.impl.GeneratedDynamicGeneticAlgorithm;
-import org.uma.jmetal.designpatterns.factory.ArchivingImplementationFactory;
-import org.uma.jmetal.designpatterns.factory.CrossoverOperatorFactory;
-import org.uma.jmetal.designpatterns.factory.SelectionOperatorFactory;
+import org.uma.jmetal.algorithm.components.factory.ArchivingImplementationFactory;
+import org.uma.jmetal.algorithm.components.factory.CrossoverOperatorFactory;
+import org.uma.jmetal.algorithm.components.factory.SelectionOperatorFactory;
 import org.uma.jmetal.measure.HypervolumeCalculator;
-import org.uma.jmetal.operator.impl.crossover.PermutationTwoPointsCrossover;
+import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationTwoPointsCrossover;
 import org.uma.jmetal.operator.impl.mutation.PermutationSwapMutation;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.problem.multiobjective.MultiobjectiveTSP;
@@ -30,14 +30,14 @@ public class Experiment4 {
         try {
             MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
 
-            List<PermutationSolution<Integer>> initialPopulation = new RandomPopulationInitialization().createInitialPopulation(tsp, 100);
+            List<PermutationSolution<Integer>> initialPopulation = new RandomInitialization().createInitialPopulation(tsp, 100);
 
             DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
             builder.setMaxEvaluations(60000).setPopulationSize(100);
 
             DynamicNSGAII nsgaii = builder.build();
             nsgaii.setReplacementImplementation(new OutputReplacementProxy(nsgaii.getReplacementImplementation(), "experiment/NSGAII/"));
-            nsgaii.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
+            nsgaii.setPopulationInitializationImplementation(new FixedInitialization(initialPopulation));
             nsgaii.run();
 
             GeneratedDynamicGeneticAlgorithmBuilder gaBuilder = new GeneratedDynamicGeneticAlgorithmBuilder();
@@ -55,7 +55,7 @@ public class Experiment4 {
                     .setArchivingSize(100);
             GeneratedDynamicGeneticAlgorithm ga = gaBuilder.buildAlgorithm();
             ga.setArchivingImplementation(new OutputArchivingProxy(ga.getArchivingImplementation(), "experiment/GA/"));
-            ga.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
+            ga.setPopulationInitializationImplementation(new FixedInitialization(initialPopulation));
             ga.run();
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();

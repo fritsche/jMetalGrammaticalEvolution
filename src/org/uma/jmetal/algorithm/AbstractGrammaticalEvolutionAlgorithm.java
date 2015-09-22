@@ -1,8 +1,8 @@
 package org.uma.jmetal.algorithm;
 
 import org.uma.jmetal.algorithm.impl.AbstractGeneticAlgorithm;
-import org.uma.jmetal.operator.impl.mutation.DuplicationMutation;
-import org.uma.jmetal.operator.impl.mutation.PruneMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.DuplicationMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.PruneMutation;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 
 /**

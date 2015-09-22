@@ -21,7 +21,7 @@ public class HypervolumeContribution<S extends Solution<?>> extends Diversity<S,
     public void computeDiversity(List<S> solutions) {
         hypervolume.computeDensityEstimator(solutions);
         for (S solution : solutions) {
-            this.setAttribute(solution, hypervolume.getAttribute(solution));
+            this.setAttribute(solution, hypervolume.getAttribute(solution) * -1);
         }
     }
 

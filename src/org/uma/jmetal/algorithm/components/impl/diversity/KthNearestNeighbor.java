@@ -6,8 +6,6 @@ import java.util.List;
 import org.uma.jmetal.algorithm.components.Diversity;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.SolutionListUtils;
-import org.uma.jmetal.util.front.imp.ArrayFront;
-import org.uma.jmetal.util.front.util.FrontUtils;
 
 public class KthNearestNeighbor<S extends Solution<?>> extends Diversity<S, Double> {
 

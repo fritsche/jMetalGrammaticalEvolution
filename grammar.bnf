@@ -18,7 +18,7 @@
 <source> ::= "Population" | "Archive and Population"
 
 <fitnessAssignment> ::= <rankingStrategy> <diversityStrategy>
-<rankingStrategy> ::= "" | "Dominance Rank" | "Dominance Strength" | "Dominance Depth" | "SPEA2 Raw Fitness"
+<rankingStrategy> ::= "" | "Dominance Rank" | "Dominance Strength" | "Dominance Depth" | "Raw Fitness"
 <diversityStrategy> ::= "" | "Crowding Distance" | "K-th Nearest Neighbor" | "Adaptive Grid" | "Hypervolume Contribution"
 
 ##### Mating #####

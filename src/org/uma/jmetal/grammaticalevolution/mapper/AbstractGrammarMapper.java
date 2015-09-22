@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.uma.jmetal.designpatterns.Memento;
+import org.uma.jmetal.memento.Memento;
 import org.uma.jmetal.grammaticalevolution.representation.Expression;
 import org.uma.jmetal.grammaticalevolution.representation.Node;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
@@ -159,15 +159,15 @@ public abstract class AbstractGrammarMapper<T> {
 
         @Override
         public void restore(AbstractGrammarMapper<T> originator) {
-            originator.nonTerminalNodes = this.nonTerminalNodes;
-            originator.terminalNodes = this.terminalNodes;
+            originator.nonTerminalNodes = new HashMap<>(this.nonTerminalNodes);
+            originator.terminalNodes = new HashMap<>(this.terminalNodes);
             originator.rootNode = this.rootNode;
         }
 
         @Override
         public void setState(AbstractGrammarMapper<T> originator) {
-            this.nonTerminalNodes = originator.nonTerminalNodes;
-            this.terminalNodes = originator.terminalNodes;
+            this.nonTerminalNodes = new HashMap<>(originator.nonTerminalNodes);
+            this.terminalNodes = new HashMap<>(originator.terminalNodes);
             this.rootNode = originator.rootNode;
         }
 

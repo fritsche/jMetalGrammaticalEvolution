@@ -3,7 +3,7 @@ package org.uma.jmetal.algorithm.impl;
 import java.util.List;
 import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
 import org.uma.jmetal.algorithm.components.ArchivingImplementation;
-import org.uma.jmetal.algorithm.components.PopulationInitializationImplementation;
+import org.uma.jmetal.algorithm.components.InitializationImplementation;
 import org.uma.jmetal.algorithm.components.ProgressImplementation;
 import org.uma.jmetal.algorithm.components.ReplacementImplementation;
 import org.uma.jmetal.algorithm.components.ReproductionImplementation;
@@ -22,13 +22,13 @@ public class DefaultDynamicGeneticAlgorithm<S extends Solution<?>> extends Abstr
             int populationSize,
             ProgressImplementation progressImplementation,
             StoppingConditionImplementation stoppingConditionImplementation,
-            PopulationInitializationImplementation<S> populationInitializationImplementation,
+            InitializationImplementation<S> populationInitializationImplementation,
             SolutionListEvaluator<S> solutionListEvaluator,
             SelectionImplementation<S> selectionImplementation,
             ReproductionImplementation<S> reproductionImplementation,
             ReplacementImplementation<S> replacementImplementation,
             ArchivingImplementation<S> archivingImplementation,
-            SelectionOperator<List<S>, S> selectionOperator,
+            SelectionOperator<List<S>, List<S>> selectionOperator,
             CrossoverOperator<S> crossoverOperator,
             MutationOperator<S> mutationOperator) {
         super(problem, populationSize, progressImplementation,

@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
-import org.uma.jmetal.algorithm.components.impl.populationinitialization.FixedPopulationInitialization;
-import org.uma.jmetal.algorithm.components.impl.populationinitialization.RandomPopulationInitialization;
+import org.uma.jmetal.algorithm.components.impl.initialization.FixedInitialization;
+import org.uma.jmetal.algorithm.components.impl.initialization.RandomInitialization;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.algorithm.impl.GAGenerationGrammaticalEvolution;
 import org.uma.jmetal.measure.HypervolumeCalculator;
-import org.uma.jmetal.operator.impl.crossover.PermutationTwoPointsCrossover;
-import org.uma.jmetal.operator.impl.crossover.SinglePointCrossoverVariableLength;
-import org.uma.jmetal.operator.impl.mutation.DuplicationMutation;
-import org.uma.jmetal.operator.impl.mutation.IntegerMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationTwoPointsCrossover;
+import org.uma.jmetal.algorithm.components.impl.operator.crossover.SinglePointCrossoverVariableLength;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.DuplicationMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.IntegerMutation;
 import org.uma.jmetal.operator.impl.mutation.PermutationSwapMutation;
-import org.uma.jmetal.operator.impl.mutation.PruneMutation;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.PruneMutation;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.impl.GAGenerationProblem;
 import org.uma.jmetal.problem.multiobjective.MultiobjectiveTSP;
@@ -32,7 +32,7 @@ public class ExperimentInitialExecution {
     public static void main(String[] args) {
         try {
             MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
-            List<PermutationSolution<Integer>> initialPopulation = new RandomPopulationInitialization<PermutationSolution<Integer>>().createInitialPopulation(tsp, 100);
+            List<PermutationSolution<Integer>> initialPopulation = new RandomInitialization<PermutationSolution<Integer>>().createInitialPopulation(tsp, 100);
             GAGenerationProblem geProblem
                     = new GAGenerationProblem(
                             2000,
@@ -64,7 +64,7 @@ public class ExperimentInitialExecution {
             DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
             builder.setMaxEvaluations(2000).setPopulationSize(100);
             DynamicNSGAII nsgaii = builder.build();
-            nsgaii.setPopulationInitializationImplementation(new FixedPopulationInitialization(initialPopulation));
+            nsgaii.setPopulationInitializationImplementation(new FixedInitialization(initialPopulation));
             nsgaii.run();
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();
