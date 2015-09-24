@@ -39,6 +39,7 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
     private String archiveDiversity;
     private int archiveSize;
     private int bisections;
+    private int numberOfObjectives;
 
     public GeneratedDynamicGeneticAlgorithmBuilder() {
     }
@@ -158,7 +159,36 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         return this;
     }
 
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setNumberOfObjectives(int numberOfObjectives) {
+        this.numberOfObjectives = numberOfObjectives;
+        return this;
+    }
+
     public GeneratedDynamicGeneticAlgorithm<S> buildAlgorithm() {
+        
+//        System.out.println("Number of Objectives: " + numberOfObjectives);
+//        System.out.println("Bisections: " + bisections);
+//        System.out.println("Population Size: " + populationSize);
+//        System.out.println("Initialization: " + initialization);
+//        System.out.println("Selection Source: " + selectionSource);
+//        System.out.println("Selection Operator: " + selectionOperator);
+//        System.out.println("Tournament Size: " + tournamentSize);
+//        System.out.println("Selection Ranking: " + selectionRanking);
+//        System.out.println("Selection Diversity: " + selectionDiversity);
+//        System.out.println("Mating Strategy: " + reproduction);
+//        System.out.println("Solutions to Select: " + solutionsToSelectAtEachGeneration);
+//        System.out.println("Crossover Operator: " + crossoverOperator);
+//        System.out.println("Crossover Probability: " + crossoverProbability);
+//        System.out.println("Mutation Operator: " + mutationOperator);
+//        System.out.println("Mutation Probability: " + mutationProbability);
+//        System.out.println("Replacement: " + replacement);
+//        System.out.println("Elitism: " + elitismSize);
+//        System.out.println("Replacement Ranking: " + replacementRanking);
+//        System.out.println("Replacemente Diversity: " + replacementDiversity);
+//        System.out.println("Archive Ranking: " + archiveRanking);
+//        System.out.println("Archive Diversity: " + archiveDiversity);
+//        System.out.println("Archive Size: " + archiveSize);
+        
         return new GeneratedDynamicGeneticAlgorithm(
                 problem,
                 populationSize,
@@ -167,16 +197,16 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
                 SelectionImplementationFactory.createSelectionImplementation(selectionSource),
                 SelectionOperatorFactory.createSelectionOperator(selectionOperator, tournamentSize, solutionsToSelectAtEachGeneration,
                         RankingFactory.createRanking(selectionRanking),
-                        DiversityFactory.createRanking(selectionDiversity, populationSize, archiveSize, bisections, problem.getNumberOfObjectives())),
+                        DiversityFactory.createRanking(selectionDiversity, populationSize, archiveSize, bisections, numberOfObjectives)),
                 ReproductionImplementationFactory.createSelectionImplementation(reproduction),
                 CrossoverOperatorFactory.createCrossoverOperator(crossoverOperator, crossoverProbability),
                 MutationOperatorFactory.createMutationOperator(mutationOperator, mutationProbability),
                 ReplacementImplementationFactory.createReplacementImplementation(replacement, elitismSize,
                         RankingFactory.createRanking(replacementRanking),
-                        DiversityFactory.createRanking(replacementDiversity, populationSize, archiveSize, bisections, problem.getNumberOfObjectives())),
+                        DiversityFactory.createRanking(replacementDiversity, populationSize, archiveSize, bisections, numberOfObjectives)),
                 ArchivingImplementationFactory.createArchivingImplementation(archiveSize,
                         RankingFactory.createRanking(archiveRanking),
-                        DiversityFactory.createRanking(archiveDiversity, populationSize, archiveSize, bisections, problem.getNumberOfObjectives())));
+                        DiversityFactory.createRanking(archiveDiversity, populationSize, archiveSize, bisections, numberOfObjectives)));
     }
 
 }
