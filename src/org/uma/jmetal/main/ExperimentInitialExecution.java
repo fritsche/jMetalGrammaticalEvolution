@@ -4,6 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
@@ -26,7 +29,7 @@ import org.uma.jmetal.util.fileoutput.SolutionSetOutput;
 
 public class ExperimentInitialExecution {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         try {
             MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
             GAGenerationProblem geProblem
@@ -38,23 +41,27 @@ public class ExperimentInitialExecution {
                             20,
                             "grammar.bnf");
 
-            List<VariableIntegerSolution> allSolutions = new ArrayList<>();
-            GAGenerationGrammaticalEvolution geAlgorithm
-                    = new GAGenerationGrammaticalEvolution(
-                            geProblem,
-                            60000,
-                            100,
-                            new SinglePointCrossoverVariableLength(0.9),
-                            new IntegerMutation(0.01),
-                            new BinaryTournamentSelection(),
-                            new PruneMutation(0.01, 5),
-                            new DuplicationMutation(0.01),
-                            new SequentialSolutionListEvaluator<>());
+            ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[0]));
 
+            List<GAGenerationGrammaticalEvolution> algorithms = new ArrayList<>();
             for (int execution = 0; execution < 30; execution++) {
-                geAlgorithm.run();
-                allSolutions.add(geAlgorithm.getResult());
+                GAGenerationGrammaticalEvolution geAlgorithm
+                        = new GAGenerationGrammaticalEvolution(
+                                geProblem,
+                                60000,
+                                100,
+                                new SinglePointCrossoverVariableLength(0.9),
+                                new IntegerMutation(0.01),
+                                new BinaryTournamentSelection(),
+                                new PruneMutation(0.01, 5),
+                                new DuplicationMutation(0.01),
+                                new SequentialSolutionListEvaluator<>());
+                algorithms.add(geAlgorithm);
+                threadPool.submit(geAlgorithm);
             }
+
+            threadPool.shutdown();
+            threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 
             DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
             builder.setMaxEvaluations(2000).setPopulationSize(100);
@@ -62,16 +69,16 @@ public class ExperimentInitialExecution {
             nsgaii.run();
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();
-            for (int execution = 0; execution < allSolutions.size(); execution++) {
-                VariableIntegerSolution solution = allSolutions.get(execution);
+            for (int execution = 0; execution < algorithms.size(); execution++) {
+                VariableIntegerSolution solution = algorithms.get(execution).getResult();
                 calculator.addParetoFront((List<? extends Solution<?>>) solution.getAttribute("Result"));
             }
             calculator.addParetoFront(nsgaii.getResult());
 
             SolutionSetOutput.printObjectivesToFile(nsgaii.getResult(), "experiment/NSGAII_FUN.txt");
 
-            for (int execution = 0; execution < allSolutions.size(); execution++) {
-                VariableIntegerSolution solution = allSolutions.get(execution);
+            for (int execution = 0; execution < algorithms.size(); execution++) {
+                VariableIntegerSolution solution = algorithms.get(execution).getResult();
                 List<? extends Solution<?>> result = (List<? extends Solution<?>>) solution.getAttribute("Result");
                 SolutionSetOutput.printObjectivesToFile(result, "experiment/alg" + execution + "_FUN.txt");
                 try (FileWriter writer = new FileWriter("experiment/alg" + execution + "_DESC.txt")) {

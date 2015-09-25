@@ -72,7 +72,15 @@ public class RouletteWheelSelection<S extends Solution<?>>
         }
 
         if (ranking == null) {
-            return SolutionListUtils.selectNRandomDifferentSolutions(solutionsToSelect, solutionList);
+            if (solutionsToSelect <= solutionList.size()) {
+                return SolutionListUtils.selectNRandomDifferentSolutions(solutionsToSelect, solutionList);
+            } else {
+                List<S> selected = new ArrayList<>();
+                do {
+                    selected.addAll(SolutionListUtils.selectNRandomDifferentSolutions(solutionsToSelect - selected.size() > solutionList.size() ? solutionList.size() : solutionsToSelect - selected.size(), solutionList));
+                } while (selected.size() < solutionsToSelect);
+                return selected;
+            }
         }
 
         if (ranking != null) {
