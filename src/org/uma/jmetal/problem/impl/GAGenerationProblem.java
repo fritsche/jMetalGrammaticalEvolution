@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
-import org.uma.jmetal.algorithm.components.impl.initialization.FixedInitialization;
 import org.uma.jmetal.grammaticalevolution.mapper.impl.GeneticAlgorithmExpressionMapper;
 import org.uma.jmetal.measure.HypervolumeCalculator;
 import org.uma.jmetal.problem.Problem;
@@ -14,22 +13,17 @@ import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammaticalEvolutionProblem<AbstractDynamicGeneticAlgorithm<S>> {
 
     private int maxAlgorithmEvaluations;
-    private int populationSize;
-    private List<S> initialPopulation;
     private Problem<S> problem;
 
     public GAGenerationProblem(int maxAlgorithmEvaluations,
-            int populationSize,
             Problem<S> problem,
-            List<S> initialPopulation,
+            int bisections,
             int minInitialCondons,
             int maxInitialCondons,
             String grammarFile) {
-        super(minInitialCondons, maxInitialCondons, new GeneticAlgorithmExpressionMapper(populationSize, problem.getNumberOfObjectives()), grammarFile);
+        super(minInitialCondons, maxInitialCondons, new GeneticAlgorithmExpressionMapper(problem.getNumberOfObjectives(), bisections), grammarFile);
         this.maxAlgorithmEvaluations = maxAlgorithmEvaluations;
-        this.initialPopulation = initialPopulation;
         this.problem = problem;
-        this.populationSize = populationSize;
 
         setName("GA Generation Problem");
         setNumberOfObjectives(1);
@@ -44,14 +38,6 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
         this.maxAlgorithmEvaluations = maxAlgorithmEvaluations;
     }
 
-    public List<S> getInitialPopulation() {
-        return initialPopulation;
-    }
-
-    public void setInitialPopulation(List<S> initialPopulation) {
-        this.initialPopulation = initialPopulation;
-    }
-
     public Problem<S> getProblem() {
         return problem;
     }
@@ -60,22 +46,11 @@ public class GAGenerationProblem<S extends Solution<?>> extends AbstractGrammati
         this.problem = problem;
     }
 
-    public int getPopulationSize() {
-        return populationSize;
-    }
-
-    public void setPopulationSize(int populationSize) {
-        this.populationSize = populationSize;
-        ((GeneticAlgorithmExpressionMapper) mapper).setPopulationSize(populationSize);
-    }
-
     @Override
     public void evaluate(VariableIntegerSolution solution) {
         AbstractDynamicGeneticAlgorithm<S> algorithm = mapper.interpret(solution);
-        algorithm.setPopulationInitializationImplementation(new FixedInitialization(initialPopulation));
         algorithm.getStoppingConditionImplementation().setStoppingCondition(maxAlgorithmEvaluations);
         algorithm.setProblem(problem);
-        algorithm.setPopulationSize(populationSize);
         algorithm.run();
         solution.setAttribute("Algorithm", algorithm);
         solution.setAttribute("Result", algorithm.getResult());

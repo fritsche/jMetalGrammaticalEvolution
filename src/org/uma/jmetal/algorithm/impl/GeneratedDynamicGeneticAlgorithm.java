@@ -86,13 +86,24 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
         StringBuilder builder = new StringBuilder();
         builder
                 .append("Algorithm Configuration:\n")
+                .append("\tPopulation Size: ").append(populationSize)
+                .append("\n")
+                .append("\tInitialization: ").append(getInitializationImplementation().toString())
+                .append("\n")
                 .append("\tSelection Operator: ").append(selectionOperator.toString())
+                .append("\n")
+                .append("\tSource: ").append(getSelectionImplementation().toString())
+                .append("\n")
+                .append("\tReproduction: ").append(getReproductionImplementation().toString())
                 .append("\n")
                 .append(crossoverOperator != null ? "\tCrossover Operator: " + crossoverOperator.toString() : "")
                 .append("\n")
                 .append(mutationOperator != null ? "\tMutation Operator: " + mutationOperator.toString() : "")
                 .append("\n")
-                .append("\tArchiver: ").append(getArchivingImplementation().toString());
+                .append("\tReplacement: ").append(getReplacementImplementation().toString())
+                .append("\n")
+                .append("\tArchiver: ").append(getArchivingImplementation().toString())
+                .append("\n");
         return builder.toString();
     }
 

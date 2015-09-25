@@ -31,4 +31,8 @@ public class AdaptiveGrid<S extends Solution<?>> extends Diversity<S, Double> {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String toString() {
+        return "AdaptiveGrid";
+    }
 }

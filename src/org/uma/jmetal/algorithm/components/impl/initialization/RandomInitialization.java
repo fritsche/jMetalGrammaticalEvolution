@@ -17,5 +17,10 @@ public class RandomInitialization<S extends Solution<?>> implements Initializati
         }
         return population;
     }
+    
+    @Override
+    public String toString() {
+        return "Random";
+    }
 
 }

@@ -3,9 +3,9 @@ package org.uma.jmetal.algorithm.components.factory;
 import org.uma.jmetal.algorithm.components.Diversity;
 import org.uma.jmetal.algorithm.components.Ranking;
 import org.uma.jmetal.algorithm.components.impl.operator.selection.KTournamentSelection;
+import org.uma.jmetal.algorithm.components.impl.operator.selection.RandomSelection;
 import org.uma.jmetal.algorithm.components.impl.operator.selection.RankingAndDiversitySortingSelection;
 import org.uma.jmetal.operator.SelectionOperator;
-import org.uma.jmetal.operator.impl.selection.RandomSelection;
 import org.uma.jmetal.algorithm.components.impl.operator.selection.RouletteWheelSelection;
 
 public class SelectionOperatorFactory {
@@ -25,7 +25,7 @@ public class SelectionOperatorFactory {
                 case RANKING:
                     return new RankingAndDiversitySortingSelection(solutionsToSelect, selectionRanking, selectionDiversity);
                 case RANDOM:
-                    return new RandomSelection();
+                    return new RandomSelection(solutionsToSelect);
             }
         }
         return null;

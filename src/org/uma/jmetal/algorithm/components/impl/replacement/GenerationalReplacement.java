@@ -41,4 +41,9 @@ public class GenerationalReplacement<S extends Solution<?>> implements Replaceme
         return replacedPopulation;
     }
 
+    @Override
+    public String toString() {
+        return "GenerationalReplacement{" + "elitismSize=" + elitismSize + '}';
+    }
+
 }

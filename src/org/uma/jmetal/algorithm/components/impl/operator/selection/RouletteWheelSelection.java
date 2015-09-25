@@ -109,7 +109,7 @@ public class RouletteWheelSelection<S extends Solution<?>>
 
     @Override
     public String toString() {
-        return "Roulette Wheel Selection";
+        return "RouletteWheelSelection{" + "ranking=" + ranking + '}';
     }
 
 }

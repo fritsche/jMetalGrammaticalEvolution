@@ -13,13 +13,11 @@ import org.uma.jmetal.algorithm.components.impl.initialization.RandomInitializat
 import org.uma.jmetal.algorithm.components.impl.replacement.OutputReplacementProxy;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.algorithm.impl.GeneratedDynamicGeneticAlgorithm;
-import org.uma.jmetal.algorithm.components.factory.ArchivingImplementationFactory;
 import org.uma.jmetal.algorithm.components.factory.CrossoverOperatorFactory;
 import org.uma.jmetal.algorithm.components.factory.SelectionOperatorFactory;
 import org.uma.jmetal.measure.HypervolumeCalculator;
 import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationTwoPointsCrossover;
 import org.uma.jmetal.operator.impl.mutation.PermutationSwapMutation;
-import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.problem.multiobjective.MultiobjectiveTSP;
 import org.uma.jmetal.solution.PermutationSolution;
 import org.uma.jmetal.util.front.imp.ArrayFront;
@@ -37,7 +35,7 @@ public class Experiment4 {
 
             DynamicNSGAII nsgaii = builder.build();
             nsgaii.setReplacementImplementation(new OutputReplacementProxy(nsgaii.getReplacementImplementation(), "experiment/NSGAII/"));
-            nsgaii.setPopulationInitializationImplementation(new FixedInitialization(initialPopulation));
+            nsgaii.setInitializationImplementation(new FixedInitialization(initialPopulation));
             nsgaii.run();
 
             GeneratedDynamicGeneticAlgorithmBuilder gaBuilder = new GeneratedDynamicGeneticAlgorithmBuilder();
@@ -48,14 +46,14 @@ public class Experiment4 {
                     .setSelectionOperator(SelectionOperatorFactory.K_TOURNAMENT)
                     .setTournamentSize(8)
                     .setCrossoverOperator(CrossoverOperatorFactory.TWO_POINTS)
-                    .setCrossoverProbability(0.95)
+                    .setCrossoverProbability(0.95);
                     //                    .setMutationOperator(MutationOperatorFactory.INSERT)
-                    //                    .setMutationProbability(1)
-                    .setArchivingImplementation(ArchivingImplementationFactory.ADAPTIVE_GRID)
-                    .setArchivingSize(100);
+            //                    .setMutationProbability(1)
+//                    .setArchivingImplementation(ArchivingImplementationFactory.ADAPTIVE_GRID)
+//                    .setArchivingSize(100);
             GeneratedDynamicGeneticAlgorithm ga = gaBuilder.buildAlgorithm();
             ga.setArchivingImplementation(new OutputArchivingProxy(ga.getArchivingImplementation(), "experiment/GA/"));
-            ga.setPopulationInitializationImplementation(new FixedInitialization(initialPopulation));
+            ga.setInitializationImplementation(new FixedInitialization(initialPopulation));
             ga.run();
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();

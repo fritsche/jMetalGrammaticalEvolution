@@ -39,5 +39,10 @@ public class RawFitness<S extends Solution<?>> extends Ranking<S, Integer> {
 
         return rankings;
     }
+    
+    @Override
+    public String toString() {
+        return "RawFitness";
+    }
 
 }

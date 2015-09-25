@@ -38,9 +38,9 @@ public class Experiment2 {
                     .setSelectionOperator(SelectionOperatorFactory.K_TOURNAMENT)
                     .setTournamentSize(10)
                     .setCrossoverOperator(CrossoverOperatorFactory.TWO_POINTS)
-                    .setCrossoverProbability(1.0)
-                    .setArchivingImplementation(ArchivingImplementationFactory.SPEA2)
-                    .setArchivingSize(100);
+                    .setCrossoverProbability(1.0);
+//                    .setArchivingImplementation(ArchivingImplementationFactory.SPEA2)
+//                    .setArchivingSize(100);
             for (int execution = 0; execution < 30; execution++) {
                 System.out.println("Running Custom GA -- Execution " + execution);
                 GeneratedDynamicGeneticAlgorithm ga = gaBuilder.buildAlgorithm();

@@ -33,5 +33,10 @@ public class GenerationalOneChildrenReproduction<S extends Solution<?>> implemen
         }
         return offspringPopulation;
     }
+    
+    @Override
+    public String toString() {
+        return "Generational 1C";
+    }
 
 }

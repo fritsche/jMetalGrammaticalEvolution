@@ -11,5 +11,10 @@ public class OnlyPopulationSelection<S extends Solution<?>> implements Selection
     public List<S> selection(List<S> population, List<S> archivePopulation, SelectionOperator<List<S>, List<S>> selectionOperator) {
         return selectionOperator.execute(population);
     }
+    
+    @Override
+    public String toString() {
+        return "Population";
+    }
 
 }

@@ -45,4 +45,9 @@ public class RankingAndDiversityReplacement<S extends Solution<?>> implements Re
         return selection.execute(union);
     }
 
+    @Override
+    public String toString() {
+        return "RankingAndDiversityReplacement{" + "ranking=" + ranking + ", diversity=" + diversity + '}';
+    }
+
 }

@@ -27,7 +27,7 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
     // These objects will dictate how the algorithm should behave.
     protected ProgressImplementation progressImplementation;
     protected StoppingConditionImplementation stoppingConditionImplementation;
-    protected InitializationImplementation<S> populationInitializationImplementation;
+    protected InitializationImplementation<S> initializationImplementation;
     protected SolutionListEvaluator<S> solutionListEvaluator;
     protected SelectionImplementation<S> selectionImplementation;
     protected ReproductionImplementation<S> reproductionImplementation;
@@ -52,7 +52,7 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
         this.populationSize = populationSize;
         this.progressImplementation = progressImplementation;
         this.stoppingConditionImplementation = stoppingConditionImplementation;
-        this.populationInitializationImplementation = populationInitializationImplementation;
+        this.initializationImplementation = populationInitializationImplementation;
         this.solutionListEvaluator = solutionListEvaluator;
         this.selectionImplementation = selectionImplementation;
         this.reproductionImplementation = reproductionImplementation;
@@ -96,12 +96,12 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
         this.stoppingConditionImplementation = stoppingConditionImplementation;
     }
 
-    public InitializationImplementation<S> getPopulationInitializationImplementation() {
-        return populationInitializationImplementation;
+    public InitializationImplementation<S> getInitializationImplementation() {
+        return initializationImplementation;
     }
 
-    public void setPopulationInitializationImplementation(InitializationImplementation<S> populationInitializationImplementation) {
-        this.populationInitializationImplementation = populationInitializationImplementation;
+    public void setInitializationImplementation(InitializationImplementation<S> initializationImplementation) {
+        this.initializationImplementation = initializationImplementation;
     }
 
     public SolutionListEvaluator<S> getSolutionListEvaluator() {
@@ -207,7 +207,7 @@ public abstract class AbstractDynamicGeneticAlgorithm<S extends Solution<?>> ext
     // <editor-fold defaultstate="collapsed" desc="Population Initialization">
     @Override
     protected List<S> createInitialPopulation() {
-        return populationInitializationImplementation.createInitialPopulation(problem, populationSize);
+        return initializationImplementation.createInitialPopulation(problem, populationSize);
     }
     //</editor-fold>
 

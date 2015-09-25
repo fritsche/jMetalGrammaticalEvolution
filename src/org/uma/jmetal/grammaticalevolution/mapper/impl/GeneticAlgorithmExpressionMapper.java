@@ -176,7 +176,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("js");
         String expression = elitismSize.replaceAll("N", String.valueOf(getPopulationSize()) + ".0");
-        double size = (double) engine.eval(expression);
+        double size = Double.valueOf(engine.eval(expression).toString());
         builder.setElitismSize((int) size);
     }
 
@@ -202,7 +202,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("js");
         String expression = name.replaceAll("N", String.valueOf(getPopulationSize()) + ".0");
-        double archiveSize = (double) engine.eval(expression);
+        double archiveSize = Double.valueOf(engine.eval(expression).toString());
         builder.setArchiveSize((int) archiveSize);
     }
 

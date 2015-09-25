@@ -24,5 +24,10 @@ public class HypervolumeContribution<S extends Solution<?>> extends Diversity<S,
             this.setAttribute(solution, hypervolume.getAttribute(solution) * -1);
         }
     }
+    
+    @Override
+    public String toString() {
+        return "HV Contribution";
+    }
 
 }

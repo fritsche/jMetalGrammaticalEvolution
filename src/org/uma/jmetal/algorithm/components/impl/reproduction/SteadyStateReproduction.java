@@ -33,5 +33,10 @@ public class SteadyStateReproduction<S extends Solution<?>> implements Reproduct
 
         return offspringPopulation;
     }
+    
+    @Override
+    public String toString() {
+        return "SteadyState";
+    }
 
 }

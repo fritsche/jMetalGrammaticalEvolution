@@ -47,11 +47,17 @@ public class ParallelDiversifiedInitialization<S extends PermutationSolution<Int
         if (initialPopulation.size() > populationSize) {
             return initialPopulation.subList(0, populationSize);
         } else if (initialPopulation.size() < populationSize) {
-            for (int i = 0; i < populationSize - initialPopulation.size(); i++) {
+            int actualSize = initialPopulation.size();
+            for (int i = 0; i < populationSize - actualSize; i++) {
                 initialPopulation.add(problem.createSolution());
             }
         }
 
         return initialPopulation;
+    }
+
+    @Override
+    public String toString() {
+        return "ParallelDiversified";
     }
 }

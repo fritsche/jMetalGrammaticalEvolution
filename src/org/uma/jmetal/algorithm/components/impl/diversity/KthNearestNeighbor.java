@@ -36,5 +36,10 @@ public class KthNearestNeighbor<S extends Solution<?>> extends Diversity<S, Doub
 
         return distances;
     }
+    
+    @Override
+    public String toString() {
+        return "KthNearestNeighbor";
+    }
 
 }

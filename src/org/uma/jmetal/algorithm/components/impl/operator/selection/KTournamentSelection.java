@@ -76,4 +76,9 @@ public class KTournamentSelection<S extends Solution<?>> implements SelectionOpe
         return selectedSolutions;
     }
 
+    @Override
+    public String toString() {
+        return "KTournamentSelection{" + "numberOfTournaments=" + numberOfTournaments + ", ranking=" + ranking + ", diversity=" + diversity + '}';
+    }
+
 }

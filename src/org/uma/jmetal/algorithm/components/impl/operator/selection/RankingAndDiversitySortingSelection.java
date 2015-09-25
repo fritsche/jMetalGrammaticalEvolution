@@ -67,10 +67,15 @@ public class RankingAndDiversitySortingSelection<S extends Solution<?>>
 
         List<S> selectedSolutions = new ArrayList<>();
         for (int i = 0; i < solutionsToSelect; i++) {
-            selectedSolutions.add(source.get(i));
+            selectedSolutions.add(source.get(i % source.size()));
         }
 
         return selectedSolutions;
+    }
+
+    @Override
+    public String toString() {
+        return "RankingAndDiversitySortingSelection{" + "ranking=" + ranking + ", diversity=" + diversity + '}';
     }
 
 }

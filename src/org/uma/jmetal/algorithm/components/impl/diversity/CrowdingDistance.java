@@ -24,5 +24,10 @@ public class CrowdingDistance<S extends Solution<?>> extends Diversity<S, Double
             this.setAttribute(solution, crowdingDistance.getAttribute(solution) * -1);
         }
     }
+    
+    @Override
+    public String toString() {
+        return "CrowdingDistance";
+    }
 
 }
