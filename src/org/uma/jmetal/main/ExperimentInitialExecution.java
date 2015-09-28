@@ -19,13 +19,13 @@ import org.uma.jmetal.algorithm.components.impl.operator.mutation.DuplicationMut
 import org.uma.jmetal.algorithm.components.impl.operator.mutation.IntegerMutation;
 import org.uma.jmetal.operator.impl.mutation.PermutationSwapMutation;
 import org.uma.jmetal.algorithm.components.impl.operator.mutation.PruneMutation;
+import org.uma.jmetal.experiment.impl.AlgorithmRunner;
 import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.impl.GAGenerationProblem;
 import org.uma.jmetal.problem.multiobjective.MultiobjectiveTSP;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
-import org.uma.jmetal.util.fileoutput.SolutionSetOutput;
 
 public class ExperimentInitialExecution {
 
@@ -43,47 +43,47 @@ public class ExperimentInitialExecution {
 
             ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[0]));
 
-            List<GAGenerationGrammaticalEvolution> algorithms = new ArrayList<>();
-            for (int execution = 0; execution < 30; execution++) {
+            List<AlgorithmRunner<VariableIntegerSolution>> algorithms = new ArrayList<>();
+            for (int execution = 0; execution < 10; execution++) {
                 GAGenerationGrammaticalEvolution geAlgorithm
                         = new GAGenerationGrammaticalEvolution(
                                 geProblem,
-                                60000,
+                                10000,
                                 100,
                                 new SinglePointCrossoverVariableLength(0.9),
                                 new IntegerMutation(0.01),
                                 new BinaryTournamentSelection(),
-                                new PruneMutation(0.01, 5),
+                                new PruneMutation(0.01, 10),
                                 new DuplicationMutation(0.01),
                                 new SequentialSolutionListEvaluator<>());
-                algorithms.add(geAlgorithm);
-                threadPool.submit(geAlgorithm);
+                AlgorithmRunner<VariableIntegerSolution> runner = new AlgorithmRunner<>(geAlgorithm, "experiment", String.valueOf(execution));
+                algorithms.add(runner);
+                threadPool.submit(runner);
             }
-
-            threadPool.shutdown();
-            threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 
             DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
             builder.setMaxEvaluations(2000).setPopulationSize(100);
             DynamicNSGAII nsgaii = builder.build();
-            nsgaii.run();
+            AlgorithmRunner<List<Solution<?>>> nsgaiiRunner = new AlgorithmRunner<>(nsgaii, "experiment", "NSGA-II");
+
+            threadPool.submit(nsgaiiRunner);
+            threadPool.shutdown();
+            threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 
             HypervolumeCalculator calculator = new HypervolumeCalculator();
             for (int execution = 0; execution < algorithms.size(); execution++) {
                 VariableIntegerSolution solution = algorithms.get(execution).getResult();
-                calculator.addParetoFront((List<? extends Solution<?>>) solution.getAttribute("Result"));
+                calculator.addParetoFront((List<Solution<?>>) solution.getAttribute("Result"));
             }
-            calculator.addParetoFront(nsgaii.getResult());
-
-            SolutionSetOutput.printObjectivesToFile(nsgaii.getResult(), "experiment/NSGAII_FUN.txt");
+            calculator.addParetoFront(nsgaiiRunner.getResult());
 
             for (int execution = 0; execution < algorithms.size(); execution++) {
                 VariableIntegerSolution solution = algorithms.get(execution).getResult();
                 List<? extends Solution<?>> result = (List<? extends Solution<?>>) solution.getAttribute("Result");
-                SolutionSetOutput.printObjectivesToFile(result, "experiment/alg" + execution + "_FUN.txt");
-                try (FileWriter writer = new FileWriter("experiment/alg" + execution + "_DESC.txt")) {
+                try (FileWriter writer = new FileWriter("experiment/DESC_" + execution + ".txt")) {
                     writer.append("Hypervolume: " + calculator.calculateHypervolume(result) + "\n");
                     writer.append(solution.getAttribute("Algorithm").toString());
+                    writer.append("\n");
                 }
             }
             try (FileWriter writer = new FileWriter("experiment/NSGAII_DESC.txt")) {
