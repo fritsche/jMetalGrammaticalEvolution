@@ -102,7 +102,7 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
                 .append("\n")
                 .append("\tReplacement: ").append(getReplacementImplementation().toString())
                 .append("\n")
-                .append("\tArchiver: ").append(getArchivingImplementation().toString())
+                .append(archivingImplementation != null ? "\tArchiver: " +getArchivingImplementation().toString() : "")
                 .append("\n");
         return builder.toString();
     }

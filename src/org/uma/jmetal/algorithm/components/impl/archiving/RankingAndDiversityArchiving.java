@@ -64,7 +64,7 @@ public class RankingAndDiversityArchiving<S extends Solution<?>> implements Arch
 
     @Override
     public String toString() {
-        return "RankingAndDiversityArchiving{" + "ranking=" + ranking + ", diversity=" + diversity + '}';
+        return "RankingAndDiversityArchiving{" + "ranking=" + ranking + ", diversity=" + diversity + ", size = " + archiveSize + "}";
     }
 
 }
