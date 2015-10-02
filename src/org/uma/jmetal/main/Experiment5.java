@@ -43,9 +43,9 @@ public class Experiment5 {
 
                 for (int i = 0; i < executions; i++) {
                     DynamicNSGAII nsgaii = builder.build();
-                    new File(outputDir + "/NSGAII/EXECUTION_" + i).mkdirs();
-                    nsgaii.setReplacementImplementation(new OutputReplacementProxy(nsgaii.getReplacementImplementation(), outputDir + "/NSGAII/EXECUTION_" + i));
-                    AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(nsgaii, outputDir + "/NSGAII/EXECUTION_" + i, String.valueOf(i));
+                    new File(outputDir + "/" + problem + "/NSGAII/EXECUTION_" + i).mkdirs();
+                    nsgaii.setReplacementImplementation(new OutputReplacementProxy(nsgaii.getReplacementImplementation(), outputDir + "/" + problem + "/NSGAII/EXECUTION_" + i));
+                    AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(nsgaii, outputDir + "/" + problem + "/NSGAII/EXECUTION_" + i, String.valueOf(i));
                     threadPool.submit(runner);
                 }
 
@@ -73,19 +73,19 @@ public class Experiment5 {
                     //print solutions
                     {
                         AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
-                        new File(outputDir + "/ALG_" + split[1].charAt(0)).mkdirs();
-                        try (FileWriter writer = new FileWriter(outputDir + "/ALG_" + split[1].charAt(0) + "/COMPONENTS.txt")) {
+                        new File(outputDir + "/" + problem + "/ALG_" + split[1].charAt(0)).mkdirs();
+                        try (FileWriter writer = new FileWriter(outputDir + "/" + problem + "/ALG_" + split[1].charAt(0) + "/COMPONENTS.txt")) {
                             writer.write(algorithm.toString());
                         }
                     }
 
                     for (int i = 0; i < executions; i++) {
                         AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
-                        algorithm.setArchivingImplementation(new OutputArchivingProxy(algorithm.getArchivingImplementation(), outputDir + "/ALG_" + split[1].charAt(0) + "/EXECUTION_" + i));
+                        algorithm.setArchivingImplementation(new OutputArchivingProxy(algorithm.getArchivingImplementation(), outputDir + "/" + problem + "/ALG_" + split[1].charAt(0) + "/EXECUTION_" + i));
                         algorithm.setProblem(tsp);
                         algorithm.getStoppingConditionImplementation().setStoppingCondition(60000);
-                        new File(outputDir + "/ALG_" + split[1].charAt(0) + "/EXECUTION_" + i).mkdirs();
-                        AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(algorithm, outputDir + "/ALG_" + split[1].charAt(0) + "/EXECUTION_" + i, String.valueOf(i));
+                        new File(outputDir + "/" + problem + "/ALG_" + split[1].charAt(0) + "/EXECUTION_" + i).mkdirs();
+                        AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(algorithm, outputDir + "/" + problem + "/ALG_" + split[1].charAt(0) + "/EXECUTION_" + i, String.valueOf(i));
                         threadPool.submit(runner);
                     }
                 }

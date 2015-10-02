@@ -19,12 +19,12 @@ import java.util.Scanner;
  */
 public class KruskalWallisTest {
 
-    public static HashMap<String, HashMap<String, Boolean>> test(HashMap<String, double[]> values) throws IOException, InterruptedException {
+    public static HashMap<String, HashMap<String, Boolean>> test(HashMap<String, Double[]> values) throws IOException, InterruptedException {
         String script = "require(pgirmess)\n";
         script += "ARRAY <- c(";
         int size = 0;
-        for (Map.Entry<String, double[]> entrySet : values.entrySet()) {
-            double[] keyValues = entrySet.getValue();
+        for (Map.Entry<String, Double[]> entrySet : values.entrySet()) {
+            Double[] keyValues = entrySet.getValue();
             size = keyValues.length;
 
             for (Double value : keyValues) {
@@ -35,7 +35,7 @@ public class KruskalWallisTest {
         script += "\n";
 
         script += "categs<-as.factor(rep(c(";
-        for (Map.Entry<String, double[]> entrySet : values.entrySet()) {
+        for (Map.Entry<String, Double[]> entrySet : values.entrySet()) {
             String key = entrySet.getKey();
             script += "\"" + key.replaceAll("\\\\", "\\\\\\\\") + "\",";
         }
@@ -62,7 +62,7 @@ public class KruskalWallisTest {
         Process process = processBuilder.start();
         process.waitFor();
 
-        ArrayList<Map.Entry<String, double[]>> entrySets = new ArrayList<>(values.entrySet());
+        ArrayList<Map.Entry<String, Double[]>> entrySets = new ArrayList<>(values.entrySet());
 
         HashMap<String, HashMap<String, Boolean>> result = new HashMap<>();
 
