@@ -31,40 +31,44 @@ public class ExperimentInitialExecution {
 
     public static void main(String[] args) throws InterruptedException {
         try {
+            String outputDirectory = args[0];
+            int trainingSize = Integer.parseInt(args[1]);
+            int geMaxEvaluations = Integer.parseInt(args[2]);
             MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
             GAGenerationProblem geProblem
                     = new GAGenerationProblem(
-                            4000,
+                            trainingSize,
                             tsp,
                             5,
                             10,
                             20,
                             "grammar.bnf");
 
-            ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[0]));
+            ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[3]));
 
             List<AlgorithmRunner<VariableIntegerSolution>> algorithms = new ArrayList<>();
             for (int execution = 0; execution < 10; execution++) {
                 GAGenerationGrammaticalEvolution geAlgorithm
                         = new GAGenerationGrammaticalEvolution(
                                 geProblem,
-                                5000,
+                                geMaxEvaluations,
                                 100,
                                 new SinglePointCrossoverVariableLength(0.9),
                                 new IntegerMutation(0.01),
                                 new BinaryTournamentSelection(),
                                 new PruneMutation(0.01, 10),
                                 new DuplicationMutation(0.01),
-                                new SequentialSolutionListEvaluator<>());
-                AlgorithmRunner<VariableIntegerSolution> runner = new AlgorithmRunner<>(geAlgorithm, "experiment", String.valueOf(execution));
+                                new SequentialSolutionListEvaluator<>(),
+                                outputDirectory + "/GE_" + execution + ".txt");
+                AlgorithmRunner<VariableIntegerSolution> runner = new AlgorithmRunner<>(geAlgorithm, outputDirectory, String.valueOf(execution));
                 algorithms.add(runner);
                 threadPool.submit(runner);
             }
 
             DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
-            builder.setMaxEvaluations(2000).setPopulationSize(100);
+            builder.setMaxEvaluations(trainingSize).setPopulationSize(100);
             DynamicNSGAII nsgaii = builder.build();
-            AlgorithmRunner<List<Solution<?>>> nsgaiiRunner = new AlgorithmRunner<>(nsgaii, "experiment", "NSGA-II");
+            AlgorithmRunner<List<Solution<?>>> nsgaiiRunner = new AlgorithmRunner<>(nsgaii, outputDirectory, "NSGA-II");
 
             threadPool.submit(nsgaiiRunner);
             threadPool.shutdown();
@@ -80,13 +84,13 @@ public class ExperimentInitialExecution {
             for (int execution = 0; execution < algorithms.size(); execution++) {
                 VariableIntegerSolution solution = algorithms.get(execution).getResult();
                 List<? extends Solution<?>> result = (List<? extends Solution<?>>) solution.getAttribute("Result");
-                try (FileWriter writer = new FileWriter("experiment/DESC_" + execution + ".txt")) {
+                try (FileWriter writer = new FileWriter(outputDirectory + "/DESC_" + execution + ".txt")) {
                     writer.append("Hypervolume: " + calculator.calculateHypervolume(result) + "\n");
                     writer.append(solution.getAttribute("Algorithm").toString());
                     writer.append("\n");
                 }
             }
-            try (FileWriter writer = new FileWriter("experiment/NSGAII_DESC.txt")) {
+            try (FileWriter writer = new FileWriter(outputDirectory + "/NSGAII_DESC.txt")) {
                 writer.append("Hypervolume: " + calculator.calculateHypervolume(nsgaii.getResult()) + "\n");
             }
         } catch (IOException ex) {

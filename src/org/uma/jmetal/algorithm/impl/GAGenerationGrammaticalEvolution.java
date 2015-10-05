@@ -1,7 +1,12 @@
 package org.uma.jmetal.algorithm.impl;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
@@ -14,10 +19,14 @@ import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 public class GAGenerationGrammaticalEvolution extends GrammaticalEvolutionAlgorithm {
 
     private final GAGenerationProblem problem;
+    private final String outputFile;
 
-    public GAGenerationGrammaticalEvolution(GAGenerationProblem problem, int maxEvaluations, int populationSize, CrossoverOperator<VariableIntegerSolution> crossoverOperator, MutationOperator<VariableIntegerSolution> mutationOperator, SelectionOperator<List<VariableIntegerSolution>, VariableIntegerSolution> selectionOperator, PruneMutation pruneMutationOperator, DuplicationMutation duplicationMutationOperator, SolutionListEvaluator<VariableIntegerSolution> evaluator) {
+    public GAGenerationGrammaticalEvolution(GAGenerationProblem problem, int maxEvaluations, int populationSize, CrossoverOperator<VariableIntegerSolution> crossoverOperator, MutationOperator<VariableIntegerSolution> mutationOperator, SelectionOperator<List<VariableIntegerSolution>, VariableIntegerSolution> selectionOperator, PruneMutation pruneMutationOperator, DuplicationMutation duplicationMutationOperator, SolutionListEvaluator<VariableIntegerSolution> evaluator, String outputFile) {
         super(problem, maxEvaluations, populationSize, crossoverOperator, mutationOperator, selectionOperator, pruneMutationOperator, duplicationMutationOperator, evaluator);
         this.problem = problem;
+        this.outputFile = outputFile;
+
+        new File(outputFile).getParentFile().mkdirs();
     }
 
     @Override
@@ -31,20 +40,40 @@ public class GAGenerationGrammaticalEvolution extends GrammaticalEvolutionAlgori
         evaluatePopulation(getPopulation());
         //Calculate the Hypervolume (fitness)
         problem.evaluateAll(getPopulation(), Collections.emptyList());
-        
+
         initProgress();
         while (!isStoppingConditionReached()) {
             matingPopulation = selection(getPopulation());
             offspringPopulation = reproduction(matingPopulation);
-            
+
             //Execute the algorithm
             evaluatePopulation(offspringPopulation);
             //Calculate the Hypervolume (fitness)
             problem.evaluateAll(getPopulation(), offspringPopulation);
-            
+
             setPopulation(replacement(getPopulation(), offspringPopulation));
             updateProgress();
         }
+    }
+
+    @Override
+    public void updateProgress() {
+        try (FileWriter writer = new FileWriter(outputFile, true)) {
+            writer.write(getResult().getAttribute("FoundIn") + "\n");
+        } catch (IOException ex) {
+            Logger.getLogger(GAGenerationGrammaticalEvolution.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        super.updateProgress(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void initProgress() {
+        try (FileWriter writer = new FileWriter(outputFile, false)) {
+            writer.write(getResult().getAttribute("FoundIn") + "\n");
+        } catch (IOException ex) {
+            Logger.getLogger(GAGenerationGrammaticalEvolution.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        super.initProgress(); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

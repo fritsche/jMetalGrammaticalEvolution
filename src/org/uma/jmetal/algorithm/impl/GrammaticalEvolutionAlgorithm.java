@@ -72,6 +72,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
         for (int i = 0; i < populationSize; i++) {
             VariableIntegerSolution newIndividual = problem.createSolution();
             population.add(newIndividual);
+            newIndividual.setAttribute("FoundIn", 0);
         }
         return population;
     }
@@ -81,7 +82,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
         List<VariableIntegerSolution> jointPopulation = new ArrayList<>();
         jointPopulation.addAll(population);
         jointPopulation.addAll(offspringPopulation);
-        Collections.sort(population, comparator);
+        Collections.sort(jointPopulation, comparator);
 
         return jointPopulation.subList(0, populationSize);
     }
@@ -95,16 +96,23 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
             parents.add(matingPopulation.get(i + 1));
 
             List<VariableIntegerSolution> offspring = crossoverOperator.execute(parents);
-            mutationOperator.execute(offspring.get(0));
-            mutationOperator.execute(offspring.get(1));
 
-            pruneMutationOperator.execute(offspring.get(0));
-            pruneMutationOperator.execute(offspring.get(1));
-            duplicationMutationOperator.execute(offspring.get(0));
-            duplicationMutationOperator.execute(offspring.get(1));
+            final VariableIntegerSolution offspring1 = offspring.get(0);
+            final VariableIntegerSolution offspring2 = offspring.get(1);
 
-            offspringPopulation.add(offspring.get(0));
-            offspringPopulation.add(offspring.get(1));
+            mutationOperator.execute(offspring1);
+            mutationOperator.execute(offspring2);
+
+            pruneMutationOperator.execute(offspring1);
+            pruneMutationOperator.execute(offspring2);
+            duplicationMutationOperator.execute(offspring1);
+            duplicationMutationOperator.execute(offspring2);
+
+            offspringPopulation.add(offspring1);
+            offspringPopulation.add(offspring2);
+
+            offspring1.setAttribute("FoundIn", (evaluations / populationSize) + 1);
+            offspring2.setAttribute("FoundIn", (evaluations / populationSize) + 1);
         }
         return offspringPopulation;
     }
