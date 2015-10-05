@@ -26,9 +26,8 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.JMetalException;
 
 import java.util.List;
+import java.util.Random;
 import org.uma.jmetal.algorithm.components.Ranking;
-import org.uma.jmetal.util.SolutionListUtils;
-import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 
 /**
  * This class implements a selection for selecting a number of solutions from a solution list. The solutions are taken by mean of its ranking and crowding distance values.
@@ -36,13 +35,13 @@ import org.uma.jmetal.util.pseudorandom.JMetalRandom;
 public class RouletteWheelSelection<S extends Solution<?>>
         implements SelectionOperator<List<S>, List<S>> {
 
-    private final JMetalRandom randomGenerator;
+    private final Random randomGenerator;
 
     private Ranking<S, Integer> ranking;
     private int solutionsToSelect;
 
     public RouletteWheelSelection(int solutionsToSelect, Ranking<S, Integer> ranking) {
-        this.randomGenerator = JMetalRandom.getInstance();
+        this.randomGenerator = new Random();
         this.ranking = ranking;
         this.solutionsToSelect = solutionsToSelect;
     }
@@ -73,15 +72,10 @@ public class RouletteWheelSelection<S extends Solution<?>>
 
         if (ranking == null) {
             List<S> selected = new ArrayList<>();
-            do {
-                int remainingToSelect = solutionsToSelect - selected.size();
-
-                if (remainingToSelect >= solutionList.size()) {
-                    selected.addAll(solutionList);
-                } else {
-                    selected.addAll(SolutionListUtils.selectNRandomDifferentSolutions(remainingToSelect, solutionList));
-                }
-            } while (selected.size() < solutionsToSelect);
+            for (int i = 0; i < solutionsToSelect; i++) {
+                int index = randomGenerator.nextInt(solutionList.size());
+                selected.add(solutionList.get(index));
+            }
             return selected;
         }
 
@@ -122,4 +116,23 @@ public class RouletteWheelSelection<S extends Solution<?>>
         return "RouletteWheelSelection{" + "ranking=" + ranking + '}';
     }
 
+//    public static void main(String[] args) throws IOException {
+//        JMetalRandom random = JMetalRandom.getInstance();
+//        MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
+//        int count = 0;
+//        while (true) {
+//            int randPopulationSize = random.nextInt(1, 500);
+//            List<PermutationSolution<Integer>> solutions = new ArrayList();
+//            for (int i = 0; i < randPopulationSize; i++) {
+//                PermutationSolution<Integer> solution = tsp.createSolution();
+//                solutions.add(solution);
+//                tsp.evaluate(solution);
+//            }
+//
+//            int solutionsToSelect = random.nextInt(1, 500);
+//            RouletteWheelSelection selection = new RouletteWheelSelection(solutionsToSelect, new DominanceStrength());
+//            selection.execute(solutions);
+//            System.out.println(++count);
+//        }
+//    }
 }

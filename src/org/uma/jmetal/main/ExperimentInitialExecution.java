@@ -34,7 +34,7 @@ public class ExperimentInitialExecution {
             MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
             GAGenerationProblem geProblem
                     = new GAGenerationProblem(
-                            2000,
+                            4000,
                             tsp,
                             5,
                             10,
@@ -48,7 +48,7 @@ public class ExperimentInitialExecution {
                 GAGenerationGrammaticalEvolution geAlgorithm
                         = new GAGenerationGrammaticalEvolution(
                                 geProblem,
-                                10000,
+                                5000,
                                 100,
                                 new SinglePointCrossoverVariableLength(0.9),
                                 new IntegerMutation(0.01),

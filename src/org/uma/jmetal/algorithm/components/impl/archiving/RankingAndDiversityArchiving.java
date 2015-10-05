@@ -1,13 +1,13 @@
 package org.uma.jmetal.algorithm.components.impl.archiving;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.uma.jmetal.algorithm.components.ArchivingImplementation;
 import org.uma.jmetal.algorithm.components.Diversity;
 import org.uma.jmetal.algorithm.components.Ranking;
 import org.uma.jmetal.comparator.impl.RankingAndDiversityComparator;
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.SolutionListUtils;
 
 public class RankingAndDiversityArchiving<S extends Solution<?>> implements ArchivingImplementation<S> {
 
@@ -38,23 +38,26 @@ public class RankingAndDiversityArchiving<S extends Solution<?>> implements Arch
             diversity.computeDiversity(allSolutions);
         }
 
-        Collections.sort(allSolutions, comparator);
-
+        allSolutions.sort(comparator);
         solutions.clear();
 
-        int count = 0;
-        if (allSolutions.size() <= archiveSize) {
-            solutions.addAll(allSolutions);
-            count = solutions.size();
-        } else {
-            for (int i = 0; i < archiveSize; i++) {
-                solutions.add(allSolutions.get(i));
-                if (population.contains(allSolutions.get(i))) {
-                    count++;
-                }
+        List<S> nondominatedSolutions = SolutionListUtils.getNondominatedSolutions(allSolutions);
+        solutions.addAll(nondominatedSolutions);
+
+        int remaining = archiveSize - solutions.size();
+        if (remaining > 0) {
+            allSolutions.removeAll(nondominatedSolutions);
+            for (int i = 0; i < remaining && !allSolutions.isEmpty(); i++) {
+                solutions.add(allSolutions.get(0));
+                allSolutions.remove(0);
+            }
+        } else if (remaining < 0) {
+            solutions.sort(comparator);
+            for (int i = 0; i > remaining; i--) {
+                solutions.remove(solutions.size() - 1);
             }
         }
-        return count;
+        return (int) (solutions.size() - population.stream().filter(solution -> solutions.contains(solution)).count());
     }
 
     @Override

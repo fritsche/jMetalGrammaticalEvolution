@@ -5,7 +5,7 @@ import java.util.List;
 import org.uma.jmetal.algorithm.components.Diversity;
 import org.uma.jmetal.algorithm.components.Ranking;
 import org.uma.jmetal.algorithm.components.ReplacementImplementation;
-import org.uma.jmetal.algorithm.components.impl.operator.selection.RankingAndDiversitySortingSelection;
+import org.uma.jmetal.algorithm.components.impl.archiving.RankingAndDiversityArchiving;
 import org.uma.jmetal.solution.Solution;
 
 public class RankingAndDiversityReplacement<S extends Solution<?>> implements ReplacementImplementation<S> {
@@ -36,13 +36,14 @@ public class RankingAndDiversityReplacement<S extends Solution<?>> implements Re
 
     @Override
     public List<S> replacement(List<S> population, List<S> offspringPopulation, int populationSize) {
-        RankingAndDiversitySortingSelection<S> selection = new RankingAndDiversitySortingSelection(populationSize, ranking, diversity);
+        RankingAndDiversityArchiving<S> archive = new RankingAndDiversityArchiving(populationSize, ranking, diversity);
 
         ArrayList<S> union = new ArrayList<>();
         union.addAll(population);
         union.addAll(offspringPopulation);
+        archive.updateArchive(union);
 
-        return selection.execute(union);
+        return archive.getArchive();
     }
 
     @Override
