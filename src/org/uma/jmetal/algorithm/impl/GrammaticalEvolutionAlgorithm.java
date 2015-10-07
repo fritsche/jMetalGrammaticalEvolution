@@ -72,7 +72,7 @@ public class GrammaticalEvolutionAlgorithm extends AbstractGrammaticalEvolutionA
         for (int i = 0; i < populationSize; i++) {
             VariableIntegerSolution newIndividual = problem.createSolution();
             population.add(newIndividual);
-            newIndividual.setAttribute("FoundIn", 0);
+            newIndividual.setAttribute("FoundIn", 1);
         }
         return population;
     }

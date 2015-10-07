@@ -58,22 +58,22 @@ public class GAGenerationGrammaticalEvolution extends GrammaticalEvolutionAlgori
 
     @Override
     public void updateProgress() {
-        try (FileWriter writer = new FileWriter(outputFile, true)) {
-            writer.write(getResult().getAttribute("FoundIn") + "\n");
-        } catch (IOException ex) {
-            Logger.getLogger(GAGenerationGrammaticalEvolution.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        printProgress();
         super.updateProgress(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void initProgress() {
-        try (FileWriter writer = new FileWriter(outputFile, false)) {
-            writer.write(getResult().getAttribute("FoundIn") + "\n");
+        printProgress();
+        super.initProgress(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void printProgress() {
+        try (FileWriter writer = new FileWriter(outputFile, true)) {
+            writer.write(getResult().getAttribute("FoundIn") + " - " + getResult().getVariables() + "\n");
         } catch (IOException ex) {
             Logger.getLogger(GAGenerationGrammaticalEvolution.class.getName()).log(Level.SEVERE, null, ex);
         }
-        super.initProgress(); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

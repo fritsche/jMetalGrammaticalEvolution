@@ -67,17 +67,21 @@ public class AlgorithmRunner<R> implements Runnable {
 
     @Override
     public void run() {
-        runningTime = System.nanoTime();
-        algorithm.run();
-        runningTime = System.nanoTime() - runningTime;
-        result = algorithm.getResult();
-        if (result instanceof List) {
-            printResults((List<Solution<?>>) result);
-        } else if (result instanceof Solution) {
-            Solution<?> concreteResult = (Solution<?>) result;
-            List<Solution<?>> solutionList = new ArrayList();
-            solutionList.add(concreteResult);
-            printResults(solutionList);
+        try {
+            runningTime = System.nanoTime();
+            algorithm.run();
+            runningTime = System.nanoTime() - runningTime;
+            result = algorithm.getResult();
+            if (result instanceof List) {
+                printResults((List<Solution<?>>) result);
+            } else if (result instanceof Solution) {
+                Solution<?> concreteResult = (Solution<?>) result;
+                List<Solution<?>> solutionList = new ArrayList();
+                solutionList.add(concreteResult);
+                printResults(solutionList);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AlgorithmRunner.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
