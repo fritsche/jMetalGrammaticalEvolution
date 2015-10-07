@@ -5,6 +5,7 @@ import java.util.List;
 import org.uma.jmetal.algorithm.components.Diversity;
 import org.uma.jmetal.algorithm.components.Ranking;
 import org.uma.jmetal.algorithm.components.ReplacementImplementation;
+import org.uma.jmetal.comparator.impl.RankingAndDiversityComparator;
 import org.uma.jmetal.solution.Solution;
 
 public class GenerationalReplacement<S extends Solution<?>> implements ReplacementImplementation<S> {
@@ -49,20 +50,17 @@ public class GenerationalReplacement<S extends Solution<?>> implements Replaceme
         if (elitismSize > 0) {
             if (ranking != null) {
                 ranking.computeRanking(population);
+                ranking.computeRanking(offspringPopulation);
             }
             if (diversity != null) {
                 diversity.computeDiversity(population);
+                diversity.computeDiversity(offspringPopulation);
             }
+            RankingAndDiversityComparator comparator = new RankingAndDiversityComparator(ranking, diversity);
+            population.sort(comparator);
+            offspringPopulation.sort(comparator);
         }
-        
-        if(elitismSize >= population.size()){
-            System.err.println("Isso não deveria acontecer.");
-            System.err.println("Elitismo: " + elitismSize);
-            System.err.println("Tamanho População: " + population.size());
-            System.err.println("Tamanho Offspring: " + offspringPopulation.size());
-            System.err.println("populationSize: " + populationSize);
-        }
-        
+
         for (int i = 0; i < elitismSize; i++) {
             replacedPopulation.add(population.get(i));
         }
@@ -82,7 +80,7 @@ public class GenerationalReplacement<S extends Solution<?>> implements Replaceme
 
     @Override
     public String toString() {
-        return "GenerationalReplacement{" + "elitismSize=" + elitismSize + '}';
+        return "GenerationalReplacement{" + "elitismSize=" + elitismSize + ", ranking=" + ranking + ", diversity=" + diversity + '}';
     }
 
 }

@@ -1,5 +1,6 @@
 package org.uma.jmetal.grammaticalevolution.mapper.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -42,7 +43,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
     }
 
     @Override
-    public AbstractDynamicGeneticAlgorithm<S> interpret(List<Integer> grammarInstance) {
+    public synchronized AbstractDynamicGeneticAlgorithm<S> interpret(List<Integer> grammarInstance) {
         currentIndex = 0;
         GeneratedDynamicGeneticAlgorithmBuilder<S> builder = new GeneratedDynamicGeneticAlgorithmBuilder<>();
 
@@ -242,7 +243,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         this.bisections = bisections;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         GeneticAlgorithmExpressionMapper mapper = new GeneticAlgorithmExpressionMapper(2, 5);
         mapper.loadGrammar("grammar.bnf");
         List<Integer> grammarInstance = new ArrayList<>();

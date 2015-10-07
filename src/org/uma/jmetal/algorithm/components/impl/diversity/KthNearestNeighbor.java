@@ -30,13 +30,13 @@ public class KthNearestNeighbor<S extends Solution<?>> extends Diversity<S, Doub
         double[][] distanceMatrix = SolutionListUtils.distanceMatrix(solutions);
         for (int i = 0; i < solutions.size(); i++) {
             Arrays.sort(distanceMatrix[i]);
-            double kDistance = 1.0 / (distanceMatrix[i][k] + 2.0);
+            double kDistance = 1.0 / (distanceMatrix[i][solutions.size() <= k ? solutions.size() - 1 : k] + 2.0);
             distances.add(kDistance);
         }
 
         return distances;
     }
-    
+
     @Override
     public String toString() {
         return "KthNearestNeighbor";
