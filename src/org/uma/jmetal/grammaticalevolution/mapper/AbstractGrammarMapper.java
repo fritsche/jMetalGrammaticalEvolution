@@ -61,7 +61,7 @@ public abstract class AbstractGrammarMapper<T> {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 if (!line.startsWith("#") && line.contains("::=")) {
-                    String[] lineSplit = line.split("::=");
+                    String[] lineSplit = line.split("#")[0].split("::=");
 
                     String nodeDescription = lineSplit[0].trim().replaceAll("[<>]", "");
                     if (!nodeDescription.isEmpty()) {

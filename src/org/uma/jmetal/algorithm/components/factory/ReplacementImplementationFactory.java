@@ -15,7 +15,7 @@ public class ReplacementImplementationFactory {
         if (replacement != null) {
             switch (replacement) {
                 case GENERATIONAL:
-                    return new GenerationalReplacement(elitismSize);
+                    return new GenerationalReplacement(elitismSize, ranking, diversity);
                 case RANKING:
                     return new RankingAndDiversityReplacement(ranking, diversity);
             }

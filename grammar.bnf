@@ -37,7 +37,7 @@
 
 ##### Replacement #####
 
-<replacement> ::= "Generational" <elitismSize> | "Ranking" <fitnessAssignment>
+<replacement> ::= "Generational" <elitismSize> <fitnessAssignment> | "Ranking" <fitnessAssignment>
 
 <elitismSize> ::= "0" | "N * 0.01" | "N * 0.05" | "N * 0.1" | "N * 0.5"
 

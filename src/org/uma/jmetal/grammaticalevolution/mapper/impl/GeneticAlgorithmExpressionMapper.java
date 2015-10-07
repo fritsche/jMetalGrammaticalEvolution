@@ -165,6 +165,7 @@ public class GeneticAlgorithmExpressionMapper<S extends Solution<?>> extends Abs
         builder.setReplacement(replacement);
         if (replacement.equals("Generational")) {
             interpretElitism(selectedExpression.getNodes().get(1), grammarInstance, builder);
+            interpretReplacementFitnessAssignment(selectedExpression.getNodes().get(2), grammarInstance, builder);
         } else {
             interpretReplacementFitnessAssignment(selectedExpression.getNodes().get(1), grammarInstance, builder);
         }
