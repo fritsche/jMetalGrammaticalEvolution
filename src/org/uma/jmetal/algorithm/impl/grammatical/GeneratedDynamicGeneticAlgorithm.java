@@ -1,4 +1,4 @@
-package org.uma.jmetal.algorithm.impl;
+package org.uma.jmetal.algorithm.impl.grammatical;
 
 import java.util.List;
 import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
@@ -7,6 +7,7 @@ import org.uma.jmetal.algorithm.components.InitializationImplementation;
 import org.uma.jmetal.algorithm.components.ReplacementImplementation;
 import org.uma.jmetal.algorithm.components.ReproductionImplementation;
 import org.uma.jmetal.algorithm.components.SelectionImplementation;
+import org.uma.jmetal.algorithm.components.TrackingImplementation;
 import org.uma.jmetal.algorithm.components.impl.progress.EvaluationsCountProgress;
 import org.uma.jmetal.algorithm.components.impl.stoppingcondition.MaxEvaluationsCondition;
 import org.uma.jmetal.operator.CrossoverOperator;
@@ -29,19 +30,45 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
             MutationOperator<S> mutationOperator,
             ReplacementImplementation<S> replacement,
             ArchivingImplementation<S> archiving) {
+        this(problem,
+                populationSize,
+                maxEvaluations,
+                initialization,
+                selectionSource,
+                selectionOperator,
+                reproduction,
+                crossoverOperator,
+                mutationOperator,
+                replacement,
+                archiving,
+                null);
+    }
+
+    public GeneratedDynamicGeneticAlgorithm(Problem<S> problem,
+            int populationSize,
+            int maxEvaluations,
+            InitializationImplementation<S> initialization,
+            SelectionImplementation<S> selectionSource,
+            SelectionOperator<List<S>, List<S>> selectionOperator,
+            ReproductionImplementation<S> reproduction,
+            CrossoverOperator<S> crossoverOperator,
+            MutationOperator<S> mutationOperator,
+            ReplacementImplementation<S> replacement,
+            ArchivingImplementation<S> archiving,
+            TrackingImplementation tracking) {
         super(problem,
                 populationSize,
                 new EvaluationsCountProgress(),
                 new MaxEvaluationsCondition(maxEvaluations),
                 initialization,
-                new SequentialSolutionListEvaluator<>(),
                 selectionSource,
                 reproduction,
                 replacement,
                 archiving,
                 selectionOperator,
                 crossoverOperator,
-                mutationOperator);
+                mutationOperator,
+                tracking, new SequentialSolutionListEvaluator<>());
     }
 
     @Override
@@ -58,6 +85,9 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
 
         // Update Progress
         updateProgress(getPopulation().size());
+
+        // Track Progress
+        trackProgress();
 
         // Generation Loop
         while (!isStoppingConditionReached()) {
@@ -78,6 +108,9 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
 
             // Update Progress
             updateProgress(offspringPopulation.size());
+
+            // Track Progress
+            trackProgress();
         }
     }
 
@@ -88,7 +121,7 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
                 .append("Algorithm Configuration:\n")
                 .append("\tPopulation Size: ").append(populationSize)
                 .append("\n")
-                .append("\tInitialization: ").append(getInitializationImplementation().toString())
+                .append("\tInitialization: ").append(getPopulationInitializationImplementation().toString())
                 .append("\n")
                 .append("\tSelection Operator: ").append(selectionOperator.toString())
                 .append("\n")
@@ -102,7 +135,7 @@ public class GeneratedDynamicGeneticAlgorithm<S extends Solution<?>> extends Abs
                 .append("\n")
                 .append("\tReplacement: ").append(getReplacementImplementation().toString())
                 .append("\n")
-                .append(archivingImplementation != null ? "\tArchiver: " +getArchivingImplementation().toString() : "")
+                .append(archivingImplementation != null ? "\tArchiver: " + getArchivingImplementation().toString() : "")
                 .append("\n");
         return builder.toString();
     }

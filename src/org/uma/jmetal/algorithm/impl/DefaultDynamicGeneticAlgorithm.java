@@ -18,24 +18,11 @@ import org.uma.jmetal.util.evaluator.SolutionListEvaluator;
 
 public class DefaultDynamicGeneticAlgorithm<S extends Solution<?>> extends AbstractDynamicGeneticAlgorithm<S> {
 
-    public DefaultDynamicGeneticAlgorithm(Problem<S> problem,
-            int populationSize,
-            ProgressImplementation progressImplementation,
-            StoppingConditionImplementation stoppingConditionImplementation,
-            InitializationImplementation<S> populationInitializationImplementation,
-            SolutionListEvaluator<S> solutionListEvaluator,
-            SelectionImplementation<S> selectionImplementation,
-            ReproductionImplementation<S> reproductionImplementation,
-            ReplacementImplementation<S> replacementImplementation,
-            ArchivingImplementation<S> archivingImplementation,
-            SelectionOperator<List<S>, List<S>> selectionOperator,
-            CrossoverOperator<S> crossoverOperator,
-            MutationOperator<S> mutationOperator) {
+    public DefaultDynamicGeneticAlgorithm(Problem<S> problem, int populationSize, ProgressImplementation progressImplementation, StoppingConditionImplementation stoppingConditionImplementation, InitializationImplementation<S> populationInitializationImplementation, SelectionImplementation<S> selectionImplementation, ReproductionImplementation<S> reproductionImplementation, ReplacementImplementation<S> replacementImplementation, ArchivingImplementation<S> archivingImplementation, SelectionOperator<List<S>, List<S>> selectionOperator, CrossoverOperator<S> crossoverOperator, MutationOperator<S> mutationOperator, SolutionListEvaluator<S> solutionListEvaluator) {
         super(problem, populationSize, progressImplementation,
-                stoppingConditionImplementation, populationInitializationImplementation,
-                solutionListEvaluator, selectionImplementation, reproductionImplementation,
+                stoppingConditionImplementation, populationInitializationImplementation, selectionImplementation, reproductionImplementation,
                 replacementImplementation, archivingImplementation, selectionOperator,
-                crossoverOperator, mutationOperator);
+                crossoverOperator, mutationOperator, solutionListEvaluator);
     }
 
     @Override
@@ -47,6 +34,7 @@ public class DefaultDynamicGeneticAlgorithm<S extends Solution<?>> extends Abstr
         setPopulation(evaluatePopulation(createInitialPopulation()));
         archive(getPopulation());
         updateProgress(getPopulation().size());
+        trackProgress();
         while (!isStoppingConditionReached()) {
             matingPopulation = selection(getPopulation());
             offspringPopulation = reproduction(matingPopulation);
@@ -54,6 +42,7 @@ public class DefaultDynamicGeneticAlgorithm<S extends Solution<?>> extends Abstr
             setPopulation(replacement(getPopulation(), offspringPopulation));
             archive(offspringPopulation);
             updateProgress(offspringPopulation.size());
+            trackProgress();
         }
     }
 

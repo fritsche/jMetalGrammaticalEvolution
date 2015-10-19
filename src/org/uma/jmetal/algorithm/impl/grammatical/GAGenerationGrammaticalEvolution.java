@@ -1,4 +1,4 @@
-package org.uma.jmetal.algorithm.impl;
+package org.uma.jmetal.algorithm.impl.grammatical;
 
 import java.io.File;
 import java.io.FileWriter;

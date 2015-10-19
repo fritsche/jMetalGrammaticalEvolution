@@ -10,7 +10,8 @@ import org.uma.jmetal.algorithm.components.factory.ReplacementImplementationFact
 import org.uma.jmetal.algorithm.components.factory.ReproductionImplementationFactory;
 import org.uma.jmetal.algorithm.components.factory.SelectionImplementationFactory;
 import org.uma.jmetal.algorithm.components.factory.SelectionOperatorFactory;
-import org.uma.jmetal.algorithm.impl.GeneratedDynamicGeneticAlgorithm;
+import org.uma.jmetal.algorithm.components.factory.TrackingImplementationFactory;
+import org.uma.jmetal.algorithm.impl.grammatical.GeneratedDynamicGeneticAlgorithm;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 
@@ -40,6 +41,8 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
     private int archiveSize;
     private int bisections;
     private int numberOfObjectives;
+    private String fileOutputPath;
+    private String trackingImplementation;
 
     public GeneratedDynamicGeneticAlgorithmBuilder() {
     }
@@ -164,8 +167,18 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         return this;
     }
 
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setTrackingImplementation(String trackingImplementation) {
+        this.trackingImplementation = trackingImplementation;
+        return this;
+    }
+
+    public GeneratedDynamicGeneticAlgorithmBuilder<S> setTrackingFileOutputPath(String fileOutputPath) {
+        this.fileOutputPath = fileOutputPath;
+        return this;
+    }
+
     public GeneratedDynamicGeneticAlgorithm<S> buildAlgorithm() {
-        
+
 //        System.out.println("Number of Objectives: " + numberOfObjectives);
 //        System.out.println("Bisections: " + bisections);
 //        System.out.println("Population Size: " + populationSize);
@@ -188,7 +201,6 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
 //        System.out.println("Archive Ranking: " + archiveRanking);
 //        System.out.println("Archive Diversity: " + archiveDiversity);
 //        System.out.println("Archive Size: " + archiveSize);
-        
         return new GeneratedDynamicGeneticAlgorithm(
                 problem,
                 populationSize,
@@ -206,7 +218,8 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
                         DiversityFactory.createRanking(replacementDiversity, populationSize, archiveSize, bisections, numberOfObjectives)),
                 ArchivingImplementationFactory.createArchivingImplementation(archiveSize,
                         RankingFactory.createRanking(archiveRanking),
-                        DiversityFactory.createRanking(archiveDiversity, populationSize, archiveSize, bisections, numberOfObjectives)));
+                        DiversityFactory.createRanking(archiveDiversity, populationSize, archiveSize, bisections, numberOfObjectives)),
+                TrackingImplementationFactory.createTracking(trackingImplementation, fileOutputPath));
     }
 
 }

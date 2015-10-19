@@ -1,7 +1,7 @@
 package org.uma.jmetal.algorithm.components.factory;
 
 import org.uma.jmetal.algorithm.components.ReproductionImplementation;
-import org.uma.jmetal.algorithm.components.impl.reproduction.GenerationalOneChildrenReproduction;
+import org.uma.jmetal.algorithm.components.impl.reproduction.GenerationalOneChildReproduction;
 import org.uma.jmetal.algorithm.components.impl.reproduction.GenerationalTwoChildrenReproduction;
 import org.uma.jmetal.algorithm.components.impl.reproduction.SteadyStateReproduction;
 
@@ -19,7 +19,7 @@ public class ReproductionImplementationFactory {
                 case GENERATIONAL_TWO_CHILDREN:
                     return new GenerationalTwoChildrenReproduction();
                 case GENERATIONAL_ONE_CHILD:
-                    return new GenerationalOneChildrenReproduction();
+                    return new GenerationalOneChildReproduction();
             }
         }
         return null;

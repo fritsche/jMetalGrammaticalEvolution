@@ -7,7 +7,7 @@ package org.uma.jmetal.experiment;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.uma.jmetal.algorithm.impl.GrammaticalEvolutionAlgorithm;
+import org.uma.jmetal.algorithm.impl.grammatical.GrammaticalEvolutionAlgorithm;
 import org.uma.jmetal.grammaticalevolution.mapper.impl.SymbolicExpressionGrammarMapper;
 import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;

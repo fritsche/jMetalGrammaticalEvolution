@@ -7,7 +7,7 @@ import org.uma.jmetal.operator.CrossoverOperator;
 import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.solution.Solution;
 
-public class GenerationalOneChildrenReproduction<S extends Solution<?>> implements ReproductionImplementation<S> {
+public class GenerationalOneChildReproduction<S extends Solution<?>> implements ReproductionImplementation<S> {
 
     @Override
     public List<S> reproduction(List<S> matingPopulation, int offspringSize, CrossoverOperator<S> crossoverOperator, MutationOperator<S> mutationOperator) {

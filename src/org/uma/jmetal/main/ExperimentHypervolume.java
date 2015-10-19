@@ -11,47 +11,55 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.uma.jmetal.measure.HypervolumeCalculator;
+import org.uma.jmetal.solution.DoubleSolution;
+import org.uma.jmetal.util.SolutionListUtils;
+import org.uma.jmetal.util.fileoutput.SolutionSetOutput;
+import org.uma.jmetal.util.front.imp.ArrayFront;
+import org.uma.jmetal.util.front.util.FrontUtils;
 
 public class ExperimentHypervolume {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
-        args = new String[]{"experiment/final", "60"};
-
-        int generations = Integer.parseInt(args[1]);
-        try (FileWriter tableWriter = new FileWriter(args[0] + "/TABLE.txt")) {
+        args = new String[]{"60", "experiment/final_pegasus/", "NSGAII,IBEA,SPEA2,ALG_0,ALG_1,ALG_2,ALG_3,ALG_4,ALG_5,ALG_6,ALG_7,ALG_8,ALG_9"};
+        int generations = Integer.parseInt(args[0]);
+        String[] algorithms = args[2].split(",");
+        try (FileWriter tableWriter = new FileWriter(args[1] + "/TABLE.txt")) {
             //problem instance
             String[] problems = {"kroA100.tsp", "kroA150.tsp", "kroA200.tsp"};
 
             tableWriter.write("Problem & ");
-            File inputDir = new File(args[0] + "/" + problems[0]);
             tableWriter.append(
-                    Arrays.asList(inputDir.listFiles(file -> file.isDirectory()))
+                    Arrays.asList(algorithms)
                     .stream()
-                    .map(file -> file.getName())
                     .collect(Collectors.joining(" & ")));
-            tableWriter.write(" \\\\\n");
+            tableWriter.write(" \\\\\n\\hline\n");
 
             for (String problem : problems) {
                 tableWriter.append(problem + " & ");
-                inputDir = new File(args[0] + "/" + problem);
+                File inputDir = new File(args[1] + "/" + problem);
                 HypervolumeCalculator calculator = new HypervolumeCalculator();
                 HypervolumeCalculator generationalCalculator = new HypervolumeCalculator();
 
                 List<File> vars = new ArrayList<>();
-                for (File file : inputDir.listFiles(file -> file.isDirectory())) {
+                for (String algorithm : algorithms) {
+                    File file = new File(inputDir.getPath() + "/" + algorithm);
                     vars.add(file);
                 }
 
                 for (File algorithmDir : vars) {
+                    List<DoubleSolution> algorithmSolutions = new ArrayList();
                     for (File executionDir : algorithmDir.listFiles(file -> file.isDirectory())) {
                         File fun = executionDir.listFiles((dir, fileName) -> fileName.startsWith("FUN"))[0];
                         calculator.addParetoFront(fun.getPath());
+                        algorithmSolutions.addAll(FrontUtils.convertFrontToSolutionList(new ArrayFront(fun.getPath())));
 
                         File[] fronts = executionDir.listFiles((dir, fileName) -> fileName.endsWith(".txt") && !fileName.contains("VAR") && !fileName.contains("TIME") && !fileName.contains("FUN"));
                         for (File front : fronts) {
                             generationalCalculator.addParetoFront(front.getPath());
                         }
                     }
+                    algorithmSolutions = SolutionListUtils.getNondominatedSolutions(algorithmSolutions);
+                    SolutionSetOutput.printObjectivesToFile(algorithmSolutions, algorithmDir.getPath() + "/FUN_ALL.txt");
                 }
 
                 HashMap<String, Double[]> values = new HashMap<>();

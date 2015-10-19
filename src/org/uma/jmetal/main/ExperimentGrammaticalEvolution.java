@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
-import org.uma.jmetal.algorithm.impl.GAGenerationGrammaticalEvolution;
+import org.uma.jmetal.algorithm.impl.grammatical.GAGenerationGrammaticalEvolution;
 import org.uma.jmetal.measure.HypervolumeCalculator;
 import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationTwoPointsCrossover;
 import org.uma.jmetal.algorithm.components.impl.operator.crossover.SinglePointCrossoverVariableLength;
@@ -27,7 +27,7 @@ import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 
-public class ExperimentInitialExecution {
+public class ExperimentGrammaticalEvolution {
 
     public static void main(String[] args) throws InterruptedException {
         try {
@@ -65,8 +65,8 @@ public class ExperimentInitialExecution {
                 threadPool.submit(runner);
             }
 
-            DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
-            builder.setMaxEvaluations(trainingSize).setPopulationSize(100);
+            DynamicNSGAIIBuilder builder = new DynamicNSGAIIBuilder(tsp, 100, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
+            builder.setMaxEvaluations(trainingSize);
             DynamicNSGAII nsgaii = builder.build();
             AlgorithmRunner<List<Solution<?>>> nsgaiiRunner = new AlgorithmRunner<>(nsgaii, outputDirectory, "NSGA-II");
 
@@ -94,7 +94,7 @@ public class ExperimentInitialExecution {
                 writer.append("Hypervolume: " + calculator.calculateHypervolume(nsgaii.getResult()) + "\n");
             }
         } catch (IOException ex) {
-            Logger.getLogger(ExperimentInitialExecution.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExperimentGrammaticalEvolution.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

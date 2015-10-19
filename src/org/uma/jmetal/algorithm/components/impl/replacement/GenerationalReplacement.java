@@ -14,6 +14,10 @@ public class GenerationalReplacement<S extends Solution<?>> implements Replaceme
     private Ranking ranking;
     private Diversity diversity;
 
+    public GenerationalReplacement() {
+        this(0, null, null);
+    }
+
     public GenerationalReplacement(int elitismSize, Ranking ranking, Diversity diversity) {
         this.elitismSize = elitismSize;
         this.ranking = ranking;

@@ -15,7 +15,7 @@
 <selectionOperator> ::= "K Tournament" <tournamentSize> | "Random" | "Roulette Wheel" | "Ranking"
 <tournamentSize> ::= "2" | "4" | "6" | "8" | "10"
 
-<source> ::= "Population" | "Archive and Population"
+<source> ::= "Population" | "Archive and Population" | "Archive"
 
 <fitnessAssignment> ::= <rankingStrategy> <diversityStrategy>
 <rankingStrategy> ::= "" | "Dominance Rank" | "Dominance Strength" | "Dominance Depth" | "Raw Fitness"

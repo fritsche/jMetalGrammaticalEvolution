@@ -1,4 +1,4 @@
-package org.uma.jmetal.algorithm.impl;
+package org.uma.jmetal.algorithm.impl.grammatical;
 
 import org.uma.jmetal.algorithm.AbstractGrammaticalEvolutionAlgorithm;
 import org.uma.jmetal.operator.CrossoverOperator;
