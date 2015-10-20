@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
 import org.uma.jmetal.grammaticalevolution.mapper.impl.GeneticAlgorithmExpressionMapper;
-import org.uma.jmetal.measure.HypervolumeCalculator;
+import org.uma.jmetal.measure.qualityindicator.HypervolumeCalculator;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.solution.impl.VariableIntegerSolution;

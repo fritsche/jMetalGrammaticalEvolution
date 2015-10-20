@@ -1,5 +1,6 @@
 package org.uma.jmetal.main;
 
+import org.uma.jmetal.measure.statistic.KruskalWallisTest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.uma.jmetal.measure.HypervolumeCalculator;
+import org.uma.jmetal.measure.qualityindicator.HypervolumeCalculator;
 import org.uma.jmetal.solution.DoubleSolution;
 import org.uma.jmetal.util.SolutionListUtils;
 import org.uma.jmetal.util.fileoutput.SolutionSetOutput;
@@ -25,7 +26,9 @@ public class ExperimentHypervolume {
         String[] algorithms = args[2].split(",");
         try (FileWriter tableWriter = new FileWriter(args[1] + "/TABLE.txt")) {
             //problem instance
-            String[] problems = {"kroA100.tsp", "kroA150.tsp", "kroA200.tsp"};
+            String[] problems = {"kroA100.tsp","kroA150.tsp", "kroA200.tsp",
+                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp",
+                "randomA100.tsp", "randomA300.tsp", "randomA500.tsp"};
 
             tableWriter.write("Problem & ");
             tableWriter.append(

@@ -1,4 +1,4 @@
-package org.uma.jmetal.measure;
+package org.uma.jmetal.measure.qualityindicator;
 
 import java.io.FileNotFoundException;
 import java.util.List;

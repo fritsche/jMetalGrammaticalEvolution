@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.algorithm.impl.grammatical.GAGenerationGrammaticalEvolution;
-import org.uma.jmetal.measure.HypervolumeCalculator;
+import org.uma.jmetal.measure.qualityindicator.HypervolumeCalculator;
 import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationTwoPointsCrossover;
 import org.uma.jmetal.algorithm.components.impl.operator.crossover.SinglePointCrossoverVariableLength;
 import org.uma.jmetal.algorithm.components.impl.operator.mutation.DuplicationMutation;
@@ -34,7 +34,7 @@ public class ExperimentGrammaticalEvolution {
             String outputDirectory = args[0];
             int trainingSize = Integer.parseInt(args[1]);
             int geMaxEvaluations = Integer.parseInt(args[2]);
-            MultiobjectiveTSP tsp = new MultiobjectiveTSP("kroA100.tsp", "kroB100.tsp");
+            MultiobjectiveTSP tsp = new MultiobjectiveTSP("problems/kroA100.tsp", "problems/kroB100.tsp");
             GAGenerationProblem geProblem
                     = new GAGenerationProblem(
                             trainingSize,

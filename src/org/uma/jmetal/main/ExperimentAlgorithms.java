@@ -38,9 +38,12 @@ public class ExperimentAlgorithms {
             new File(outputDir).mkdirs();
             ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[2]));
             //problem instance
-            String[] problems = {"kroA100.tsp", "kroA150.tsp", "kroA200.tsp"};
+            String[] problems = {"kroA100.tsp", "kroA150.tsp", "kroA200.tsp",
+                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp",
+                "randomA100.tsp", "randomA300.tsp", "randomA500.tsp"};
+
             for (String problem : problems) {
-                MultiobjectiveTSP tsp = new MultiobjectiveTSP(problem, problem.replaceAll("A", "B"));
+                MultiobjectiveTSP tsp = new MultiobjectiveTSP("problems/" + problem, "problems/" + problem.replaceAll("A", "B"));
 
                 //build and run nsgaii
                 DynamicNSGAIIBuilder nsgaiiBuilder = new DynamicNSGAIIBuilder(tsp, 100, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
