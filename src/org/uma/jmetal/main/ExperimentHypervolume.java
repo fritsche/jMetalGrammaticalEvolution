@@ -21,14 +21,13 @@ import org.uma.jmetal.util.front.util.FrontUtils;
 public class ExperimentHypervolume {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
-        args = new String[]{"60", "experiment/final_pegasus/", "NSGAII,IBEA,SPEA2,ALG_0,ALG_1,ALG_2,ALG_3,ALG_4,ALG_5,ALG_6,ALG_7,ALG_8,ALG_9"};
+//        args = new String[]{"60", "experiment/final_pegasus/", "NSGAII,IBEA,SPEA2,ALG_0,ALG_1,ALG_2,ALG_3,ALG_4,ALG_5,ALG_6,ALG_7,ALG_8,ALG_9"};
         int generations = Integer.parseInt(args[0]);
         String[] algorithms = args[2].split(",");
         try (FileWriter tableWriter = new FileWriter(args[1] + "/TABLE.txt")) {
             //problem instance
             String[] problems = {"kroA100.tsp","kroA150.tsp", "kroA200.tsp",
-                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp",
-                "randomA100.tsp", "randomA300.tsp", "randomA500.tsp"};
+                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp"};
 
             tableWriter.write("Problem & ");
             tableWriter.append(

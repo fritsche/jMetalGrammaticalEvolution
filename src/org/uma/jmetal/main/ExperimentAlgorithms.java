@@ -16,7 +16,9 @@ import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
 import org.uma.jmetal.algorithm.builder.DynamicIBEABuilder;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
 import org.uma.jmetal.algorithm.builder.DynamicSPEA2Builder;
+import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationSinglePointCrossover;
 import org.uma.jmetal.algorithm.components.impl.operator.crossover.PermutationTwoPointsCrossover;
+import org.uma.jmetal.algorithm.components.impl.operator.mutation.InversionMutation;
 import org.uma.jmetal.algorithm.components.impl.tracking.ResultToFileOutputTracking;
 import org.uma.jmetal.algorithm.impl.DynamicIBEA;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
@@ -39,14 +41,13 @@ public class ExperimentAlgorithms {
             ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[2]));
             //problem instance
             String[] problems = {"kroA100.tsp", "kroA150.tsp", "kroA200.tsp",
-                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp",
-                "randomA100.tsp", "randomA300.tsp", "randomA500.tsp"};
+                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp"};
 
             for (String problem : problems) {
                 MultiobjectiveTSP tsp = new MultiobjectiveTSP("problems/" + problem, "problems/" + problem.replaceAll("A", "B"));
 
                 //build and run nsgaii
-                DynamicNSGAIIBuilder nsgaiiBuilder = new DynamicNSGAIIBuilder(tsp, 100, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
+                DynamicNSGAIIBuilder nsgaiiBuilder = new DynamicNSGAIIBuilder(tsp, 50, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
                 nsgaiiBuilder.setMaxEvaluations(60000);
 
                 for (int i = 0; i < executions; i++) {
@@ -58,7 +59,7 @@ public class ExperimentAlgorithms {
                 }
 
                 //build and run spea2
-                DynamicSPEA2Builder spea2Builder = new DynamicSPEA2Builder<>(tsp, 100, 100, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
+                DynamicSPEA2Builder spea2Builder = new DynamicSPEA2Builder<>(tsp, 50, 100, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
                 spea2Builder.setMaxEvaluations(60000);
 
                 for (int i = 0; i < executions; i++) {
@@ -70,7 +71,7 @@ public class ExperimentAlgorithms {
                 }
 
                 //build and run IBEA
-                DynamicIBEABuilder ibeaBuilder = new DynamicIBEABuilder<>(tsp, 100, new PermutationTwoPointsCrossover(0.95), new PermutationSwapMutation(0.05));
+                DynamicIBEABuilder ibeaBuilder = new DynamicIBEABuilder<>(tsp, 50, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
                 ibeaBuilder.setMaxEvaluations(60000);
 
                 for (int i = 0; i < executions; i++) {
@@ -81,47 +82,47 @@ public class ExperimentAlgorithms {
                     threadPool.submit(runner);
                 }
 
-                //load grammar
-                GeneticAlgorithmExpressionMapper mapper = new GeneticAlgorithmExpressionMapper(2, 5);
-                mapper.loadGrammar("grammar.bnf");
-
-                //read experiment files
-                List<String> vars = new ArrayList<>();
-                File directory = new File(inputDir);
-                for (File file : directory.listFiles()) {
-                    if (file.getName().startsWith("VAR") && !file.getName().contains("NSGA-II")) {
-                        vars.add(file.getPath());
-                    }
-                }
-
-                //build and run created algorithms
-                for (String var : vars) {
-                    List<Integer> grammarInstance = new ArrayList<>();
-                    String split = var.substring(var.lastIndexOf("VAR_") + 4);
-                    split = split.substring(0, split.indexOf("."));
-                    Scanner scanner = new Scanner(new FileReader(var));
-                    while (scanner.hasNextInt()) {
-                        grammarInstance.add(scanner.nextInt());
-                    }
-                    //print solutions
-                    {
-                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
-                        new File(outputDir + "/" + problem + "/ALG_" + split).mkdirs();
-                        try (FileWriter writer = new FileWriter(outputDir + "/" + problem + "/ALG_" + split + "/COMPONENTS.txt")) {
-                            writer.write(algorithm.toString());
-                        }
-                    }
-
-                    for (int i = 0; i < executions; i++) {
-                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
-                        algorithm.setTrackingImplementation(new ResultToFileOutputTracking(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i));
-                        algorithm.setProblem(tsp);
-                        algorithm.getStoppingConditionImplementation().setStoppingCondition(60000);
-                        new File(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i).mkdirs();
-                        AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(algorithm, outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i, String.valueOf(i));
-                        threadPool.submit(runner);
-                    }
-                }
+//                //load grammar
+//                GeneticAlgorithmExpressionMapper mapper = new GeneticAlgorithmExpressionMapper(2, 5);
+//                mapper.loadGrammar("grammar.bnf");
+//
+//                //read experiment files
+//                List<String> vars = new ArrayList<>();
+//                File directory = new File(inputDir);
+//                for (File file : directory.listFiles()) {
+//                    if (file.getName().startsWith("VAR") && !file.getName().contains("NSGA-II")) {
+//                        vars.add(file.getPath());
+//                    }
+//                }
+//
+//                //build and run created algorithms
+//                for (String var : vars) {
+//                    List<Integer> grammarInstance = new ArrayList<>();
+//                    String split = var.substring(var.lastIndexOf("VAR_") + 4);
+//                    split = split.substring(0, split.indexOf("."));
+//                    Scanner scanner = new Scanner(new FileReader(var));
+//                    while (scanner.hasNextInt()) {
+//                        grammarInstance.add(scanner.nextInt());
+//                    }
+//                    //print solutions
+//                    {
+//                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
+//                        new File(outputDir + "/" + problem + "/ALG_" + split).mkdirs();
+//                        try (FileWriter writer = new FileWriter(outputDir + "/" + problem + "/ALG_" + split + "/COMPONENTS.txt")) {
+//                            writer.write(algorithm.toString());
+//                        }
+//                    }
+//
+//                    for (int i = 0; i < executions; i++) {
+//                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
+//                        algorithm.setTrackingImplementation(new ResultToFileOutputTracking(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i));
+//                        algorithm.setProblem(tsp);
+//                        algorithm.getStoppingConditionImplementation().setStoppingCondition(60000);
+//                        new File(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i).mkdirs();
+//                        AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(algorithm, outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i, String.valueOf(i));
+//                        threadPool.submit(runner);
+//                    }
+//                }
             }
             threadPool.shutdown();
             threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);

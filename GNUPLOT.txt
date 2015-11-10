@@ -1,0 +1,79 @@
+set terminal png size 900,500
+set grid
+set key out
+
+##########
+# PARETO #
+##########
+
+set xlabel "Objective 1" 
+set ylabel "Objective 2"
+
+## kroA100.tsp
+
+set output 'experiment/graphs/kro100.png'
+plot 'experiment/final_pegasus/kroA100.tsp/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/final_pegasus/kroA100.tsp/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/final_pegasus/kroA100.tsp/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/final_pegasus/kroA100.tsp/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/final_pegasus/kroA100.tsp/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/final_pegasus/kroA100.tsp/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/final_pegasus/kroA100.tsp/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/final_pegasus/kroA100.tsp/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/final_pegasus/kroA100.tsp/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/final_pegasus/kroA100.tsp/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/final_pegasus/kroA100.tsp/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/final_pegasus/kroA100.tsp/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/final_pegasus/kroA100.tsp/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## kroA150.tsp
+
+set output 'experiment/graphs/kro150.png'
+plot 'experiment/final_pegasus/kroA150.tsp/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/final_pegasus/kroA150.tsp/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/final_pegasus/kroA150.tsp/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/final_pegasus/kroA150.tsp/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/final_pegasus/kroA150.tsp/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/final_pegasus/kroA150.tsp/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/final_pegasus/kroA150.tsp/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/final_pegasus/kroA150.tsp/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/final_pegasus/kroA150.tsp/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/final_pegasus/kroA150.tsp/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/final_pegasus/kroA150.tsp/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/final_pegasus/kroA150.tsp/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/final_pegasus/kroA150.tsp/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## kroA200.tsp
+
+set output 'experiment/graphs/kro200.png'
+plot 'experiment/final_pegasus/kroA200.tsp/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/final_pegasus/kroA200.tsp/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/final_pegasus/kroA200.tsp/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/final_pegasus/kroA200.tsp/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/final_pegasus/kroA200.tsp/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/final_pegasus/kroA200.tsp/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/final_pegasus/kroA200.tsp/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/final_pegasus/kroA200.tsp/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/final_pegasus/kroA200.tsp/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/final_pegasus/kroA200.tsp/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/final_pegasus/kroA200.tsp/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/final_pegasus/kroA200.tsp/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/final_pegasus/kroA200.tsp/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## euclidA100.tsp
+
+set output 'experiment/graphs/euclid100.png'
+plot 'experiment/final_pegasus/euclidA100.tsp/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/final_pegasus/euclidA100.tsp/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/final_pegasus/euclidA100.tsp/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/final_pegasus/euclidA100.tsp/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/final_pegasus/euclidA100.tsp/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/final_pegasus/euclidA100.tsp/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/final_pegasus/euclidA100.tsp/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/final_pegasus/euclidA100.tsp/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/final_pegasus/euclidA100.tsp/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/final_pegasus/euclidA100.tsp/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/final_pegasus/euclidA100.tsp/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/final_pegasus/euclidA100.tsp/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/final_pegasus/euclidA100.tsp/ALG_9/FUN_ALL.txt' title 'ALG_9', 'experiment/final_pegasus/best.euclidAB100.tsp' title 'Reference'
+
+## euclidA300.tsp
+
+set output 'experiment/graphs/euclid300.png'
+plot 'experiment/final_pegasus/euclidA300.tsp/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/final_pegasus/euclidA300.tsp/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/final_pegasus/euclidA300.tsp/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/final_pegasus/euclidA300.tsp/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/final_pegasus/euclidA300.tsp/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/final_pegasus/euclidA300.tsp/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/final_pegasus/euclidA300.tsp/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/final_pegasus/euclidA300.tsp/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/final_pegasus/euclidA300.tsp/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/final_pegasus/euclidA300.tsp/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/final_pegasus/euclidA300.tsp/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/final_pegasus/euclidA300.tsp/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/final_pegasus/euclidA300.tsp/ALG_9/FUN_ALL.txt' title 'ALG_9', 'experiment/final_pegasus/best.euclidAB300.tsp' title 'Reference'
+
+## euclidA500.tsp
+
+set output 'experiment/graphs/euclid500.png'
+plot 'experiment/final_pegasus/euclidA500.tsp/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/final_pegasus/euclidA500.tsp/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/final_pegasus/euclidA500.tsp/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/final_pegasus/euclidA500.tsp/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/final_pegasus/euclidA500.tsp/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/final_pegasus/euclidA500.tsp/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/final_pegasus/euclidA500.tsp/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/final_pegasus/euclidA500.tsp/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/final_pegasus/euclidA500.tsp/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/final_pegasus/euclidA500.tsp/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/final_pegasus/euclidA500.tsp/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/final_pegasus/euclidA500.tsp/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/final_pegasus/euclidA500.tsp/ALG_9/FUN_ALL.txt' title 'ALG_9', 'experiment/final_pegasus/best.euclidAB500.tsp' title 'Reference'
+
+###############
+# HYPERVOLUME #
+###############
+
+set xtics 10
+set xlabel "Fitness Evaluations (each 1,000)" 
+set ylabel "Hypervolume"
+set style data lines
+
+## kroA100.tsp
+
+set output 'experiment/graphs/kro100_hv.png'
+plot 'experiment/final_pegasus/kroA100.tsp/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/final_pegasus/kroA100.tsp/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/final_pegasus/kroA100.tsp/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/final_pegasus/kroA100.tsp/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/final_pegasus/kroA100.tsp/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/final_pegasus/kroA100.tsp/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/final_pegasus/kroA100.tsp/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/final_pegasus/kroA100.tsp/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/final_pegasus/kroA100.tsp/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/final_pegasus/kroA100.tsp/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/final_pegasus/kroA100.tsp/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/final_pegasus/kroA100.tsp/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/final_pegasus/kroA100.tsp/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## kroA150.tsp
+
+set output 'experiment/graphs/kro150_hv.png'
+plot 'experiment/final_pegasus/kroA150.tsp/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/final_pegasus/kroA150.tsp/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/final_pegasus/kroA150.tsp/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/final_pegasus/kroA150.tsp/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/final_pegasus/kroA150.tsp/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/final_pegasus/kroA150.tsp/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/final_pegasus/kroA150.tsp/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/final_pegasus/kroA150.tsp/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/final_pegasus/kroA150.tsp/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/final_pegasus/kroA150.tsp/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/final_pegasus/kroA150.tsp/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/final_pegasus/kroA150.tsp/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/final_pegasus/kroA150.tsp/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## kroA200.tsp
+
+set output 'experiment/graphs/kro200_hv.png'
+plot 'experiment/final_pegasus/kroA200.tsp/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/final_pegasus/kroA200.tsp/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/final_pegasus/kroA200.tsp/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/final_pegasus/kroA200.tsp/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/final_pegasus/kroA200.tsp/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/final_pegasus/kroA200.tsp/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/final_pegasus/kroA200.tsp/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/final_pegasus/kroA200.tsp/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/final_pegasus/kroA200.tsp/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/final_pegasus/kroA200.tsp/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/final_pegasus/kroA200.tsp/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/final_pegasus/kroA200.tsp/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/final_pegasus/kroA200.tsp/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## euclidA100.tsp
+
+set output 'experiment/graphs/euclid100_hv.png'
+plot 'experiment/final_pegasus/euclidA100.tsp/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/final_pegasus/euclidA100.tsp/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/final_pegasus/euclidA100.tsp/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/final_pegasus/euclidA100.tsp/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/final_pegasus/euclidA100.tsp/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/final_pegasus/euclidA100.tsp/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/final_pegasus/euclidA100.tsp/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/final_pegasus/euclidA100.tsp/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/final_pegasus/euclidA100.tsp/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/final_pegasus/euclidA100.tsp/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/final_pegasus/euclidA100.tsp/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/final_pegasus/euclidA100.tsp/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/final_pegasus/euclidA100.tsp/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## euclidA300.tsp
+
+set output 'experiment/graphs/euclid300_hv.png'
+plot 'experiment/final_pegasus/euclidA300.tsp/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/final_pegasus/euclidA300.tsp/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/final_pegasus/euclidA300.tsp/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/final_pegasus/euclidA300.tsp/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/final_pegasus/euclidA300.tsp/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/final_pegasus/euclidA300.tsp/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/final_pegasus/euclidA300.tsp/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/final_pegasus/euclidA300.tsp/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/final_pegasus/euclidA300.tsp/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/final_pegasus/euclidA300.tsp/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/final_pegasus/euclidA300.tsp/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/final_pegasus/euclidA300.tsp/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/final_pegasus/euclidA300.tsp/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## euclidA500.tsp
+
+set output 'experiment/graphs/euclid500_hv.png'
+plot 'experiment/final_pegasus/euclidA500.tsp/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/final_pegasus/euclidA500.tsp/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/final_pegasus/euclidA500.tsp/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/final_pegasus/euclidA500.tsp/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/final_pegasus/euclidA500.tsp/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/final_pegasus/euclidA500.tsp/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/final_pegasus/euclidA500.tsp/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/final_pegasus/euclidA500.tsp/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/final_pegasus/euclidA500.tsp/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/final_pegasus/euclidA500.tsp/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/final_pegasus/euclidA500.tsp/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/final_pegasus/euclidA500.tsp/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/final_pegasus/euclidA500.tsp/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
