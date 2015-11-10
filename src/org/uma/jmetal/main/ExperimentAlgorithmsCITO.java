@@ -1,12 +1,18 @@
 package org.uma.jmetal.main;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.uma.jmetal.algorithm.AbstractDynamicGeneticAlgorithm;
 import org.uma.jmetal.algorithm.builder.DynamicIBEABuilder;
 import org.uma.jmetal.algorithm.builder.DynamicNSGAIIBuilder;
 import org.uma.jmetal.algorithm.builder.DynamicSPEA2Builder;
@@ -17,10 +23,11 @@ import org.uma.jmetal.algorithm.impl.DynamicIBEA;
 import org.uma.jmetal.algorithm.impl.DynamicNSGAII;
 import org.uma.jmetal.algorithm.impl.DynamicSPEA2;
 import org.uma.jmetal.experiment.impl.AlgorithmRunner;
-import org.uma.jmetal.problem.multiobjective.MultiobjectiveTSP;
+import org.uma.jmetal.grammaticalevolution.mapper.impl.GeneticAlgorithmExpressionMapper;
+import org.uma.jmetal.problem.impl.CITOProblem;
 import org.uma.jmetal.solution.PermutationSolution;
 
-public class ExperimentAlgorithms {
+public class ExperimentAlgorithmsCITO {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
@@ -31,14 +38,20 @@ public class ExperimentAlgorithms {
             new File(outputDir).mkdirs();
             ExecutorService threadPool = Executors.newFixedThreadPool(Integer.parseInt(args[2]));
             //problem instance
-            String[] problems = {"kroA100.tsp", "kroA150.tsp", "kroA200.tsp",
-                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp"};
+            String[] problems = {"OO_MyBatis",
+                "OA_AJHsqldb",
+                "OA_AJHotDraw",
+                "OO_BCEL",
+                "OO_JHotDraw",
+                "OA_HealthWatcher",
+                "OA_TollSystems",
+                "OO_JBoss"};
 
             for (String problem : problems) {
-                MultiobjectiveTSP tsp = new MultiobjectiveTSP("problems/" + problem, "problems/" + problem.replaceAll("A", "B"));
+                CITOProblem cito = new CITOProblem("problems/" + problem + ".txt");
 
                 //build and run nsgaii
-                DynamicNSGAIIBuilder nsgaiiBuilder = new DynamicNSGAIIBuilder(tsp, 50, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
+                DynamicNSGAIIBuilder nsgaiiBuilder = new DynamicNSGAIIBuilder(cito, 50, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
                 nsgaiiBuilder.setMaxEvaluations(60000);
 
                 for (int i = 0; i < executions; i++) {
@@ -50,7 +63,7 @@ public class ExperimentAlgorithms {
                 }
 
                 //build and run spea2
-                DynamicSPEA2Builder spea2Builder = new DynamicSPEA2Builder<>(tsp, 50, 100, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
+                DynamicSPEA2Builder spea2Builder = new DynamicSPEA2Builder<>(cito, 50, 100, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
                 spea2Builder.setMaxEvaluations(60000);
 
                 for (int i = 0; i < executions; i++) {
@@ -62,7 +75,7 @@ public class ExperimentAlgorithms {
                 }
 
                 //build and run IBEA
-                DynamicIBEABuilder ibeaBuilder = new DynamicIBEABuilder<>(tsp, 50, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
+                DynamicIBEABuilder ibeaBuilder = new DynamicIBEABuilder<>(cito, 50, new PermutationSinglePointCrossover(0.5), new InversionMutation(1.0));
                 ibeaBuilder.setMaxEvaluations(60000);
 
                 for (int i = 0; i < executions; i++) {
@@ -73,28 +86,28 @@ public class ExperimentAlgorithms {
                     threadPool.submit(runner);
                 }
 
-//                //load grammar
-//                GeneticAlgorithmExpressionMapper mapper = new GeneticAlgorithmExpressionMapper(2, 5);
-//                mapper.loadGrammar("grammar.bnf");
-//
-//                //read experiment files
-//                List<String> vars = new ArrayList<>();
-//                File directory = new File(inputDir);
-//                for (File file : directory.listFiles()) {
-//                    if (file.getName().startsWith("VAR") && !file.getName().contains("NSGA-II")) {
-//                        vars.add(file.getPath());
-//                    }
-//                }
-//
-//                //build and run created algorithms
-//                for (String var : vars) {
-//                    List<Integer> grammarInstance = new ArrayList<>();
-//                    String split = var.substring(var.lastIndexOf("VAR_") + 4);
-//                    split = split.substring(0, split.indexOf("."));
-//                    Scanner scanner = new Scanner(new FileReader(var));
-//                    while (scanner.hasNextInt()) {
-//                        grammarInstance.add(scanner.nextInt());
-//                    }
+                //load grammar
+                GeneticAlgorithmExpressionMapper mapper = new GeneticAlgorithmExpressionMapper(2, 5);
+                mapper.loadGrammar("grammar.bnf");
+
+                //read experiment files
+                List<String> vars = new ArrayList<>();
+                File directory = new File(inputDir);
+                for (File file : directory.listFiles()) {
+                    if (file.getName().startsWith("VAR") && !file.getName().contains("NSGA-II")) {
+                        vars.add(file.getPath());
+                    }
+                }
+
+                //build and run created algorithms
+                for (String var : vars) {
+                    List<Integer> grammarInstance = new ArrayList<>();
+                    String split = var.substring(var.lastIndexOf("VAR_") + 4);
+                    split = split.substring(0, split.indexOf("."));
+                    Scanner scanner = new Scanner(new FileReader(var));
+                    while (scanner.hasNextInt()) {
+                        grammarInstance.add(scanner.nextInt());
+                    }
 //                    //print solutions
 //                    {
 //                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
@@ -103,17 +116,17 @@ public class ExperimentAlgorithms {
 //                            writer.write(algorithm.toString());
 //                        }
 //                    }
-//
-//                    for (int i = 0; i < executions; i++) {
-//                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
-//                        algorithm.setTrackingImplementation(new ResultToFileOutputTracking(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i));
-//                        algorithm.setProblem(tsp);
-//                        algorithm.getStoppingConditionImplementation().setStoppingCondition(60000);
-//                        new File(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i).mkdirs();
-//                        AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(algorithm, outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i, String.valueOf(i));
-//                        threadPool.submit(runner);
-//                    }
-//                }
+
+                    for (int i = 0; i < executions; i++) {
+                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
+                        algorithm.setTrackingImplementation(new ResultToFileOutputTracking(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i));
+                        algorithm.setProblem(cito);
+                        algorithm.getStoppingConditionImplementation().setStoppingCondition(60000);
+                        new File(outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i).mkdirs();
+                        AlgorithmRunner<PermutationSolution<Integer>> runner = new AlgorithmRunner<>(algorithm, outputDir + "/" + problem + "/ALG_" + split + "/EXECUTION_" + i, String.valueOf(i));
+                        threadPool.submit(runner);
+                    }
+                }
             }
             threadPool.shutdown();
             threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
