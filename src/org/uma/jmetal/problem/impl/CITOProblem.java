@@ -83,6 +83,12 @@ public class CITOProblem extends AbstractIntegerPermutationProblem {
     public void treatConstraintsAndRepairSolution(PermutationSolution<Integer> solution, int constraints[][]) {
         int[] array = new int[solution.getNumberOfVariables()];
         int size = array.length;
+
+        for (int i = 0; i < array.length; i++) {
+            int variable = solution.getVariableValue(i);
+            array[i] = variable;
+        }
+
         ArrayList subVector = new ArrayList();
 
         //System.out.println("Tamanho Vetor: " + size_);

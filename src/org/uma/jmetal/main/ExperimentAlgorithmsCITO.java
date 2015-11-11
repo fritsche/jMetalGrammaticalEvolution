@@ -2,7 +2,6 @@ package org.uma.jmetal.main;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class ExperimentAlgorithmsCITO {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
-//            args = new String[]{"experiment/experiment_pegasus/", "experiment/teste/", "1"};
+//            args = new String[]{"experiment/experiment_pegasus/", "experiment/final_CITO/", "1"};
             int executions = 30;
             String inputDir = args[0];
             String outputDir = args[1];
