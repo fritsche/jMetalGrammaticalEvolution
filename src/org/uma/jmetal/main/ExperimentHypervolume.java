@@ -26,8 +26,14 @@ public class ExperimentHypervolume {
         String[] algorithms = args[2].split(",");
         try (FileWriter tableWriter = new FileWriter(args[1] + "/TABLE.txt")) {
             //problem instance
-            String[] problems = {"kroA100.tsp","kroA150.tsp", "kroA200.tsp",
-                "euclidA100.tsp", "euclidA300.tsp", "euclidA500.tsp"};
+            String[] problems = {"OO_MyBatis",
+                "OA_AJHsqldb",
+                "OA_AJHotDraw",
+                "OO_BCEL",
+                "OO_JHotDraw",
+                "OA_HealthWatcher",
+                "OA_TollSystems",
+                "OO_JBoss"};
 
             tableWriter.write("Problem & ");
             tableWriter.append(

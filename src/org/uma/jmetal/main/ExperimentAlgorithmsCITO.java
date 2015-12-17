@@ -2,6 +2,7 @@ package org.uma.jmetal.main;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,13 +109,13 @@ public class ExperimentAlgorithmsCITO {
                         grammarInstance.add(scanner.nextInt());
                     }
 //                    //print solutions
-//                    {
-//                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
-//                        new File(outputDir + "/" + problem + "/ALG_" + split).mkdirs();
-//                        try (FileWriter writer = new FileWriter(outputDir + "/" + problem + "/ALG_" + split + "/COMPONENTS.txt")) {
-//                            writer.write(algorithm.toString());
-//                        }
-//                    }
+                    {
+                        AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);
+                        new File(outputDir + "/" + problem + "/ALG_" + split).mkdirs();
+                        try (FileWriter writer = new FileWriter(outputDir + "/" + problem + "/ALG_" + split + "/COMPONENTS.txt")) {
+                            writer.write(algorithm.toString());
+                        }
+                    }
 
                     for (int i = 0; i < executions; i++) {
                         AbstractDynamicGeneticAlgorithm algorithm = mapper.interpret(grammarInstance);

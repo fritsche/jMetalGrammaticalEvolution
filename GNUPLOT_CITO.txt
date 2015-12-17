@@ -1,0 +1,99 @@
+set terminal png size 900,500
+set grid
+set key out
+
+##########
+# PARETO #
+##########
+
+set xlabel "Objective 1 (O)" 
+set ylabel "Objective 2 (A)"
+
+## OA_AJHotDraw
+
+set output 'experiment/CITO/graphs/OA_AJHotDraw.png'
+plot 'experiment/CITO/testing/OA_AJHotDraw/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_AJHotDraw/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OA_AJHotDraw/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OA_AJHotDraw/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OA_AJHotDraw/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OA_AJHotDraw/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OA_AJHotDraw/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OA_AJHotDraw/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OA_AJHotDraw/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OA_AJHotDraw/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OA_AJHotDraw/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OA_AJHotDraw/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OA_AJHotDraw/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OA_AJHsqldb
+
+set output 'experiment/CITO/graphs/OA_AJHsqldb.png'
+plot 'experiment/CITO/testing/OA_AJHsqldb/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_AJHsqldb/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OA_AJHsqldb/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OA_AJHsqldb/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OA_AJHsqldb/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OA_AJHsqldb/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OA_AJHsqldb/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OA_AJHsqldb/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OA_AJHsqldb/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OA_AJHsqldb/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OA_AJHsqldb/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OA_AJHsqldb/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OA_AJHsqldb/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OA_HealthWatcher
+
+set output 'experiment/CITO/graphs/OA_HealthWatcher.png'
+plot 'experiment/CITO/testing/OA_HealthWatcher/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_HealthWatcher/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OA_HealthWatcher/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OA_HealthWatcher/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OA_HealthWatcher/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OA_HealthWatcher/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OA_HealthWatcher/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OA_HealthWatcher/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OA_HealthWatcher/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OA_HealthWatcher/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OA_HealthWatcher/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OA_HealthWatcher/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OA_HealthWatcher/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OA_TollSystems
+
+set output 'experiment/CITO/graphs/OA_TollSystems.png'
+plot 'experiment/CITO/testing/OA_TollSystems/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_TollSystems/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OA_TollSystems/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OA_TollSystems/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OA_TollSystems/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OA_TollSystems/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OA_TollSystems/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OA_TollSystems/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OA_TollSystems/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OA_TollSystems/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OA_TollSystems/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OA_TollSystems/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OA_TollSystems/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OO_BCEL
+
+set output 'experiment/CITO/graphs/OO_BCEL.png'
+plot 'experiment/CITO/testing/OO_BCEL/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_BCEL/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OO_BCEL/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OO_BCEL/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OO_BCEL/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OO_BCEL/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OO_BCEL/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OO_BCEL/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OO_BCEL/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OO_BCEL/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OO_BCEL/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OO_BCEL/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OO_BCEL/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OO_JBoss
+
+set output 'experiment/CITO/graphs/OO_JBoss.png'
+plot 'experiment/CITO/testing/OO_JBoss/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_JBoss/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OO_JBoss/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OO_JBoss/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OO_JBoss/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OO_JBoss/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OO_JBoss/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OO_JBoss/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OO_JBoss/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OO_JBoss/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OO_JBoss/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OO_JBoss/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OO_JBoss/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OO_JHotDraw
+
+set output 'experiment/CITO/graphs/OO_JHotDraw.png'
+plot 'experiment/CITO/testing/OO_JHotDraw/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_JHotDraw/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OO_JHotDraw/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OO_JHotDraw/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OO_JHotDraw/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OO_JHotDraw/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OO_JHotDraw/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OO_JHotDraw/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OO_JHotDraw/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OO_JHotDraw/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OO_JHotDraw/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OO_JHotDraw/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OO_JHotDraw/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+## OO_MyBatis
+
+set output 'experiment/CITO/graphs/OO_MyBatis.png'
+plot 'experiment/CITO/testing/OO_MyBatis/NSGAII/FUN_ALL.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_MyBatis/SPEA2/FUN_ALL.txt' title 'SPEA2', 'experiment/CITO/testing/OO_MyBatis/IBEA/FUN_ALL.txt' title 'IBEA', 'experiment/CITO/testing/OO_MyBatis/ALG_0/FUN_ALL.txt' title 'ALG_0', 'experiment/CITO/testing/OO_MyBatis/ALG_1/FUN_ALL.txt' title 'ALG_1', 'experiment/CITO/testing/OO_MyBatis/ALG_2/FUN_ALL.txt' title 'ALG_2', 'experiment/CITO/testing/OO_MyBatis/ALG_3/FUN_ALL.txt' title 'ALG_3', 'experiment/CITO/testing/OO_MyBatis/ALG_4/FUN_ALL.txt' title 'ALG_4', 'experiment/CITO/testing/OO_MyBatis/ALG_5/FUN_ALL.txt' title 'ALG_5', 'experiment/CITO/testing/OO_MyBatis/ALG_6/FUN_ALL.txt' title 'ALG_6', 'experiment/CITO/testing/OO_MyBatis/ALG_7/FUN_ALL.txt' title 'ALG_7', 'experiment/CITO/testing/OO_MyBatis/ALG_8/FUN_ALL.txt' title 'ALG_8', 'experiment/CITO/testing/OO_MyBatis/ALG_9/FUN_ALL.txt' title 'ALG_9'
+
+###############
+# HYPERVOLUME #
+###############
+
+set xtics 10
+set xlabel "Fitness Evaluations (each 1,000)" 
+set ylabel "Hypervolume"
+set style data lines
+
+## OA_AJHotDraw
+
+set output 'experiment/CITO/graphs/OA_AJHotDraw_hv.png'
+plot 'experiment/CITO/testing/OA_AJHotDraw/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_AJHotDraw/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OA_AJHotDraw/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OA_AJHotDraw/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OA_AJHotDraw/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OA_AJHotDraw/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OA_AJHotDraw/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OA_AJHotDraw/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OA_AJHotDraw/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OA_AJHotDraw/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OA_AJHotDraw/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OA_AJHotDraw/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OA_AJHotDraw/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OA_AJHsqldb
+
+set output 'experiment/CITO/graphs/OA_AJHsqldb_hv.png'
+plot 'experiment/CITO/testing/OA_AJHsqldb/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_AJHsqldb/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OA_AJHsqldb/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OA_AJHsqldb/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OA_AJHsqldb/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OA_AJHsqldb/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OA_AJHsqldb/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OA_AJHsqldb/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OA_AJHsqldb/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OA_AJHsqldb/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OA_AJHsqldb/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OA_AJHsqldb/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OA_AJHsqldb/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OA_HealthWatcher
+
+set output 'experiment/CITO/graphs/OA_HealthWatcher_hv.png'
+plot 'experiment/CITO/testing/OA_HealthWatcher/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_HealthWatcher/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OA_HealthWatcher/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OA_HealthWatcher/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OA_HealthWatcher/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OA_HealthWatcher/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OA_HealthWatcher/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OA_HealthWatcher/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OA_HealthWatcher/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OA_HealthWatcher/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OA_HealthWatcher/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OA_HealthWatcher/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OA_HealthWatcher/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OA_TollSystems
+
+set output 'experiment/CITO/graphs/OA_TollSystems_hv.png'
+plot 'experiment/CITO/testing/OA_TollSystems/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OA_TollSystems/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OA_TollSystems/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OA_TollSystems/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OA_TollSystems/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OA_TollSystems/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OA_TollSystems/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OA_TollSystems/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OA_TollSystems/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OA_TollSystems/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OA_TollSystems/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OA_TollSystems/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OA_TollSystems/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OO_BCEL
+
+set output 'experiment/CITO/graphs/OO_BCEL_hv.png'
+plot 'experiment/CITO/testing/OO_BCEL/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_BCEL/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OO_BCEL/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OO_BCEL/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OO_BCEL/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OO_BCEL/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OO_BCEL/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OO_BCEL/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OO_BCEL/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OO_BCEL/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OO_BCEL/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OO_BCEL/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OO_BCEL/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OO_JBoss
+
+set output 'experiment/CITO/graphs/OO_JBoss_hv.png'
+plot 'experiment/CITO/testing/OO_JBoss/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_JBoss/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OO_JBoss/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OO_JBoss/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OO_JBoss/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OO_JBoss/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OO_JBoss/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OO_JBoss/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OO_JBoss/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OO_JBoss/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OO_JBoss/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OO_JBoss/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OO_JBoss/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OO_JHotDraw
+
+set output 'experiment/CITO/graphs/OO_JHotDraw_hv.png'
+plot 'experiment/CITO/testing/OO_JHotDraw/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_JHotDraw/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OO_JHotDraw/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OO_JHotDraw/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OO_JHotDraw/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OO_JHotDraw/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OO_JHotDraw/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OO_JHotDraw/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OO_JHotDraw/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OO_JHotDraw/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OO_JHotDraw/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OO_JHotDraw/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OO_JHotDraw/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
+
+## OO_MyBatis
+
+set output 'experiment/CITO/graphs/OO_MyBatis_hv.png'
+plot 'experiment/CITO/testing/OO_MyBatis/NSGAII/EXECUTION_0/GEN_HV.txt' title 'NSGA-II', 'experiment/CITO/testing/OO_MyBatis/SPEA2/EXECUTION_0/GEN_HV.txt' title 'SPEA2', 'experiment/CITO/testing/OO_MyBatis/IBEA/EXECUTION_0/GEN_HV.txt' title 'IBEA', 'experiment/CITO/testing/OO_MyBatis/ALG_0/EXECUTION_0/GEN_HV.txt' title 'ALG_0', 'experiment/CITO/testing/OO_MyBatis/ALG_1/EXECUTION_0/GEN_HV.txt' title 'ALG_1', 'experiment/CITO/testing/OO_MyBatis/ALG_2/EXECUTION_0/GEN_HV.txt' title 'ALG_2', 'experiment/CITO/testing/OO_MyBatis/ALG_3/EXECUTION_0/GEN_HV.txt' title 'ALG_3', 'experiment/CITO/testing/OO_MyBatis/ALG_4/EXECUTION_0/GEN_HV.txt' title 'ALG_4', 'experiment/CITO/testing/OO_MyBatis/ALG_5/EXECUTION_0/GEN_HV.txt' title 'ALG_5', 'experiment/CITO/testing/OO_MyBatis/ALG_6/EXECUTION_0/GEN_HV.txt' title 'ALG_6', 'experiment/CITO/testing/OO_MyBatis/ALG_7/EXECUTION_0/GEN_HV.txt' title 'ALG_7', 'experiment/CITO/testing/OO_MyBatis/ALG_8/EXECUTION_0/GEN_HV.txt' title 'ALG_8', 'experiment/CITO/testing/OO_MyBatis/ALG_9/EXECUTION_0/GEN_HV.txt' title 'ALG_9'
