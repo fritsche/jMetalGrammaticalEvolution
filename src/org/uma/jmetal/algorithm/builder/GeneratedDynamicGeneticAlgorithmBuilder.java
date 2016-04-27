@@ -1,5 +1,7 @@
 package org.uma.jmetal.algorithm.builder;
 
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 import org.uma.jmetal.algorithm.components.factory.ArchivingImplementationFactory;
 import org.uma.jmetal.algorithm.components.factory.CrossoverOperatorFactory;
 import org.uma.jmetal.algorithm.components.factory.DiversityFactory;
@@ -15,35 +17,62 @@ import org.uma.jmetal.algorithm.impl.grammatical.GeneratedDynamicGeneticAlgorith
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
 
+@Parameters(separators = " =")
 public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
 
     private Problem<S> problem;
+    @Parameter(names = "--populationSize", description = "Population size (int)", required = true)
     private int populationSize;
+    @Parameter(names = "--maxEvaluations", description = "Maximum Evaluations (int)", required = true)
     private int maxEvaluations;
+    @Parameter(names = "--initialization", description = "Initialization Component (String)", required = true)
     private String initialization;
+    @Parameter(names = "--selectionSource", description = "Selection Source (String)", required = true)
     private String selectionSource;
+    @Parameter(names = "--selectionOperator", description = "Selection Operator (String)", required = true)
     private String selectionOperator;
+    @Parameter(names = "--solutionsToSelectAtEachGeneration", description = "Number of solutions to select at each generation for mating (int)", hidden = true)
     private int solutionsToSelectAtEachGeneration;
+    @Parameter(names = "--tournamentSize", description = "Tournament Size for the K-Tournament Selection Operator (int)")
     private int tournamentSize;
+    @Parameter(names = "--selectionRanking", description = "Selection Ranking strategy (String)")
     private String selectionRanking;
+    @Parameter(names = "--selectionDiversity", description = "Selection Diversity strategy (String)")
     private String selectionDiversity;
+    @Parameter(names = "--reproduction", description = "Reproduction strategy (String)", required = true)
     private String reproduction;
+    @Parameter(names = "--crossoverOperator", description = "Crossover Operator (String)")
     private String crossoverOperator;
+    @Parameter(names = "--crossoverProbability", description = "Crossover Probability (double)")
     private double crossoverProbability;
+    @Parameter(names = "--mutationOperator", description = "Mutation Operator (String)")
     private String mutationOperator;
+    @Parameter(names = "--mutationProbability", description = "Mutation Probability (double)")
     private double mutationProbability;
+    @Parameter(names = "--replacement", description = "Replacement Component (String)", required = true)
     private String replacement;
+    @Parameter(names = "--elitismSize", description = "Elitism Size (int)")
     private int elitismSize;
+    @Parameter(names = "--replacementRanking", description = "Replacement Ranking strategy (String)")
     private String replacementRanking;
+    @Parameter(names = "--replacementDiversity", description = "Replacement Diversity strategy (String)")
     private String replacementDiversity;
+    @Parameter(names = "--archiveRanking", description = "Archive Ranking strategy (String)")
     private String archiveRanking;
+    @Parameter(names = "--archiveDiversity", description = "Archive Diversity strategy (String)")
     private String archiveDiversity;
+    @Parameter(names = "--archiveSize", description = "Archive Size (int)")
     private int archiveSize;
+    @Parameter(names = "--bisections", description = "Bisections (int)", hidden = true)
     private int bisections;
+    @Parameter(names = "--numberOfObjectives", description = "Number of Objectives (int)", hidden = true)
     private int numberOfObjectives;
+    @Parameter(names = "--outputTrackingFolder", description = "Folder Output Path for tracking population changes (String)", hidden = true)
     private String fileOutputPath;
+    @Parameter(names = "--trackingImplementation", description = "Type of tracking (String)", hidden = true)
     private String trackingImplementation;
 
+    //<editor-fold desc="Setters">
     public GeneratedDynamicGeneticAlgorithmBuilder() {
     }
 
@@ -176,7 +205,114 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
         this.fileOutputPath = fileOutputPath;
         return this;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Getters">
+    public Problem<S> getProblem() {
+        return problem;
+    }
+
+    public int getPopulationSize() {
+        return populationSize;
+    }
+
+    public int getMaxEvaluations() {
+        return maxEvaluations;
+    }
+
+    public String getInitialization() {
+        return initialization;
+    }
+
+    public String getSelectionSource() {
+        return selectionSource;
+    }
+
+    public String getSelectionOperator() {
+        return selectionOperator;
+    }
+
+    public int getSolutionsToSelectAtEachGeneration() {
+        return solutionsToSelectAtEachGeneration;
+    }
+
+    public int getTournamentSize() {
+        return tournamentSize;
+    }
+
+    public String getSelectionRanking() {
+        return selectionRanking;
+    }
+
+    public String getSelectionDiversity() {
+        return selectionDiversity;
+    }
+
+    public String getReproduction() {
+        return reproduction;
+    }
+
+    public String getCrossoverOperator() {
+        return crossoverOperator;
+    }
+
+    public double getCrossoverProbability() {
+        return crossoverProbability;
+    }
+
+    public String getMutationOperator() {
+        return mutationOperator;
+    }
+
+    public double getMutationProbability() {
+        return mutationProbability;
+    }
+
+    public String getReplacement() {
+        return replacement;
+    }
+
+    public int getElitismSize() {
+        return elitismSize;
+    }
+
+    public String getReplacementRanking() {
+        return replacementRanking;
+    }
+
+    public String getReplacementDiversity() {
+        return replacementDiversity;
+    }
+
+    public String getArchiveRanking() {
+        return archiveRanking;
+    }
+
+    public String getArchiveDiversity() {
+        return archiveDiversity;
+    }
+
+    public int getArchiveSize() {
+        return archiveSize;
+    }
+
+    public int getBisections() {
+        return bisections;
+    }
+
+    public int getNumberOfObjectives() {
+        return numberOfObjectives;
+    }
+
+    public String getFileOutputPath() {
+        return fileOutputPath;
+    }
+
+    public String getTrackingImplementation() {
+        return trackingImplementation;
+    }
+    //</editor-fold>    
+    
     public GeneratedDynamicGeneticAlgorithm<S> buildAlgorithm() {
 
 //        System.out.println("Number of Objectives: " + numberOfObjectives);

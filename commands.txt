@@ -1,0 +1,57 @@
+java -cp dist/*:dist/lib/* org.uma.jmetal.main.ExecuteAlgorithmCITOCommandLine
+
+  --archiveDiversity
+     Archive Diversity strategy (String)
+  --archiveRanking
+     Archive Ranking strategy (String)
+  --archiveSize
+     Archive Size (int)
+     Default: 0
+  --crossoverOperator
+     Crossover Operator (String)
+  --crossoverProbability
+     Crossover Probability (double)
+     Default: 0.0
+  --elitismSize
+     Elitism Size (int)
+     Default: 0
+* --id
+     ID of this execution. Used for differentiating the output files. (int)
+     Default: 0
+* --initialization
+     Initialization Component (String)
+* --maxEvaluations
+     Maximum Evaluations (int)
+     Default: 0
+  --mutationOperator
+     Mutation Operator (String)
+  --mutationProbability
+     Mutation Probability (double)
+     Default: 0.0
+* --outputPath
+     Output path (directory) for printing the results. The files are named
+     FUN_<id>, VAR_<id> and TIME_<id>. (String)
+* --populationSize
+     Population size (int)
+     Default: 0
+* --problemPath
+     Path for the CITO problem data set (String)
+* --replacement
+     Replacement Component (String)
+  --replacementDiversity
+     Replacement Diversity strategy (String)
+  --replacementRanking
+     Replacement Ranking strategy (String)
+* --reproduction
+     Reproduction strategy (String)
+  --selectionDiversity
+     Selection Diversity strategy (String)
+* --selectionOperator
+     Selection Operator (String)
+  --selectionRanking
+     Selection Ranking strategy (String)
+* --selectionSource
+     Selection Source (String)
+  --tournamentSize
+     Tournament Size for the K-Tournament Selection Operator (int)
+     Default: 0
