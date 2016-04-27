@@ -36,7 +36,7 @@ public class ExecuteAlgorithmCITOCommandLine {
         ExecuteAlgorithmCITOCommandLine cmd = new ExecuteAlgorithmCITOCommandLine();
         JCommander jCommander = new JCommander(cmd);
         jCommander.setAllowParameterOverwriting(true);
-        
+
         jCommander.parse(args);
         jCommander.setDefaultProvider(new DefaultProvider(cmd));
         jCommander.parse(args);
@@ -66,7 +66,7 @@ public class ExecuteAlgorithmCITOCommandLine {
         }
 
         new File(cmd.outputPath).mkdirs();
-        
+
         Algorithm algorithm = cmd.builder.buildAlgorithm();
         AlgorithmRunner runner = new AlgorithmRunner<>(algorithm, cmd.outputPath, String.valueOf(cmd.id));
         runner.run();
@@ -85,16 +85,18 @@ public class ExecuteAlgorithmCITOCommandLine {
             switch (string) {
                 case "--solutionsToSelectAtEachGeneration":
                     int solutionsToSelect = 0;
-                    switch (cmd.builder.getReproduction()) {
-                        case ReproductionImplementationFactory.STEADY_STATE:
-                            solutionsToSelect = 2;
-                            break;
-                        case ReproductionImplementationFactory.GENERATIONAL_TWO_CHILDREN:
-                            solutionsToSelect = cmd.builder.getPopulationSize();
-                            break;
-                        case ReproductionImplementationFactory.GENERATIONAL_ONE_CHILD:
-                            solutionsToSelect = cmd.builder.getPopulationSize() * 2;
-                            break;
+                    if (cmd.builder.getReproduction() != null) {
+                        switch (cmd.builder.getReproduction()) {
+                            case ReproductionImplementationFactory.STEADY_STATE:
+                                solutionsToSelect = 2;
+                                break;
+                            case ReproductionImplementationFactory.GENERATIONAL_TWO_CHILDREN:
+                                solutionsToSelect = cmd.builder.getPopulationSize();
+                                break;
+                            case ReproductionImplementationFactory.GENERATIONAL_ONE_CHILD:
+                                solutionsToSelect = cmd.builder.getPopulationSize() * 2;
+                                break;
+                        }
                     }
                     return String.valueOf(solutionsToSelect);
                 case "--bisections":

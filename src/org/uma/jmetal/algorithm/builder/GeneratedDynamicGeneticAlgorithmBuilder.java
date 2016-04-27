@@ -31,7 +31,7 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
     private String selectionSource;
     @Parameter(names = "--selectionOperator", description = "Selection Operator (String)", required = true)
     private String selectionOperator;
-    @Parameter(names = "--solutionsToSelectAtEachGeneration", description = "Number of solutions to select at each generation for mating (int)")
+    @Parameter(names = "--solutionsToSelectAtEachGeneration", description = "Number of solutions to select at each generation for mating (int)", hidden = true)
     private int solutionsToSelectAtEachGeneration;
     @Parameter(names = "--tournamentSize", description = "Tournament Size for the K-Tournament Selection Operator (int)")
     private int tournamentSize;
@@ -63,13 +63,13 @@ public class GeneratedDynamicGeneticAlgorithmBuilder<S extends Solution<?>> {
     private String archiveDiversity;
     @Parameter(names = "--archiveSize", description = "Archive Size (int)")
     private int archiveSize;
-    @Parameter(names = "--bisections", description = "Bisections (int)")
+    @Parameter(names = "--bisections", description = "Bisections (int)", hidden = true)
     private int bisections;
-    @Parameter(names = "--numberOfObjectives", description = "Number of Objectives (int)")
+    @Parameter(names = "--numberOfObjectives", description = "Number of Objectives (int)", hidden = true)
     private int numberOfObjectives;
-    @Parameter(names = "--outputTrackingFolder", description = "Folder Output Path for tracking population changes (String)")
+    @Parameter(names = "--outputTrackingFolder", description = "Folder Output Path for tracking population changes (String)", hidden = true)
     private String fileOutputPath;
-    @Parameter(names = "--trackingImplementation", description = "Type of tracking (String)")
+    @Parameter(names = "--trackingImplementation", description = "Type of tracking (String)", hidden = true)
     private String trackingImplementation;
 
     //<editor-fold desc="Setters">
