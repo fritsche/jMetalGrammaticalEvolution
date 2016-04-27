@@ -16,20 +16,53 @@
 ##    followed by a set of values enclosed in parenthesis.
 ##    Example: | mode (acs, ras)
 ##
-# 1:            2:                   3: 4:
-colonies         "--colonies "          c (1,2,3,5,10) | selection %in% c("dominance","objective")
-intervals       "--colony-weights "     c (disjoint,overlapping) | colonies %in% c(2, 3, 5, 10)
-cupdate          "--colony-update "     c (origin, region) | colonies %in% c(2, 3, 5, 10)
-nupdate         "--num-update "         c (1, 2, 5, 10)
-selection       "--selection  "         c (dominance,objective,weight)
-nweights        "--weights "            c (2, 3, 0.333333, 0.5, -1)
-directions      "--directions "         c (one, all)
-ph              "--ph="                 c (single,multiple)
-heu             "--heu="                c (single,multiple)
-aggreg          "--aggregation "        c (sum, product, random) | ph == "multiple" || heu == "multiple"
-ants             "--Mants "             i (1, 25)
-rho             "--rho "                r (0.01, 0.99)
-onq0            " "                     c (" ", "--q0")
-q0              " "                     r (0.25, 0.99) | onq0 == "--q0"
-beta            "--beta "               r (0, 5)
-alpha           "--alpha "              r (0, 5)
+
+## Example
+
+# # 1:            2:                  	  3: 4:
+# colonies         "--colonies "          c (1,2,3,5,10) | selection %in% c("dominance","objective")
+# intervals       "--colony-weights "     c (disjoint,overlapping) | colonies %in% c(2, 3, 5, 10)
+# cupdate          "--colony-update "     c (origin, region) | colonies %in% c(2, 3, 5, 10)
+# nupdate         "--num-update "         c (1, 2, 5, 10)
+# selection       "--selection  "         c (dominance,objective,weight)
+# nweights        "--weights "            c (2, 3, 0.333333, 0.5, -1)
+# directions      "--directions "         c (one, all)
+# ph              "--ph="                 c (single,multiple)
+# heu             "--heu="                c (single,multiple)
+# aggreg          "--aggregation "        c (sum, product, random) | ph == "multiple" || heu == "multiple"
+# ants             "--Mants "             i (1, 25)
+# rho             "--rho "                r (0.01, 0.99)
+# onq0            " "                     c (" ", "--q0")
+# q0              " "                     r (0.25, 0.99) | onq0 == "--q0"
+# beta            "--beta "               r (0, 5)
+# alpha           "--alpha "              r (0, 5)
+
+
+# 1:            		2:                			3: 	4:
+populationSize			"--populationSize "			c 	( 50 , 100 , 150 , 200 , 250 , 300)
+initialization			"--initialization "			c 	( Random , ParallelDiversifiedInitialization)
+selectionOperator		"--selectionOperator "		c 	( KTournament , Random , RouletteWheel , Ranking)
+source					"--source "					c 	( Population , ArchiveandPopulation)
+crossoverOperator		"--crossoverOperator " 		c 	( NULL , TwoPointsCrossover , SinglePointCrossover , PMXCrossover , CycleCrossover)
+crossoverProbability	"--crossoverProbability " 	c 	( 1.0 , 0.95 , 0.9 , 0.8 , 0.5)
+mutationOperator		"--mutationOperator " 		c 	( NULL , SwapMutation , InsertMutation , ScrambleMutation , InversionMutation)
+mutationProbability		"--mutationProbability " 	c 	( 0.01 , 0.02 , 0.05 , 0.1 , 0.2 , 0.5 , 0.7 , 0.8 , 0.9 , 1.0)
+matingStrategy			"--matingStrategy "	 		c 	( SteadyState , GenerationalTwoChildren , GenerationalOneChild)
+replacement				"--replacement "	 		c 	( Generational, Ranking)
+archiveSize				"--archiveSize "	 		c 	( 0 , N , N*1.5 , N*2)
+
+# fitnessAssignment
+# 1:            				2:                 			3: 	4:
+selectionRankingStrategy		"--rankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
+selectionDiversityStrategy		"--diversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+
+replacementRankingStrategy		"--rankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
+replacementDiversityStrategy	"--diversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+
+archiveRankingStrategy			"--rankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
+archiveDiversityStrategy		"--diversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+
+# sub-parameters
+# 1:            		2:                  		3: 	4:
+tournamentSize			"--tournamentSize "			c 	( 2 , 4 , 6 , 8 , 10)					|	selectionOperator == "KTournament"
+elitismSize				"--elitismSize "	 		c 	( 0 , N*0.01 , N*0.05 , N*0.1 , N*0.5)	|	replacement 	  == "Generational"
