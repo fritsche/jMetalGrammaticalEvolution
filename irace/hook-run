@@ -2,7 +2,7 @@
 ###############################################################################
 #
 # PARAMETERS:
-# $1 is the instance name  
+# $1 is the instance name
 # $2 is the candidate number
 # The rest ($* after `shift 2') are parameters to run the program
 #
@@ -12,26 +12,26 @@
 
 # EXAMPLE:
 ###############################################################################
-# 
+#
 #
 # EXE=~/bin/moaco_btsp
-# 
+#
 # FIXED_PARAMS=" --trials 1 --wls 0 --aco mmas --time 60 "
-# 
+#
 # # The instance name and the candidate id are the first parameters
 # INSTANCE=$1
 # CANDIDATE=$2
-# 
+#
 # # All other parameters are the candidate parameters to be passed to ACOTSP
 # shift 2 || exit 1
 # CAND_PARAMS=$*
 
 # STDOUT="c${CANDIDATE}.stdout"
 # STDERR="c${CANDIDATE}.stderr"
-# 
+#
 # mkdir -p arena
 # cd arena
-# 
+#
 # # Here we transform some parameters.
 # PARAMS=
 # while [ $# -gt 0 ]
@@ -42,7 +42,7 @@
 #   esac
 # done
 # let "ANTS = (10  * 3 * 2 * $MANTS)"
-# 
+#
 # exec 2> $STDERR
 # $EXE ${FIXED_PARAMS} --input $INSTANCE $PARAMS --ants $ANTS 1> $STDOUT
 # RET=$?
@@ -50,21 +50,52 @@
 # exit $RET
 ###############################################################################
 
+mkdir -p arena
+cd arena
+
 # The instance name and the candidate id are the first parameters
 INSTANCE=$1
 CANDIDATE=$2
 
-# All other parameters are the candidate parameters to be passed to ACOTSP
-shift 2 || exit 1
-CAND_PARAMS=$*
-
 STDOUT="c${CANDIDATE}.stdout"
 STDERR="c${CANDIDATE}.stderr"
+STDLOG="c${CANDIDATE}.stdlog"
 
-mkdir -p arena
-cd arena
+# All other parameters are the candidate parameters to be passed to ACOTSP
+shift 2 || exit 1
 
-exec 2> $STDERR
-java -cp "../../../bin:../../../lib/*" org.uma.jmetal.main.ExecuteAlgorithmCITOCommandLine --problemPath $INSTANCE --id $CANDIDATE $PARAMS 1> $STDOUT
+args=("$@")
+CAND_PARAMS=()
+
+echo " " > $STDLOG
+
+for (( i = 0; i < ${#args[@]}; i++ )); do
+	var=${args[$i]}
+	CAND_PARAMS+=($var)
+	if [[ $var == '--archiveSize' ]]; then
+		archiveSizeIndex=$((i+1))
+	fi
+	if [[ $var == '--populationSize' ]]; then
+		populationSizeIndex=$((i+1))
+	fi
+	if [[ $var == '--elitismSize' ]]; then
+		elitismSizeIndex=$((i+1))
+	fi
+done
+
+if [ ! -z ${archiveSizeIndex+x} ]; then
+	aux=$(echo "${CAND_PARAMS[$populationSizeIndex]} * ${CAND_PARAMS[$archiveSizeIndex]}" | bc -l);
+	CAND_PARAMS[$archiveSizeIndex]=${aux%.*}
+fi
+
+if [ ! -z ${elitismSizeIndex+x} ]; then
+	aux=$(echo "${CAND_PARAMS[$populationSizeIndex]} * ${CAND_PARAMS[$elitismSizeIndex]}" | bc -l);
+	CAND_PARAMS[$elitismSizeIndex]=${aux%.*}
+fi
+
+echo "${CAND_PARAMS[@]}" >> $STDLOG
+
+exec 1> $STDOUT 2> $STDERR
+echo java -cp "../../../bin:../../../lib/*" org.uma.jmetal.main.ExecuteAlgorithmCITOCommandLine --outputPath "output" --maxEvaluations 2000 --problemPath $INSTANCE --id $CANDIDATE ${CAND_PARAMS[@]} | bash
 RET=$?
 exit $RET

@@ -6,7 +6,7 @@
 ##    example: ants
 ## 2: Switch to pass the parameter. A quoted (possibly empty) string,
 ##    if the value and the switch must be separated, add a space at
-##    the end of the string. Example : "--version1 --ants "
+##    the end of the string. Example : \"--version1 --ants \"
 ## 3: Type. An unquoted single letter, among
 ##     i: Integer, c: component, r: real.
 ## 4: For c: All possible values, for i,r: minimum and maximum
@@ -19,29 +19,29 @@
 
 # 1:            	2:                	3: 	4:
 populationSize	"--populationSize "	c 	( 50 , 100 , 150 , 200 , 250 , 300)
-initialization	"--initialization "	c 	( "Random", "Parallel Diversified Initialization")
-selectionOperator	"--selectionOperator "	c 	( "K Tournament" , "Random" , "Roulette Wheel" , "Ranking")
-source              "--source "	c 	( "Population" , "Archive and Population")
-crossoverOperator	"--crossoverOperator " 	c 	( " " , "Two Points Crossover" , "Single Point Crossover" , "PMX Crossover" , "Cycle Crossover")
-crossoverProbability	"--crossoverProbability " 	c 	( 1.0 , 0.95 , 0.9 , 0.8 , 0.5) | crossoverOperator != " "
-mutationOperator	"--mutationOperator " 	c 	( " " , "Swap Mutation" , "Insert Mutation" , "Scramble Mutation" , "Inversion Mutation")
-mutationProbability	"--mutationProbability " 	c 	( 0.01 , 0.02 , 0.05 , 0.1 , 0.2 , 0.5 , 0.7 , 0.8 , 0.9 , 1.0) | mutationOperator != " "
-reproduction	"--reproduction "	 	c 	( "Steady State" , "Generational Two Children" , "Generational One Child")
-replacement	"--replacement "	 	c 	( "Generational", "Ranking")
+initialization	"--initialization "	c 	( \"Random\", \"Parallel Diversified Initialization\")
+selectionOperator	"--selectionOperator "	c 	(\"K Tournament\", \"Random\" , \"Roulette Wheel\" , \"Ranking\")
+selectionSource              "--selectionSource "	c 	( \"Population\" , \"Archive and Population\")
+crossoverOperator	"--crossoverOperator " 	c 	( \" \" , \"Two Points Crossover\" , \"Single Point Crossover\" , \"PMX Crossover\" , \"Cycle Crossover\")
+crossoverProbability	"--crossoverProbability " 	c 	( 1.0 , 0.95 , 0.9 , 0.8 , 0.5) | crossoverOperator != "\\\" \\\""
+mutationOperator	"--mutationOperator " 	c 	( \" \" , \"Swap Mutation\" , \"Insert Mutation\" , \"Scramble Mutation\" , \"Inversion Mutation\")
+mutationProbability	"--mutationProbability " 	c 	( 0.01 , 0.02 , 0.05 , 0.1 , 0.2 , 0.5 , 0.7 , 0.8 , 0.9 , 1.0) | mutationOperator != "\\\" \\\""
+reproduction	"--reproduction "	 	c 	( \"Steady State\" , \"Generational Two Children\" , \"Generational One Child\")
+replacement	"--replacement "	 	c 	( \"Generational\", \"Ranking\")
 archiveSize	"--archiveSize "	 	c 	( 0, 1.0, 1.5, 2.0)
 
 # fitnessAssignment
 # 1:            	2:                 	3: 	4:
-selectionRankingStrategy	"--selectionRanking "	c 	( " " , "Dominance Rank" , "Dominance Strength" , "Dominance Depth" , "Raw Fitness") | selectionOperator != "Random"
-selectionDiversityStrategy	"--selectionDiversity " 	c 	( " " , "Crowding Distance" , "K-th Nearest Neighbor" , "Adaptive Grid" , "Hypervolume Contribution") | selectionOperator != "Random"
+selectionRankingStrategy	"--selectionRanking "	c 	( \" \" , \"Dominance Rank\" , \"Dominance Strength\" , \"Dominance Depth\" , \"Raw Fitness\") | selectionOperator != "\\\"Random\\\""
+selectionDiversityStrategy	"--selectionDiversity " 	c 	( \" \" , \"Crowding Distance\" , \"K-th Nearest Neighbor\" , \"Adaptive Grid\" , \"Hypervolume Contribution\") | selectionOperator != "\\\"Random\\\""
 
-replacementRankingStrategy	"--replacementRanking "	c 	( " " , "Dominance Rank" , "Dominance Strength" , "Dominance Depth" , "Raw Fitness")  | replacement == "Ranking" || (replacement == "Generational" && elitismSize != 0)
-replacementDiversityStrategy	"--replacementDiversity " 	c 	( " " , "Crowding Distance" , "K-th Nearest Neighbor" , "Adaptive Grid" , HypervolumeContribution)  | replacement == "Ranking" || (replacement == "Generational" && elitismSize != 0)
+replacementRankingStrategy	"--replacementRanking "	c 	( \" \" , \"Dominance Rank\" , \"Dominance Strength\" , \"Dominance Depth\" , \"Raw Fitness\")  | replacement == "\\\"Ranking\\\"" || (replacement == "\\\"Generational\\\"" && elitismSize != "0")
+replacementDiversityStrategy	"--replacementDiversity " 	c 	( \" \" , \"Crowding Distance\" , \"K-th Nearest Neighbor\" , \"Adaptive Grid\" , \"Hypervolume Contribution\")  | replacement == "\\\"Ranking\\\"" || (replacement == "\\\"Generational\\\"" && elitismSize != "0")
 
-archiveRankingStrategy	"--archiveRanking "	c 	( " " , "Dominance Rank" , "Dominance Strength" , "Dominance Depth" , "Raw Fitness") | archiveSize != 0
-archiveDiversityStrategy	"--archiveDiversity " 	c 	( " " , "Crowding Distance" , "K-th Nearest Neighbor" , "Adaptive Grid" , "Hypervolume Contribution") | archiveSize != 0
+archiveRankingStrategy	"--archiveRanking "	c 	( \" \" , \"Dominance Rank\" , \"Dominance Strength\" , \"Dominance Depth\" , \"Raw Fitness\") | archiveSize != "0"
+archiveDiversityStrategy	"--archiveDiversity " 	c 	( \" \" , \"Crowding Distance\" , \"K-th Nearest Neighbor\" , \"Adaptive Grid\" , \"Hypervolume Contribution\") | archiveSize != "0"
 
 # sub-parameters
 # 1:            	2:                  	3: 	4:
-tournamentSize	"--tournamentSize "	c 	( 2 , 4 , 6 , 8 , 10)	|	selectionOperator == "K Tournament"
-elitismSize	"--elitismSize "	 	c 	( 0 , 0.01 , 0.05 , 0.1 , 0.5)	|	replacement == "Generational"
+tournamentSize	"--tournamentSize "	c 	( 2 , 4 , 6 , 8 , 10)	|	selectionOperator == "\\\"K Tournament\\\""
+elitismSize	"--elitismSize "	 	c 	( 0 , 0.01 , 0.05 , 0.1 , 0.5)	|	replacement == "\\\"Generational\\\""
