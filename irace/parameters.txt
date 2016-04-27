@@ -53,14 +53,14 @@ archiveSize				"--archiveSize "	 		c 	( 0 , N , N*1.5 , N*2)
 
 # fitnessAssignment
 # 1:            				2:                 			3: 	4:
-selectionRankingStrategy		"--rankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
-selectionDiversityStrategy		"--diversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+selectionRankingStrategy		"--selectionRankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
+selectionDiversityStrategy		"--selectionDiversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
 
-replacementRankingStrategy		"--rankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
-replacementDiversityStrategy	"--diversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+replacementRankingStrategy		"--replacementRankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
+replacementDiversityStrategy	"--replacementDiversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
 
-archiveRankingStrategy			"--rankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
-archiveDiversityStrategy		"--diversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+archiveRankingStrategy			"--archiveRankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
+archiveDiversityStrategy		"--archiveDiversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
 
 # sub-parameters
 # 1:            		2:                  		3: 	4:
