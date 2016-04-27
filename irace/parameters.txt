@@ -4,10 +4,10 @@
 ##
 ## 1: Name of the parameter. An unquoted alphanumeric string,
 ##    example: ants
-## 2: Switch to pass the parameter. A quoted (possibly empty) string, 
+## 2: Switch to pass the parameter. A quoted (possibly empty) string,
 ##    if the value and the switch must be separated, add a space at
 ##    the end of the string. Example : "--version1 --ants "
-## 3: Type. An unquoted single letter, among 
+## 3: Type. An unquoted single letter, among
 ##     i: Integer, c: component, r: real.
 ## 4: For c: All possible values, for i,r: minimum and maximum
 ##    values. A variable number of numbers or unquoted strings within
@@ -17,52 +17,31 @@
 ##    Example: | mode (acs, ras)
 ##
 
-## Example
-
-# # 1:            2:                  	  3: 4:
-# colonies         "--colonies "          c (1,2,3,5,10) | selection %in% c("dominance","objective")
-# intervals       "--colony-weights "     c (disjoint,overlapping) | colonies %in% c(2, 3, 5, 10)
-# cupdate          "--colony-update "     c (origin, region) | colonies %in% c(2, 3, 5, 10)
-# nupdate         "--num-update "         c (1, 2, 5, 10)
-# selection       "--selection  "         c (dominance,objective,weight)
-# nweights        "--weights "            c (2, 3, 0.333333, 0.5, -1)
-# directions      "--directions "         c (one, all)
-# ph              "--ph="                 c (single,multiple)
-# heu             "--heu="                c (single,multiple)
-# aggreg          "--aggregation "        c (sum, product, random) | ph == "multiple" || heu == "multiple"
-# ants             "--Mants "             i (1, 25)
-# rho             "--rho "                r (0.01, 0.99)
-# onq0            " "                     c (" ", "--q0")
-# q0              " "                     r (0.25, 0.99) | onq0 == "--q0"
-# beta            "--beta "               r (0, 5)
-# alpha           "--alpha "              r (0, 5)
-
-
-# 1:            		2:                			3: 	4:
-populationSize			"--populationSize "			c 	( 50 , 100 , 150 , 200 , 250 , 300)
-initialization			"--initialization "			c 	( Random , ParallelDiversifiedInitialization)
-selectionOperator		"--selectionOperator "		c 	( KTournament , Random , RouletteWheel , Ranking)
-source					"--source "					c 	( Population , ArchiveandPopulation)
-crossoverOperator		"--crossoverOperator " 		c 	( NULL , TwoPointsCrossover , SinglePointCrossover , PMXCrossover , CycleCrossover)
-crossoverProbability	"--crossoverProbability " 	c 	( 1.0 , 0.95 , 0.9 , 0.8 , 0.5)
-mutationOperator		"--mutationOperator " 		c 	( NULL , SwapMutation , InsertMutation , ScrambleMutation , InversionMutation)
-mutationProbability		"--mutationProbability " 	c 	( 0.01 , 0.02 , 0.05 , 0.1 , 0.2 , 0.5 , 0.7 , 0.8 , 0.9 , 1.0)
-matingStrategy			"--matingStrategy "	 		c 	( SteadyState , GenerationalTwoChildren , GenerationalOneChild)
-replacement				"--replacement "	 		c 	( Generational, Ranking)
-archiveSize				"--archiveSize "	 		c 	( 0 , N , N*1.5 , N*2)
+# 1:            	2:                	3: 	4:
+populationSize	"--populationSize "	c 	( 50 , 100 , 150 , 200 , 250 , 300)
+initialization	"--initialization "	c 	( "Random", "Parallel Diversified Initialization")
+selectionOperator	"--selectionOperator "	c 	( "K Tournament" , "Random" , "Roulette Wheel" , "Ranking")
+source              "--source "	c 	( "Population" , "Archive and Population")
+crossoverOperator	"--crossoverOperator " 	c 	( " " , "Two Points Crossover" , "Single Point Crossover" , "PMX Crossover" , "Cycle Crossover")
+crossoverProbability	"--crossoverProbability " 	c 	( 1.0 , 0.95 , 0.9 , 0.8 , 0.5) | crossoverOperator != " "
+mutationOperator	"--mutationOperator " 	c 	( " " , "Swap Mutation" , "Insert Mutation" , "Scramble Mutation" , "Inversion Mutation")
+mutationProbability	"--mutationProbability " 	c 	( 0.01 , 0.02 , 0.05 , 0.1 , 0.2 , 0.5 , 0.7 , 0.8 , 0.9 , 1.0) | mutationOperator != " "
+reproduction	"--reproduction "	 	c 	( "Steady State" , "Generational Two Children" , "Generational One Child")
+replacement	"--replacement "	 	c 	( "Generational", "Ranking")
+archiveSize	"--archiveSize "	 	c 	( 0, 1.0, 1.5, 2.0)
 
 # fitnessAssignment
-# 1:            				2:                 			3: 	4:
-selectionRankingStrategy		"--selectionRankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
-selectionDiversityStrategy		"--selectionDiversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+# 1:            	2:                 	3: 	4:
+selectionRankingStrategy	"--selectionRanking "	c 	( " " , "Dominance Rank" , "Dominance Strength" , "Dominance Depth" , "Raw Fitness") | selectionOperator != "Random"
+selectionDiversityStrategy	"--selectionDiversity " 	c 	( " " , "Crowding Distance" , "K-th Nearest Neighbor" , "Adaptive Grid" , "Hypervolume Contribution") | selectionOperator != "Random"
 
-replacementRankingStrategy		"--replacementRankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
-replacementDiversityStrategy	"--replacementDiversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+replacementRankingStrategy	"--replacementRanking "	c 	( " " , "Dominance Rank" , "Dominance Strength" , "Dominance Depth" , "Raw Fitness")  | replacement == "Ranking" || (replacement == "Generational" && elitismSize != 0)
+replacementDiversityStrategy	"--replacementDiversity " 	c 	( " " , "Crowding Distance" , "K-th Nearest Neighbor" , "Adaptive Grid" , HypervolumeContribution)  | replacement == "Ranking" || (replacement == "Generational" && elitismSize != 0)
 
-archiveRankingStrategy			"--archiveRankingStrategy "		c 	( NULL , DominanceRank , DominanceStrength , DominanceDepth , RawFitness)
-archiveDiversityStrategy		"--archiveDiversityStrategy " 		c 	( NULL , CrowdingDistance , K-thNearestNeighbor , AdaptiveGrid , HypervolumeContribution)
+archiveRankingStrategy	"--archiveRanking "	c 	( " " , "Dominance Rank" , "Dominance Strength" , "Dominance Depth" , "Raw Fitness") | archiveSize != 0
+archiveDiversityStrategy	"--archiveDiversity " 	c 	( " " , "Crowding Distance" , "K-th Nearest Neighbor" , "Adaptive Grid" , "Hypervolume Contribution") | archiveSize != 0
 
 # sub-parameters
-# 1:            		2:                  		3: 	4:
-tournamentSize			"--tournamentSize "			c 	( 2 , 4 , 6 , 8 , 10)					|	selectionOperator == "KTournament"
-elitismSize				"--elitismSize "	 		c 	( 0 , N*0.01 , N*0.05 , N*0.1 , N*0.5)	|	replacement 	  == "Generational"
+# 1:            	2:                  	3: 	4:
+tournamentSize	"--tournamentSize "	c 	( 2 , 4 , 6 , 8 , 10)	|	selectionOperator == "K Tournament"
+elitismSize	"--elitismSize "	 	c 	( 0 , 0.01 , 0.05 , 0.1 , 0.5)	|	replacement == "Generational"

@@ -50,4 +50,21 @@
 # exit $RET
 ###############################################################################
 
+# The instance name and the candidate id are the first parameters
+INSTANCE=$1
+CANDIDATE=$2
 
+# All other parameters are the candidate parameters to be passed to ACOTSP
+shift 2 || exit 1
+CAND_PARAMS=$*
+
+STDOUT="c${CANDIDATE}.stdout"
+STDERR="c${CANDIDATE}.stderr"
+
+mkdir -p arena
+cd arena
+
+exec 2> $STDERR
+java -cp "../../../bin:../../../lib/*" org.uma.jmetal.main.ExecuteAlgorithmCITOCommandLine --problemPath $INSTANCE --id $CANDIDATE $PARAMS 1> $STDOUT
+RET=$?
+exit $RET
