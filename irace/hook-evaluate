@@ -45,7 +45,10 @@ calc_measure() {
 
 cd arena || error "cannot change to directory 'arena'"
 
-while ! ls *.stdout_dat &> /dev/null ; do
+MAX="$(cat FUN_* | sort -nr | head -1 | cut -d ' ' -f 1) $(cat FUN_* | sort -nr -k 2 | head -1 | cut -d ' ' -f 2)"
+MIN="$(cat FUN_* | sort -n | head -1 | cut -d ' ' -f 1) $(cat FUN_* | sort -n -k 2 | head -1 | cut -d ' ' -f 2)"
+
+while ! ls FUN_* &> /dev/null ; do
     NUM=$(ls -1 *.stdout 2> /dev/null | wc --lines)
     if [ "$NUM" -ne "$TOTALCANDIDATES" ]; then
         error_sleep "only found $NUM files out of $TOTALCANDIDATES"
@@ -59,16 +62,19 @@ while ! ls *.stdout_dat &> /dev/null ; do
         # Or do some transformation like selecting some columns.
         cat $FILENAME > ${FILENAME}_dat
     done
-    calc_measure
+    echo java -cp "../../../bin:../../../lib/*" org.uma.jmetal.main.ComputeHypervolumeCommandLine -f FUN_$INSTANCE --max $MAX --min $MIN | bash 1> ${CANDIDATE}_hv
     rm -f error.log
 done
 
-if [ -s "${STDOUT}_dat_hv" ]; then
-    COST=$(cat "${STDOUT}_dat_hv" | grep -e '^[0-9]' | cut -f1)
+if [ -s "${CANDIDATE}_hv" ]; then
+    COST=$(cat "${CANDIDATE}_hv" | grep -e '^[0-9]' | cut -f1)
     # Negative because hypervolume is maximised but irace minimises.
     echo "-$COST"
     rm -f c${CANDIDATE}.*
+    rm -f FUN_${CANDIDATE}*
+    rm -f VAR_${CANDIDATE}*
+    rm -f TIME_${CANDIDATE}*
     exit 0
 else
-    error "${STDOUT}_dat_hv: No such file or directory"
+    error "${CANDIDATE}_hv: No such file or directory"
 fi
