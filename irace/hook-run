@@ -91,9 +91,12 @@ fi
 if [ ! -z ${elitismSizeIndex+x} ]; then
 	aux=$(echo "${CAND_PARAMS[$populationSizeIndex]} * ${CAND_PARAMS[$elitismSizeIndex]}" | bc -l);
 	CAND_PARAMS[$elitismSizeIndex]=${aux%.*}
+	if [[ ${CAND_PARAMS[$elitismSizeIndex]} -eq " " ]]; then
+		CAND_PARAMS[$elitismSizeIndex]=0
+	fi
 fi
 
-echo "${CAND_PARAMS[@]}" >> $STDLOG
+echo "$CANDIDATE ${CAND_PARAMS[@]}" >> $STDLOG
 
 exec 1> $STDOUT 2> $STDERR
 echo java -cp "../../../bin:../../../lib/*" org.uma.jmetal.main.ExecuteAlgorithmCITOCommandLine --outputPath "output" --maxEvaluations 2000 --problemPath $INSTANCE --id $CANDIDATE ${CAND_PARAMS[@]} | bash
