@@ -56,12 +56,24 @@ public class HypervolumeCalculator extends Hypervolume<List<? extends Solution<?
     public double calculateHypervolume(String frontPath) throws FileNotFoundException {
         return calculateHypervolume(new ArrayFront(frontPath));
     }
-    
+
     public double calculateHypervolume(List<? extends Solution<?>> front) {
         return calculateHypervolume(new ArrayFront(front));
     }
 
     public double calculateHypervolume(Front front) {
+        return calculateHypervolume(front, maximumValues, minimumValues);
+    }
+
+    public double calculateHypervolume(String frontPath, double[] maximumValues, double[] minimumValues) throws FileNotFoundException {
+        return calculateHypervolume(new ArrayFront(frontPath), maximumValues, minimumValues);
+    }
+
+    public double calculateHypervolume(List<? extends Solution<?>> front, double[] maximumValues, double[] minimumValues) {
+        return calculateHypervolume(new ArrayFront(front), maximumValues, minimumValues);
+    }
+
+    public double calculateHypervolume(Front front, double[] maximumValues, double[] minimumValues) {
         if (maximumValues != null && minimumValues != null) {
             Front normalizedFront = FrontUtils.getNormalizedFront(front, maximumValues, minimumValues);
             return hypervolume.calculateHypervolume(FrontUtils.convertFrontToArray(FrontUtils.getInvertedFront(normalizedFront)), front.getNumberOfPoints(), front.getPointDimensions());
